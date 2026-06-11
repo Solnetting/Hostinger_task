@@ -177,22 +177,52 @@
     .hp-t1 {
       background: #ffe8ef;
       border-bottom: 1px solid #ffd0de;
-      padding: 12px 32px 12px calc(var(--hp-sidebar-w) + 32px);
+      padding: 20px 140px 20px calc(var(--hp-sidebar-w) + 140px);
       display: flex; align-items: center; gap: 16px;
+      min-height: 88px;
       flex-shrink: 0; z-index: 100;
     }
-    .t1-accent-bar { width: 4px; height: 36px; background: #d63163; border-radius: 2px; flex-shrink: 0; }
+    .t1-accent-bar { width: 4px; height: 48px; background: #d63163; border-radius: 2px; flex-shrink: 0; }
     .t1-icon-wrap { position: relative; flex-shrink: 0; }
-    .t1-icon-circle { width: 40px; height: 40px; border-radius: 12px; background: #ffd0de; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .t1-icon-circle img { width: 22px; height: 22px; }
-    .t1-icon-badge { position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #d63163; border: 2px solid #ffe8ef; display: flex; align-items: center; justify-content: center; }
-    .t1-icon-badge img { width: 8px; height: 8px; }
+    .t1-icon-circle { width: 48px; height: 48px; border-radius: 14px; background: #ffd0de; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .t1-icon-circle img { width: 24px; height: 24px; }
+    .t1-icon-badge { position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; border-radius: 50%; background: #d63163; border: 2px solid #ffe8ef; display: flex; align-items: center; justify-content: center; }
+    .t1-icon-badge img { width: 10px; height: 10px; }
     .t1-body { flex: 1; }
     .t1-title { display: block; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #d63163; letter-spacing: -0.01em; }
     .t1-sub { display: block; font-family: 'Inter', sans-serif; font-size: 13px; color: #664052; margin-top: 2px; }
-    .hp-t1-cta { padding: 6px 16px; background: transparent; color: #090909; border: 1px solid #090909; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .hp-t1-cta { padding: 6px 14px; background: transparent; color: #1d1e20; border: 1px solid #1d1e20; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
     .hp-t1-cta:hover { background: rgba(0,0,0,0.05); }
     .hp-t1-cta:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+
+    /* ─── T1 Multi-issue banner ── */
+    .hp-t1-multi {
+      background: #ffe8ef;
+      border-bottom: 1px solid #ffd0de;
+      padding: 20px 140px 20px calc(var(--hp-sidebar-w) + 140px);
+      display: none; align-items: center; gap: 16px;
+      min-height: 88px;
+      flex-shrink: 0; z-index: 100; position: relative;
+    }
+    .hp-t1-multi.visible { display: flex; }
+    .t1-multi-icon-wrap { position: relative; flex-shrink: 0; width: 48px; height: 48px; }
+    .t1-multi-icon-bg { width: 48px; height: 48px; border-radius: 14px; background: #ffd0de; display: flex; align-items: center; justify-content: center; }
+    .t1-multi-count { width: 24px; height: 24px; border-radius: 50%; background: #d63163; display: flex; align-items: center; justify-content: center; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; color: white; }
+    .t1-multi-badge { position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; border-radius: 50%; background: #d63163; border: 2px solid #ffe8ef; display: flex; align-items: center; justify-content: center; }
+    .t1-multi-body { flex: 1; }
+    .t1-multi-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #d63163; letter-spacing: -0.01em; }
+    .t1-multi-sub { font-family: 'Inter', sans-serif; font-size: 14px; color: #664052; margin-top: 2px; }
+    .hp-t1-see-all { padding: 6px 14px; background: transparent; color: #1d1e20; border: 1px solid #1d1e20; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .hp-t1-see-all:hover { background: rgba(0,0,0,0.05); }
+    /* Multi-T1 expanded items panel */
+    .hp-t1-expanded { display: none; background: white; border-bottom: 1px solid #e0e0e5; flex-shrink: 0; }
+    .hp-t1-expanded.visible { display: block; }
+    .t1-exp-item { display: flex; align-items: center; gap: 16px; height: 56px; padding: 0 140px 0 calc(var(--hp-sidebar-w) + 140px); border-bottom: 1px solid #e0e0e5; }
+    .t1-exp-item:last-child { border-bottom: none; }
+    .t1-exp-num { width: 20px; height: 20px; border-radius: 50%; background: #ffe8ef; display: flex; align-items: center; justify-content: center; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; color: #d63163; flex-shrink: 0; }
+    .t1-exp-text { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 13px; color: #1d1e20; }
+    .t1-exp-btn { padding: 7px 16px; background: #d63163; color: white; border: none; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .t1-exp-btn:hover { background: #c0274f; }
 
     /* ─── Proto use-case divider ──────────────────── */
     .proto-uc-divider {
@@ -239,7 +269,7 @@
     .sidebar-footer { border-top: 1px solid rgba(0,0,0,0.08); padding: 8px 0; margin-top: 4px; }
 
     /* ─── Content area ─────────────────────────────── */
-    .hp-content { flex: 1; background: var(--hp-content-bg); overflow-y: auto; padding: 32px 40px; position: relative; }
+    .hp-content { flex: 1; background: var(--hp-content-bg); overflow-y: auto; padding: 40px 140px; position: relative; }
     .hp-dim { position: absolute; inset: 0; background: rgba(0,0,0,0.32); z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
     .hp-dim.visible { opacity: 1; pointer-events: all; }
 
@@ -369,21 +399,34 @@
     .qa-label { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: #14141a; }
     .qa-sub { font-family: 'Inter', sans-serif; font-size: 11px; color: #8c8c99; margin-top: 2px; line-height: 1.35; }
 
-    /* ─── T2 card (left-border amber style) ─────────── */
-    .nudge-card-t2 {
-      background: white; border: 1px solid #E8E8E8; border-left: 3px solid #D97706;
-      border-radius: 10px; padding: 13px 14px;
-      display: flex; align-items: center; gap: 12px;
+    /* ─── T2 card (Figma: separate amber bar, 48px icon) ─ */
+    .t2-card {
+      background: white; border: 1px solid #e0e0e5;
+      border-radius: 10px; overflow: hidden;
+      display: flex; align-items: stretch;
       transition: opacity 0.3s;
     }
-    .nudge-card-t2.snoozed { opacity: 0.4; pointer-events: none; }
-    .nudge-card-t2.dismissed { display: none; }
-    .t2-icon { width: 36px; height: 36px; border-radius: 8px; background: #FEF9C3; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #D97706; }
-    .t2-icon.email { background: #FEF9C3; color: #D97706; }
-    .btn-t2-snooze { display: flex; align-items: center; gap: 4px; padding: 5px 11px; background: transparent; color: #6B7280; border: 1px solid #E5E7EB; border-radius: 6px; font-size: 12px; cursor: pointer; white-space: nowrap; }
-    .btn-t2-snooze:hover { background: #F9FAFB; }
-    .btn-t2-renew { padding: 5px 13px; background: transparent; color: #D97706; border: 1.5px solid #D97706; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-    .btn-t2-renew:hover { background: #FFFBEB; }
+    .t2-card.snoozed { opacity: 0.4; pointer-events: none; }
+    .t2-card.dismissed { display: none; }
+    .t2-bar { width: 8px; background: #e8b931; flex-shrink: 0; }
+    .t2-inner { flex: 1; display: flex; align-items: center; gap: 12px; padding: 13px 13px 13px 13px; }
+    .t2-icon { width: 48px; height: 48px; border-radius: 10px; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .t2-icon img, .t2-icon svg { width: 20px; height: 20px; }
+    .t2-body { flex: 1; min-width: 0; }
+    .t2-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #14141a; letter-spacing: -0.01em; line-height: 1.4; }
+    .t2-sub { font-family: 'Inter', sans-serif; font-size: 13px; color: #666673; margin-top: 2px; line-height: 1.4; }
+    .t2-acts { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .t2-btn-snooze { display: flex; align-items: center; gap: 5px; padding: 7px 15px; background: transparent; color: #666673; border: 1px solid #e0e0e5; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+    .t2-btn-snooze:hover { background: #f5f5f6; }
+    .t2-btn-renew { display: flex; align-items: center; padding: 0 15px; height: 34px; background: transparent; color: #886500; border: 1px solid #886500; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+    .t2-btn-renew:hover { background: #fffbeb; }
+    .t2-btn-x { width: 28px; height: 28px; background: transparent; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 6px; color: #8c8c99; font-size: 16px; }
+    .t2-btn-x:hover { background: #f3f4f6; }
+    /* T2 overflow chip */
+    .t2-overflow-chip { display: none; align-items: center; gap: 10px; height: 44px; background: #f9edcb; border: 1px solid #e0e0e5; border-radius: 6px; padding: 0 16px; margin-top: 4px; }
+    .t2-overflow-chip.visible { display: flex; }
+    .t2-overflow-dot { width: 8px; height: 8px; border-radius: 50%; background: #e8b931; flex-shrink: 0; }
+    .t2-overflow-text { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666673; }
 
     /* Generic content cards for non-nudge pages */
     .content-section { background: var(--hp-card-bg); border: 1px solid var(--hp-border); border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
@@ -766,8 +809,16 @@
 <!-- ══ Prototype ════════════════════════════════════ -->
 <div class="proto-wrapper" id="prototype">
   <div class="proto-intro">
-    <div class="cs-label">Interactive prototype</div>
-    <h2 style="margin-bottom:8px;">Try the system</h2>
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:16px;">
+      <div>
+        <div class="cs-label">Interactive prototype</div>
+        <h2 style="margin-bottom:8px;">Try the system</h2>
+      </div>
+      <a href="prototype.html" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; padding:7px 14px; background:white; border:1px solid rgba(0,0,0,0.15); border-radius:8px; font-size:13px; font-weight:500; color:#374151; text-decoration:none; white-space:nowrap; flex-shrink:0; margin-top:4px;">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2h4v4M14 0L7.5 6.5M6 3H2a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Open full size
+      </a>
+    </div>
     <p style="color:#6b7280;font-size:15px;margin-bottom:0;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges on Domains, Emails, and Dark web monitoring. Open Promotions &amp; offers (no badge — pull-only). Click the avatar for the account nudge. Snooze or resolve T2 cards on Home.</p>
   </div>
 
@@ -776,11 +827,12 @@
     <span class="state-switcher-label">Screen state:</span>
     <button class="state-btn active" data-state="s0" onclick="setState('s0')">S0 · Healthy home</button>
     <button class="state-btn" data-state="s1" onclick="setState('s1')">S1 · T1 critical</button>
-    <button class="state-btn" data-state="s3" onclick="setState('s3')">S2 · T1 + T2</button>
-    <button class="state-btn" data-state="s4" onclick="setState('s4')">S3 · T2 only</button>
-    <button class="state-btn" data-state="s5" onclick="setState('s5')">S4 · T2 overflow</button>
-    <button class="state-btn" data-state="s6" onclick="setState('s6')">S5 · T3 Domains</button>
-    <button class="state-btn" data-state="s7" onclick="setState('s7')">S6 · T4 Drawer</button>
+    <button class="state-btn" data-state="s8" onclick="setState('s8')">S2 · Multi-T1</button>
+    <button class="state-btn" data-state="s3" onclick="setState('s3')">S3 · T1 + T2</button>
+    <button class="state-btn" data-state="s4" onclick="setState('s4')">S4 · T2 only</button>
+    <button class="state-btn" data-state="s5" onclick="setState('s5')">S5 · T2 overflow</button>
+    <button class="state-btn" data-state="s6" onclick="setState('s6')">S6 · T3 Domains</button>
+    <button class="state-btn" data-state="s7" onclick="setState('s7')">S7 · T4 Drawer</button>
   </div>
 
   <div class="proto-frame-outer">
@@ -829,7 +881,7 @@
       </div>
     </div>
 
-    <!-- ── T1 Critical Banner (no dismiss) ── -->
+    <!-- ── T1 Critical Banner (single issue, no dismiss) ── -->
     <div class="hp-t1" id="hp-t1-banner" role="alert" aria-live="assertive" style="display:none">
       <div class="t1-accent-bar" aria-hidden="true"></div>
       <div class="t1-icon-wrap" aria-hidden="true">
@@ -843,6 +895,37 @@
         <span class="t1-sub">10 days remaining to restore it and get your website(s) back online.</span>
       </div>
       <button class="hp-t1-cta">Restore</button>
+    </div>
+
+    <!-- ── T1 Multi-issue Banner (collapsed/expandable) ── -->
+    <div class="hp-t1-multi" id="hp-t1-multi" role="alert" aria-live="assertive">
+      <div class="t1-accent-bar" aria-hidden="true"></div>
+      <div class="t1-multi-icon-wrap" aria-hidden="true">
+        <div class="t1-multi-icon-bg">
+          <div class="t1-multi-count">2</div>
+        </div>
+        <div class="t1-multi-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 2v3.5M5 7.5v.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="t1-multi-body">
+        <div class="t1-multi-title">2 Critical issues require your attention</div>
+        <div class="t1-multi-sub"><strong>1</strong> Payment failed &nbsp;·&nbsp; <strong>2</strong> Hosting Cancelled</div>
+      </div>
+      <button class="hp-t1-see-all" id="t1MultiToggle" onclick="toggleMultiT1()">See all ▾</button>
+    </div>
+    <!-- Expanded items panel -->
+    <div class="hp-t1-expanded" id="hp-t1-expanded">
+      <div class="t1-exp-item">
+        <div class="t1-exp-num">1</div>
+        <div class="t1-exp-text">Payment failed — Update your card to restore all services</div>
+        <button class="t1-exp-btn">Fix now</button>
+      </div>
+      <div class="t1-exp-item">
+        <div class="t1-exp-num">2</div>
+        <div class="t1-exp-text">Hosting cancelled — Restore your plan to bring site back online</div>
+        <button class="t1-exp-btn">Restore</button>
+      </div>
     </div>
 
     <!-- ── Main body ── -->
@@ -973,60 +1056,66 @@
           <div class="page-greeting">Hello, Alex!</div>
 
           <!-- T2 "Needs attention" (max 2 cards) -->
-          <div id="t2-section" style="display:none">
-            <div class="section-header" style="margin-bottom:10px;">
-              <span class="section-title">Needs attention</span>
-              <span class="section-badge" id="todoBadge">2</span>
+          <div id="t2-section" style="display:none; margin-bottom:24px;">
+            <div style="margin-bottom:12px;">
+              <span style="font-family:'Inter',sans-serif; font-size:14px; color:#8c8c99;">Needs attention (<strong id="todoBadge" style="font-weight:700; color:#8c8c99;">2</strong>)</span>
             </div>
-            <div class="nudge-list" id="homeNudgeList" style="gap:10px; margin-bottom:24px;">
+            <div style="display:flex; flex-direction:column; gap:12px;" id="homeNudgeList">
 
               <!-- T2 card 1: domain expired -->
-              <div class="nudge-card-t2" id="t2-domain">
-                <div class="t2-icon">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7">
-                    <circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a13 13 0 010 16M10 2a13 13 0 000 16"/>
-                  </svg>
-                </div>
-                <div class="nudge-body">
-                  <div class="nudge-title">rocketman.xyz expired on Jun 3, 2026</div>
-                  <div class="nudge-desc">7 days left in grace period · Renew to keep this domain yours.</div>
-                </div>
-                <div class="nudge-actions">
-                  <button class="btn-t2-snooze" onclick="snooze('t2-domain','Reminder snoozed')">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="6" r="5"/><path d="M6 3.5v2.5l1.5 1"/></svg>
-                    Snooze
-                  </button>
-                  <button class="btn-t2-renew" onclick="resolve('t2-domain','Domain renewed!')">Renew</button>
-                  <button class="btn-dismiss" onclick="snooze('t2-domain','Snoozed')" aria-label="Dismiss">×</button>
+              <div class="t2-card" id="t2-domain">
+                <div class="t2-bar"></div>
+                <div class="t2-inner">
+                  <div class="t2-icon">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="#92400e" stroke-width="1.7">
+                      <circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a13 13 0 010 16M10 2a13 13 0 000 16"/>
+                    </svg>
+                  </div>
+                  <div class="t2-body">
+                    <div class="t2-title">rocketman.xyz expired on Jun 3, 2026</div>
+                    <div class="t2-sub">7 days left in grace period · Renew to keep this domain yours.</div>
+                  </div>
+                  <div class="t2-acts">
+                    <button class="t2-btn-snooze" onclick="snooze('t2-domain','Reminder snoozed')">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="6" r="5"/><path d="M6 3.5v2.5l1.5 1"/></svg>
+                      Snooze
+                    </button>
+                    <button class="t2-btn-renew" onclick="resolve('t2-domain','Domain renewed!')">Renew</button>
+                    <button class="t2-btn-x" onclick="snooze('t2-domain','Snoozed')" aria-label="Dismiss">×</button>
+                  </div>
                 </div>
               </div>
 
               <!-- T2 card 2: email expiry -->
-              <div class="nudge-card-t2" id="t2-email-plan">
-                <div class="t2-icon email">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7">
-                    <rect x="2" y="4" width="16" height="13" rx="2"/><path d="M2 8l8 5 8-5"/>
-                  </svg>
-                </div>
-                <div class="nudge-body">
-                  <div class="nudge-title">Business Starter Email expires on Jun 21, 2026</div>
-                  <div class="nudge-desc">10 days remaining · Renew to keep sending and receiving emails.</div>
-                </div>
-                <div class="nudge-actions">
-                  <button class="btn-t2-snooze" onclick="snooze('t2-email-plan','Reminder snoozed')">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="6" r="5"/><path d="M6 3.5v2.5l1.5 1"/></svg>
-                    Snooze
-                  </button>
-                  <button class="btn-t2-renew" onclick="resolve('t2-email-plan','Email plan renewed!')">Renew</button>
-                  <button class="btn-dismiss" onclick="snooze('t2-email-plan','Snoozed')" aria-label="Dismiss">×</button>
+              <div class="t2-card" id="t2-email-plan">
+                <div class="t2-bar"></div>
+                <div class="t2-inner">
+                  <div class="t2-icon" style="background:#fef3c7;">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="#92400e" stroke-width="1.7">
+                      <rect x="2" y="4" width="16" height="13" rx="2"/><path d="M2 8l8 5 8-5"/>
+                    </svg>
+                  </div>
+                  <div class="t2-body">
+                    <div class="t2-title">Business Starter Email expires on Jun 21, 2026</div>
+                    <div class="t2-sub">10 days remaining · Renew to keep sending and receiving emails.</div>
+                  </div>
+                  <div class="t2-acts">
+                    <button class="t2-btn-snooze" onclick="snooze('t2-email-plan','Reminder snoozed')">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="6" r="5"/><path d="M6 3.5v2.5l1.5 1"/></svg>
+                      Snooze
+                    </button>
+                    <button class="t2-btn-renew" onclick="resolve('t2-email-plan','Email plan renewed!')">Renew</button>
+                    <button class="t2-btn-x" onclick="snooze('t2-email-plan','Snoozed')" aria-label="Dismiss">×</button>
+                  </div>
                 </div>
               </div>
 
             </div>
 
             <!-- T2 overflow chip (passive, non-interactive) -->
-            <div id="t2-overflow-chip" style="display:none; align-items:center; padding: 8px 4px 4px; color: #8c8c99; font-size: 13px; font-family: 'Inter', sans-serif;">
-              + 2 more need attention
+            <div class="t2-overflow-chip" id="t2-overflow-chip">
+              <div class="t2-overflow-dot"></div>
+              <span class="t2-overflow-text">+ 2 more need attention</span>
             </div>
 
           </div>
@@ -1551,10 +1640,8 @@
 
   /* ── T2: snooze / resolve ── */
   function updateTodoBadge() {
-    const visible = document.querySelectorAll('#homeNudgeList .nudge-card-t2:not(.snoozed):not(.dismissed)').length;
-    const badge = document.getElementById('todoBadge');
-    badge.textContent = visible;
-    badge.style.display = visible === 0 ? 'none' : '';
+    const visible = document.querySelectorAll('#homeNudgeList .t2-card:not(.snoozed):not(.dismissed)').length;
+    document.getElementById('todoBadge').textContent = visible;
   }
 
   function snooze(id, msg) {
@@ -1618,19 +1705,34 @@
     });
   }
 
+  function toggleMultiT1() {
+    const expanded = document.getElementById('hp-t1-expanded');
+    const btn = document.getElementById('t1MultiToggle');
+    const open = expanded.classList.toggle('visible');
+    btn.textContent = open ? 'See less ▴' : 'See all ▾';
+  }
+
   function setState(s) {
     // Reset everything to clean baseline
     document.getElementById('hp-t1-banner').style.display = 'none';
+    document.getElementById('hp-t1-multi').classList.remove('visible');
+    document.getElementById('hp-t1-expanded').classList.remove('visible');
     document.getElementById('t2-section').style.display = 'none';
-    document.getElementById('t2-overflow-chip').style.display = 'none';
+    document.getElementById('t2-overflow-chip').classList.remove('visible');
+    document.getElementById('t1MultiToggle').textContent = 'See all ▾';
     resetT2Cards();
     closeDrawer();
-    navigateTo('home');
+
+    // Navigate to home for all states except T4 drawer (which can open on any page)
+    if (s !== 's7') navigateTo('home');
 
     switch (s) {
       case 's0': break; // healthy — all hidden
       case 's1':
         document.getElementById('hp-t1-banner').style.display = 'flex';
+        break;
+      case 's8':
+        document.getElementById('hp-t1-multi').classList.add('visible');
         break;
       case 's3':
         document.getElementById('hp-t1-banner').style.display = 'flex';
@@ -1643,7 +1745,7 @@
         break;
       case 's5':
         document.getElementById('t2-section').style.display = 'block';
-        document.getElementById('t2-overflow-chip').style.display = 'flex';
+        document.getElementById('t2-overflow-chip').classList.add('visible');
         updateTodoBadge();
         break;
       case 's6':
@@ -1651,7 +1753,6 @@
         navigateTo('domains');
         break;
       case 's7':
-        navigateTo('home');
         setTimeout(openDrawer, 80);
         break;
     }

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hPanel Nudge Triage — Case Study by Carlos Mera</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #673DE6;
+      --hp-purple: #673DE6;
+      --hp-purple-hover: #5631c4;
+      --hp-purple-light: #ede9fe;
+      --hp-orange: #ea580c;
+      --hp-red: #dc2626;
+      --hp-sidebar-bg: #170f2e;
+      --hp-sidebar-text: rgba(255,255,255,0.55);
+      --hp-content-bg: #f3f4f6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      background: #fff;
+    }
+
+    /* ── Top nav bar ── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 32px;
+      height: 48px;
+    }
+
+    .top-nav-brand {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-right: 32px;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+    }
+
+    .top-nav-brand span { color: var(--accent); }
+
+    .top-nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .top-nav-links::-webkit-scrollbar { display: none; }
+
+    .top-nav-links a {
+      display: block;
+      padding: 0 14px;
+      height: 48px;
+      line-height: 48px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .top-nav-links a:hover { color: var(--text); }
+    .top-nav-links a.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
+    /* ── Case study layout ── */
+    .cs-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 32px 80px;
+    }
+
+    .cs-section {
+      margin-bottom: 72px;
+      scroll-margin-top: 64px;
+    }
+
+    .cs-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    p { color: #374151; margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
+    em { font-style: italic; color: var(--text); }
+    strong { font-weight: 600; color: var(--text); }
+
+    .cs-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .cs-meta span strong { font-weight: 600; color: var(--text); margin-right: 4px; }
+
+    .callout {
+      background: #faf5ff;
+      border-left: 3px solid var(--accent);
+      padding: 14px 20px;
+      margin: 24px 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+      color: #4c1d95;
+    }
+
+    /* tier table */
+    .tier-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 24px 0;
+    }
+    .tier-table th {
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 16px 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tier-table td {
+      padding: 12px 16px 12px 0;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: #374151;
+      line-height: 1.5;
+    }
+    .tier-table tr:last-child td { border-bottom: none; }
+
+    .tier-badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .t1b { background: #fee2e2; color: #991b1b; }
+    .t2b { background: #fef3c7; color: #78350f; }
+    .t3b { background: #dbeafe; color: #1e3a8a; }
+    .t4b { background: #ede9fe; color: #4c1d95; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 72px 0; }
+
+    /* ── Prototype section ── */
+    #prototype { scroll-margin-top: 64px; }
+
+    .proto-wrapper {
+      background: #f9fafb;
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 80px;
+    }
+
+    .proto-intro {
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .proto-frame-outer {
+      max-width: 960px;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .proto-frame {
+      height: 580px;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      position: relative;
+    }
+
+    /* ── hPanel Topbar ── */
+    .hp-topbar {
+      height: 56px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 12px;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+    .hp-logo { font-weight: 800; font-size: 15px; color: var(--hp-purple); letter-spacing: -0.03em; }
+    .hp-logo span { color: #1a1a1a; }
+    .hp-topbar-gap { flex: 1; }
+
+    .hp-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .hp-pill:hover { border-color: var(--hp-purple); }
+    .hp-pill:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+    .hp-pill.active { border-color: var(--hp-purple); border-width: 2px; background: var(--hp-purple-light); color: var(--hp-purple); }
+
+    .hp-avatar-wrap { position: relative; }
+    .hp-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--hp-purple);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      border: none;
+    }
+    .hp-avatar:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+    .avatar-badge {
+      position: absolute; top: -1px; right: -1px;
+      width: 9px; height: 9px;
+      background: var(--hp-orange);
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    /* ── T1 Banner ── */
+    .hp-t1 {
+      background: #fef2f2;
+      border-bottom: 1px solid #fecaca;
+      padding: 9px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      flex-shrink: 0;
+      z-index: 90;
+    }
+    .t1-icon {
+      width: 18px; height: 18px;
+      background: var(--hp-red); color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .t1-text { flex: 1; color: #7f1d1d; font-weight: 500; }
+    .t1-cta {
+      padding: 4px 12px;
+      background: var(--hp-red); color: white;
+      border: none; border-radius: 6px;
+      font-size: 12px; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+    }
+    .t1-cta:focus { outline: 2px solid var(--hp-red); outline-offset: 2px; }
+
+    /* ── hp-main ── */
+    .hp-main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── Sidebar ── */
+    .hp-sidebar {
+      width: 188px;
+      background: var(--hp-sidebar-bg);
+      flex-shrink: 0;
+      padding: 10px 0;
+      overflow-y: auto;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: var(--hp-sidebar-text);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      border-left: 2.5px solid transparent;
+      transition: color 0.15s, background 0.15s;
+    }
+    .sidebar-item:hover { color: white; background: rgba(255,255,255,0.06); }
+    .sidebar-item.active { color: white; background: rgba(255,255,255,0.08); border-left-color: var(--hp-purple); }
+    .sidebar-item:focus { outline: 1px solid rgba(103,61,230,0.6); outline-offset: -1px; }
+    .sidebar-icon { font-size: 14px; width: 16px; text-align: center; }
+    .sidebar-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--hp-orange); margin-left: auto; flex-shrink: 0; }
+
+    /* ── Content ── */
+    .hp-content {
+      flex: 1;
+      background: var(--hp-content-bg);
+      overflow-y: auto;
+      padding: 18px;
+      position: relative;
+    }
+    .hp-dim {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.28);
+      z-index: 50;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .hp-dim.visible { opacity: 1; pointer-events: all; }
+
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-title { font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 14px; }
+
+    /* T2 */
+    .t2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .t2-card {
+      background: white;
+      border: 1.5px solid #ddd6fe;
+      border-radius: 10px;
+      padding: 12px;
+      transition: opacity 0.3s;
+    }
+    .t2-card.snoozed { opacity: 0.38; pointer-events: none; }
+    .t2-card.dismissed { display: none; }
+    .t2-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hp-purple); margin-bottom: 4px; }
+    .t2-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 2px; }
+    .t2-desc { font-size: 11.5px; color: #6b7280; margin-bottom: 8px; }
+    .t2-bar { height: 3px; background: #ede9fe; border-radius: 2px; margin-bottom: 9px; overflow: hidden; }
+    .t2-bar-fill { height: 100%; background: var(--hp-orange); border-radius: 2px; }
+    .t2-actions { display: flex; gap: 6px; }
+    .btn-snooze { padding: 4px 10px; border: 1px solid #d1d5db; border-radius: 5px; background: transparent; font-size: 11.5px; color: #6b7280; cursor: pointer; }
+    .btn-snooze:hover { background: #f3f4f6; }
+    .btn-snooze:focus { outline: 2px solid #9ca3af; outline-offset: 2px; }
+    .btn-resolve { padding: 4px 10px; border: none; border-radius: 5px; background: var(--hp-purple); font-size: 11.5px; font-weight: 700; color: white; cursor: pointer; }
+    .btn-resolve:hover { background: var(--hp-purple-hover); }
+    .btn-resolve:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+
+    /* T3 */
+    .t3-nudge {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 11px 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .t3-icon { font-size: 17px; flex-shrink: 0; }
+    .t3-body { flex: 1; min-width: 0; }
+    .t3-title { font-size: 12.5px; font-weight: 600; color: #1e3a8a; }
+    .t3-desc { font-size: 11.5px; color: #3b82f6; }
+    .btn-t3 { padding: 4px 10px; border: none; border-radius: 5px; background: #1d4ed8; font-size: 11.5px; font-weight: 700; color: white; cursor: pointer; white-space: nowrap; }
+    .btn-t3:hover { background: #1e40af; }
+    .btn-t3:focus { outline: 2px solid #1d4ed8; outline-offset: 2px; }
+    .btn-t3-dismiss { padding: 4px 10px; border: 1px solid #bfdbfe; border-radius: 5px; background: transparent; font-size: 11.5px; color: #3b82f6; cursor: pointer; white-space: nowrap; }
+    .btn-t3-dismiss:hover { background: #dbeafe; }
+    .btn-t3-dismiss:focus { outline: 2px solid #3b82f6; outline-offset: 2px; }
+
+    /* Content cards */
+    .content-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+    .content-card-title { font-size: 13px; font-weight: 600; color: #111827; }
+    .content-card-sub { font-size: 11.5px; color: #9ca3af; margin-top: 2px; }
+
+    /* ── T4 Drawer ── */
+    .hp-drawer {
+      position: absolute;
+      top: 0; right: 0;
+      width: 288px;
+      height: 100%;
+      background: white;
+      border-left: 1px solid #e5e7eb;
+      z-index: 60;
+      transform: translateX(100%);
+      transition: transform 0.22s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .hp-drawer.open { transform: translateX(0); }
+    .drawer-head { padding: 13px 16px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .drawer-title { font-size: 13.5px; font-weight: 700; color: #111827; }
+    .drawer-close { width: 26px; height: 26px; border: none; background: #f3f4f6; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #6b7280; }
+    .drawer-close:hover { background: #e5e7eb; }
+    .drawer-close:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 12px; }
+    .t4-item { background: #fafafa; border: 1px solid #f0f0f0; border-radius: 8px; padding: 11px; margin-bottom: 8px; cursor: pointer; transition: opacity 0.25s; }
+    .t4-item:hover { background: #f5f3ff; border-color: #ddd6fe; }
+    .t4-item:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+    .t4-item.read { opacity: 0.38; pointer-events: none; }
+    .t4-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hp-purple); margin-bottom: 3px; }
+    .t4-title { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 3px; }
+    .t4-desc { font-size: 11.5px; color: #6b7280; margin-bottom: 8px; }
+    .btn-t4 { padding: 4px 12px; border: none; border-radius: 5px; background: var(--hp-purple); font-size: 11.5px; font-weight: 700; color: white; cursor: pointer; }
+    .btn-t4:hover { background: var(--hp-purple-hover); }
+    .btn-t4:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+
+    /* ── Account dropdown (fixed, JS-positioned) ── */
+    .account-dropdown {
+      position: fixed;
+      width: 228px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      z-index: 9000;
+      display: none;
+      overflow: hidden;
+    }
+    .account-dropdown.open { display: block; }
+    .acc-head { padding: 12px 14px; border-bottom: 1px solid #f3f4f6; }
+    .acc-name { font-size: 13px; font-weight: 700; color: #111827; }
+    .acc-email { font-size: 11.5px; color: #9ca3af; }
+    .acc-nudge { padding: 10px 14px; background: #fff7ed; border-top: 1px solid #fed7aa; display: flex; gap: 8px; align-items: flex-start; }
+    .acc-nudge-icon { font-size: 15px; }
+    .acc-nudge-title { font-size: 12px; font-weight: 700; color: #9a3412; }
+    .acc-nudge-desc { font-size: 11px; color: #c2410c; margin-top: 1px; }
+    .acc-menu { padding: 6px 0; }
+    .acc-menu-item { display: block; width: 100%; padding: 8px 14px; font-size: 13px; color: #374151; background: none; border: none; text-align: left; cursor: pointer; }
+    .acc-menu-item:hover { background: #f9fafb; }
+    .acc-menu-item:focus { outline: 2px solid var(--hp-purple); outline-offset: -2px; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: #111827; color: white;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Prototype annotations ── */
+    .proto-annotations {
+      max-width: 960px;
+      margin: 20px auto 0;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 0 4px;
+    }
+    .annotation {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .annotation-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 7px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Top navigation ── -->
+<nav class="top-nav" aria-label="Case study navigation">
+  <div class="top-nav-brand">Carlos Mera <span>/ Hostinger</span></div>
+  <ul class="top-nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#solution">The system</a></li>
+    <li><a href="#decisions">Decisions</a></li>
+    <li><a href="#ia-gap">IA gap</a></li>
+    <li><a href="#prototype">→ Prototype</a></li>
+  </ul>
+</nav>
+
+<!-- ── Case study ── -->
+<div class="cs-wrap">
+
+  <section class="cs-section" id="intro">
+    <div class="cs-label">Product Design — Hostinger Challenge</div>
+    <h1>Fixing hPanel's notification overload</h1>
+    <p>hPanel's "Your to-dos" surfaces 53 nudge types in a single dismissable list. Renewal reminders sit next to promotional offers. Security alerts share visual weight with upsell prompts. Nothing feels urgent because everything does.</p>
+    <p>This is the design process for replacing that list with a tiered, contextual notification system — and the structural finding that surfaced along the way.</p>
+    <div class="cs-meta">
+      <span><strong>Role</strong> Product Designer</span>
+      <span><strong>Type</strong> Design Challenge</span>
+      <span><strong>Deliverable</strong> System + interactive prototype</span>
+    </div>
+  </section>
+
+  <section class="cs-section" id="problem">
+    <div class="cs-label">The problem</div>
+    <h2>Everything looks urgent, so nothing is</h2>
+    <p>hPanel's home screen has a persistent "Your to-dos" list that collects every pending action across the account: domain renewals, email verification, SSL notices, promotional offers, security tips, upsell prompts. All rendered with the same card format, the same visual weight, the same dismiss button.</p>
+    <p>The result is a list users learn to ignore. A domain renewal due in 3 days competes visually with "Add a phone number to your account." Neither feels important. CTA conversion is low despite the list being always visible.</p>
+    <div class="callout">
+      The audit found 53 nudge types. All of them defaulted to the home screen. None had priority logic. The list treated urgency as a content problem rather than a design problem.
+    </div>
+    <p>The core question wasn't how to make the list shorter. It was: <em>what is each nudge actually asking the user to do, and does the surface match the stakes?</em></p>
+  </section>
+
+  <section class="cs-section" id="analysis">
+    <div class="cs-label">Analysis</div>
+    <h2>Mapping urgency against type</h2>
+    <p>Each nudge was mapped along two axes: <strong>urgency</strong> — what happens if the user ignores this, and how quickly — and <strong>scope</strong> — is this tied to a specific product (Domains, Emails, Security) or to the account itself?</p>
+    <p>That mapping revealed four natural clusters. Not by feature area, but by behavior: how large the time window is, whether real harm follows inaction, and whether there's a more contextually appropriate surface outside the home screen.</p>
+    <p>A domain expiring in two days is categorically different from a promotional offer. A payment failure is not the same as a suggestion to add 2FA. Once those differences are explicit, the right surfaces follow naturally.</p>
+  </section>
+
+  <section class="cs-section" id="solution">
+    <div class="cs-label">The system</div>
+    <h2>A 4-tier triage model</h2>
+    <p>Each tier maps to a specific surface, a dismissal behavior, and a display cap. The goal: the surface itself communicates urgency before a user reads a single word.</p>
+
+    <table class="tier-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Label</th>
+          <th>Surface</th>
+          <th>Dismissal</th>
+          <th>Cap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tier-badge t1b">T1</span></td>
+          <td>Critical</td>
+          <td>Persistent strip, top of content — always visible</td>
+          <td>Never</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td><span class="tier-badge t2b">T2</span></td>
+          <td>Time-sensitive</td>
+          <td>Home screen cards</td>
+          <td>Snooze (reappears when &lt;3 days left)</td>
+          <td>2 items max</td>
+        </tr>
+        <tr>
+          <td><span class="tier-badge t3b">T3</span></td>
+          <td>Contextual</td>
+          <td>Inline on the relevant product page</td>
+          <td>Dismiss on page — gone permanently</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td><span class="tier-badge t4b">T4</span></td>
+          <td>Offers &amp; tips</td>
+          <td>Promotions drawer (pull-only, topbar pill)</td>
+          <td>Read = dismissed</td>
+          <td>Unlimited</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>T2 is hard-capped at 2 cards because showing more recreates the original problem. If a third item qualifies as time-sensitive, the oldest card gets demoted or resolved before the new one appears.</p>
+    <p>T4 carries no badge on its topbar pill. A badge is push in disguise — it manufactures urgency where none exists. T4 is pull-only by definition. The user opens it when they want to.</p>
+  </section>
+
+  <section class="cs-section" id="decisions">
+    <div class="cs-label">Design decisions</div>
+    <h2>T1 stays crisp when the T4 drawer opens</h2>
+    <p>When a user opens the Promotions drawer, a dim overlay covers the content area. But the T1 banner — which sits between the topbar and content — cannot be suppressed. A user with a critical billing issue should still be able to act on it even with the drawer open.</p>
+    <p>The dim overlay is scoped to start below the T1 banner. T1 has no dismiss button by design: non-dismissable is the point. Open the Promotions drawer in the prototype below to see this behavior in action.</p>
+  </section>
+
+  <section class="cs-section" id="ia-gap">
+    <div class="cs-label">Structural finding</div>
+    <h2>There is no Account tab — and that's the root cause</h2>
+    <p>While placing nudges into tiers, a category emerged that didn't fit any product page: nudges that belong to the user's account, not to any hosted service. Email verification. Phone number. Account-level 2FA.</p>
+    <p>hPanel's sidebar is organized by product: Websites, Domains, Emails, Security, VPS, Help. There is no Account section. These nudges had no sidebar home, so they defaulted to the home screen — not because that was the right place, but because there was nowhere else.</p>
+    <div class="callout">
+      The triage process surfaced IA debt, not just notification clutter. The bloated list was a symptom of a structural gap: the product had grown account-level features without a dedicated account surface.
+    </div>
+    <p>The fix treats the topbar avatar as a fifth surface — a lightweight, always-present account anchor. Account nudges live in the avatar dropdown: scoped, unobtrusive, and contextually correct. No new sidebar tab required.</p>
+    <p>The avatar has a badge in the prototype below — it represents a pending email verification nudge. Click it to see how the account nudge surfaces without interrupting the product flow.</p>
+  </section>
+
+</div>
+
+<!-- ── Prototype ── -->
+<div class="proto-wrapper" id="prototype">
+  <div class="proto-intro">
+    <div class="cs-label">Interactive prototype</div>
+    <h2 style="margin-bottom:8px;">Try the system</h2>
+    <p style="color:#6b7280;font-size:15px;margin-bottom:0;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges per product. Open the Promotions drawer. Click the avatar to surface the account-level nudge. Snooze or resolve T2 cards on the home screen.</p>
+  </div>
+
+  <div class="proto-frame-outer">
+    <div class="proto-frame">
+
+      <!-- Topbar -->
+      <div class="hp-topbar">
+        <div class="hp-logo">hostinger<span>.</span></div>
+        <div class="hp-topbar-gap"></div>
+        <button class="hp-pill" id="pillBtn" aria-label="Open promotions drawer" aria-expanded="false">
+          🔔 Promotions
+        </button>
+        <div class="hp-avatar-wrap">
+          <button class="hp-avatar" id="avatarBtn" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
+            CM
+            <span class="avatar-badge" id="avatarBadge" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- T1 Banner — no dismiss by design -->
+      <div class="hp-t1" role="alert">
+        <div class="t1-icon" aria-hidden="true">!</div>
+        <div class="t1-text">Your payment method has expired — services may be suspended without a valid card.</div>
+        <button class="t1-cta">Update payment</button>
+      </div>
+
+      <!-- Main -->
+      <div class="hp-main">
+
+        <!-- Sidebar -->
+        <nav class="hp-sidebar" aria-label="hPanel navigation">
+          <button class="sidebar-item active" data-page="home" aria-current="page">
+            <span class="sidebar-icon" aria-hidden="true">🏠</span> Home
+          </button>
+          <button class="sidebar-item" data-page="websites">
+            <span class="sidebar-icon" aria-hidden="true">🌐</span> Websites
+          </button>
+          <button class="sidebar-item" data-page="domains">
+            <span class="sidebar-icon" aria-hidden="true">🔗</span> Domains
+            <span class="sidebar-dot" aria-hidden="true"></span>
+          </button>
+          <button class="sidebar-item" data-page="emails">
+            <span class="sidebar-icon" aria-hidden="true">📧</span> Emails
+            <span class="sidebar-dot" aria-hidden="true"></span>
+          </button>
+          <button class="sidebar-item" data-page="security">
+            <span class="sidebar-icon" aria-hidden="true">🔒</span> Security
+            <span class="sidebar-dot" aria-hidden="true"></span>
+          </button>
+          <button class="sidebar-item" data-page="vps">
+            <span class="sidebar-icon" aria-hidden="true">🖥</span> VPS
+          </button>
+          <button class="sidebar-item" data-page="help">
+            <span class="sidebar-icon" aria-hidden="true">❓</span> Help
+          </button>
+        </nav>
+
+        <!-- Content area -->
+        <main class="hp-content" id="hpContent">
+
+          <!-- HOME -->
+          <div class="page active" id="page-home">
+            <div class="page-title">Home</div>
+            <div class="t2-grid">
+              <div class="t2-card" id="t2-domain">
+                <div class="t2-label">⏱ Time-sensitive</div>
+                <div class="t2-title">Domain renewal due in 8 days</div>
+                <div class="t2-desc">carlos-mera.com expires Jun 19, 2026</div>
+                <div class="t2-bar"><div class="t2-bar-fill" style="width:73%"></div></div>
+                <div class="t2-actions">
+                  <button class="btn-snooze" onclick="snooze('t2-domain','Reminder snoozed — reappears in 3 days')">Snooze</button>
+                  <button class="btn-resolve" onclick="resolve('t2-domain','Domain renewed!')">Renew now →</button>
+                </div>
+              </div>
+              <div class="t2-card" id="t2-ssl">
+                <div class="t2-label">⏱ Time-sensitive</div>
+                <div class="t2-title">SSL certificate expires in 14 days</div>
+                <div class="t2-desc">Auto-renewal is off — action required</div>
+                <div class="t2-bar"><div class="t2-bar-fill" style="width:50%; background:#ea580c"></div></div>
+                <div class="t2-actions">
+                  <button class="btn-snooze" onclick="snooze('t2-ssl','SSL reminder snoozed — reappears in 3 days')">Snooze</button>
+                  <button class="btn-resolve" onclick="resolve('t2-ssl','Auto-renew enabled!')">Enable →</button>
+                </div>
+              </div>
+            </div>
+            <div class="content-card"><div class="content-card-title">carlos-mera.com</div><div class="content-card-sub">WordPress · Active · 2.3 GB</div></div>
+            <div class="content-card"><div class="content-card-title">Hacker News clone</div><div class="content-card-sub">Node.js · Active · 0.8 GB</div></div>
+          </div>
+
+          <!-- WEBSITES -->
+          <div class="page" id="page-websites">
+            <div class="page-title">Websites</div>
+            <div class="content-card"><div class="content-card-title">carlos-mera.com</div><div class="content-card-sub">WordPress · Active</div></div>
+            <div class="content-card"><div class="content-card-title">Hacker News clone</div><div class="content-card-sub">Node.js · Active</div></div>
+          </div>
+
+          <!-- DOMAINS -->
+          <div class="page" id="page-domains">
+            <div class="page-title">Domains</div>
+            <div class="t3-nudge" id="t3-domain">
+              <div class="t3-icon" aria-hidden="true">🔗</div>
+              <div class="t3-body">
+                <div class="t3-title">carlos-mera.com renews in 8 days</div>
+                <div class="t3-desc">Auto-renewal is on, but your payment method is expired.</div>
+              </div>
+              <button class="btn-t3" onclick="dismissT3('t3-domain')">Fix payment →</button>
+              <button class="btn-t3-dismiss" onclick="dismissT3('t3-domain')">Dismiss</button>
+            </div>
+            <div class="content-card"><div class="content-card-title">carlos-mera.com</div><div class="content-card-sub">Expires Jun 19, 2026 · Auto-renew on</div></div>
+          </div>
+
+          <!-- EMAILS -->
+          <div class="page" id="page-emails">
+            <div class="page-title">Emails</div>
+            <div class="t3-nudge" id="t3-email">
+              <div class="t3-icon" aria-hidden="true">📧</div>
+              <div class="t3-body">
+                <div class="t3-title">SPF and DKIM not configured</div>
+                <div class="t3-desc">Your emails may land in spam. Takes 2 minutes to fix.</div>
+              </div>
+              <button class="btn-t3" onclick="dismissT3('t3-email')">Set up →</button>
+              <button class="btn-t3-dismiss" onclick="dismissT3('t3-email')">Dismiss</button>
+            </div>
+            <div class="content-card"><div class="content-card-title">hello@carlos-mera.com</div><div class="content-card-sub">Titan Mail · Active</div></div>
+          </div>
+
+          <!-- SECURITY -->
+          <div class="page" id="page-security">
+            <div class="page-title">Security</div>
+            <div class="t3-nudge" id="t3-security">
+              <div class="t3-icon" aria-hidden="true">🔒</div>
+              <div class="t3-body">
+                <div class="t3-title">Two-factor authentication is off</div>
+                <div class="t3-desc">Protect your account from unauthorized access.</div>
+              </div>
+              <button class="btn-t3" onclick="dismissT3('t3-security')">Enable 2FA →</button>
+              <button class="btn-t3-dismiss" onclick="dismissT3('t3-security')">Dismiss</button>
+            </div>
+            <div class="content-card"><div class="content-card-title">SSL certificates</div><div class="content-card-sub">1 active · 1 expiring soon</div></div>
+          </div>
+
+          <!-- VPS -->
+          <div class="page" id="page-vps">
+            <div class="page-title">VPS</div>
+            <div class="content-card"><div class="content-card-title">VPS #1 — Ubuntu 22.04</div><div class="content-card-sub">2 vCPU · 4 GB RAM · Running</div></div>
+          </div>
+
+          <!-- HELP -->
+          <div class="page" id="page-help">
+            <div class="page-title">Help</div>
+            <div class="content-card"><div class="content-card-title">Knowledge base</div><div class="content-card-sub">Browse guides and tutorials</div></div>
+            <div class="content-card"><div class="content-card-title">Live chat support</div><div class="content-card-sub">Typically replies in under 2 min</div></div>
+          </div>
+
+          <!-- Dim overlay — starts below T1 -->
+          <div class="hp-dim" id="dimOverlay" aria-hidden="true"></div>
+
+        </main>
+
+        <!-- T4 Promotions Drawer -->
+        <div class="hp-drawer" id="t4Drawer" role="dialog" aria-label="Promotions" aria-modal="true">
+          <div class="drawer-head">
+            <div class="drawer-title">Promotions</div>
+            <button class="drawer-close" id="drawerClose" aria-label="Close promotions drawer">✕</button>
+          </div>
+          <div class="drawer-body">
+            <div class="t4-item" id="t4-1" tabindex="0" role="article">
+              <div class="t4-label">Limited offer</div>
+              <div class="t4-title">20% off your next domain renewal</div>
+              <div class="t4-desc">Any domain with Hostinger. Expires Jul 1, 2026.</div>
+              <button class="btn-t4" onclick="markRead('t4-1')">Claim offer</button>
+            </div>
+            <div class="t4-item" id="t4-2" tabindex="0" role="article">
+              <div class="t4-label">Upgrade</div>
+              <div class="t4-title">Business hosting — 2× faster</div>
+              <div class="t4-desc">NVMe SSD, priority support, daily backups. No setup fee this month.</div>
+              <button class="btn-t4" onclick="markRead('t4-2')">See plans</button>
+            </div>
+            <div class="t4-item" id="t4-3" tabindex="0" role="article">
+              <div class="t4-label">Referral</div>
+              <div class="t4-title">Refer a friend, earn $20</div>
+              <div class="t4-desc">Your friend gets 20% off their first purchase. You earn $20 credit.</div>
+              <button class="btn-t4" onclick="markRead('t4-3')">Get referral link</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /hp-main -->
+    </div><!-- /proto-frame -->
+  </div><!-- /proto-frame-outer -->
+
+  <!-- Tier legend -->
+  <div class="proto-annotations">
+    <div class="annotation"><span class="tier-badge t1b annotation-badge">T1</span> Critical — always visible, no dismiss</div>
+    <div class="annotation"><span class="tier-badge t2b annotation-badge">T2</span> Time-sensitive — home screen, snooze or resolve</div>
+    <div class="annotation"><span class="tier-badge t3b annotation-badge">T3</span> Contextual — shown on the relevant product page</div>
+    <div class="annotation"><span class="tier-badge t4b annotation-badge">T4</span> Promotions — pull-only drawer, no badge</div>
+  </div>
+
+</div><!-- /proto-wrapper -->
+
+<!-- Account dropdown (fixed, JS-positioned to escape overflow:hidden) -->
+<div class="account-dropdown" id="accountDropdown" role="menu">
+  <div class="acc-head">
+    <div class="acc-name">Carlos Mera</div>
+    <div class="acc-email">carlos@example.com</div>
+  </div>
+  <div class="acc-nudge">
+    <span class="acc-nudge-icon">✉️</span>
+    <div>
+      <div class="acc-nudge-title">Verify your email address</div>
+      <div class="acc-nudge-desc">Required for renewal notices and account recovery.</div>
+    </div>
+  </div>
+  <div class="acc-menu">
+    <button class="acc-menu-item" role="menuitem">Account settings</button>
+    <button class="acc-menu-item" role="menuitem">Billing</button>
+    <button class="acc-menu-item" role="menuitem">Sign out</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  /* ── Sidebar navigation ── */
+  document.querySelectorAll('.sidebar-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(b => {
+        b.classList.remove('active');
+        b.removeAttribute('aria-current');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-current', 'page');
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    });
+  });
+
+  /* ── T4 Promotions drawer ── */
+  const pillBtn  = document.getElementById('pillBtn');
+  const drawer   = document.getElementById('t4Drawer');
+  const dim      = document.getElementById('dimOverlay');
+  const closeBtn = document.getElementById('drawerClose');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    dim.classList.add('visible');
+    pillBtn.classList.add('active');
+    pillBtn.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    dim.classList.remove('visible');
+    pillBtn.classList.remove('active');
+    pillBtn.setAttribute('aria-expanded', 'false');
+    pillBtn.focus();
+  }
+
+  pillBtn.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+  closeBtn.addEventListener('click', closeDrawer);
+  dim.addEventListener('click', closeDrawer);
+
+  /* ── Avatar / account dropdown (fixed position, escapes overflow:hidden) ── */
+  const avatarBtn   = document.getElementById('avatarBtn');
+  const accountDrop = document.getElementById('accountDropdown');
+
+  function openAccount() {
+    const rect = avatarBtn.getBoundingClientRect();
+    accountDrop.style.top  = (rect.bottom + 6) + 'px';
+    accountDrop.style.right = (window.innerWidth - rect.right) + 'px';
+    accountDrop.classList.add('open');
+    avatarBtn.setAttribute('aria-expanded', 'true');
+  }
+  function closeAccount() {
+    accountDrop.classList.remove('open');
+    avatarBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  avatarBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    accountDrop.classList.contains('open') ? closeAccount() : openAccount();
+  });
+  accountDrop.addEventListener('click', e => e.stopPropagation());
+  document.addEventListener('click', closeAccount);
+
+  /* ── Keyboard: Escape ── */
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (drawer.classList.contains('open')) { closeDrawer(); return; }
+    if (accountDrop.classList.contains('open')) { closeAccount(); avatarBtn.focus(); }
+  });
+
+  /* ── T4 mark read ── */
+  function markRead(id) {
+    document.getElementById(id).classList.add('read');
+    showToast('Noted.');
+  }
+
+  /* ── T2 snooze / resolve ── */
+  function snooze(id, msg) {
+    document.getElementById(id).classList.add('snoozed');
+    showToast(msg);
+  }
+  function resolve(id, msg) {
+    const card = document.getElementById(id);
+    card.style.transition = 'opacity 0.3s';
+    card.style.opacity = '0';
+    setTimeout(() => card.classList.add('dismissed'), 300);
+    showToast(msg);
+  }
+
+  /* ── T3 dismiss ── */
+  function dismissT3(id) {
+    const el = document.getElementById(id);
+    el.style.transition = 'opacity 0.25s';
+    el.style.opacity = '0';
+    setTimeout(() => el.style.display = 'none', 260);
+    showToast('Nudge dismissed.');
+  }
+
+  /* ── Toast ── */
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  /* ── Top nav scrollspy ── */
+  const navLinks = document.querySelectorAll('.top-nav-links a');
+  const sectionIds = ['problem', 'analysis', 'solution', 'decisions', 'ia-gap', 'prototype'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`.top-nav-links a[href="#${entry.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => spy.observe(s));
+</script>
+
+</body>
+</html>

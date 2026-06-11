@@ -173,16 +173,19 @@
 
     /* ─── T1 Critical Banner ───────────────────────── */
     .hp-t1 {
-      background: var(--hp-red-bg);
-      border-bottom: 1px solid var(--hp-red-border);
-      padding: 10px 24px;
+      background: #FEF2F2;
+      border-bottom: 1px solid #FECACA;
+      border-left: 4px solid var(--hp-red);
+      padding: 10px 20px 10px 16px;
       display: flex; align-items: center; gap: 12px;
-      font-size: 13.5px; flex-shrink: 0; z-index: 100;
+      font-size: 13px; flex-shrink: 0; z-index: 100;
     }
-    .t1-dot { width: 20px; height: 20px; background: var(--hp-red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; flex-shrink: 0; }
-    .t1-msg { flex: 1; color: #7F1D1D; font-weight: 500; }
-    .t1-msg strong { font-weight: 700; }
-    .hp-t1-cta { padding: 6px 16px; background: var(--hp-red); color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .t1-icon-circle { width: 32px; height: 32px; border-radius: 50%; background: #FEE2E2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--hp-red); }
+    .t1-body { flex: 1; }
+    .t1-title { display: block; font-size: 13px; font-weight: 700; color: #7F1D1D; }
+    .t1-sub { display: block; font-size: 11.5px; color: #991B1B; margin-top: 2px; }
+    .hp-t1-cta { padding: 5px 14px; background: transparent; color: var(--hp-red); border: 1.5px solid var(--hp-red); border-radius: 7px; font-size: 12.5px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .hp-t1-cta:hover { background: #FEE2E2; }
     .hp-t1-cta:focus { outline: 2px solid var(--hp-red); outline-offset: 2px; }
 
     /* ─── hp-body: sidebar + content + drawer ──────── */
@@ -278,6 +281,48 @@
     .btn-dismiss { width: 28px; height: 28px; background: transparent; border: none; color: #9CA3AF; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
     .btn-dismiss:hover { background: #F3F4F6; color: var(--hp-text); }
     .btn-dismiss:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+
+    /* ─── Website card grid ────────────────────────── */
+    .section-label-sm { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hp-muted); margin-bottom: 10px; }
+    .site-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+    .site-card { background: white; border: 1px solid #E8E8E8; border-radius: 12px; overflow: hidden; }
+    .site-browser-bar { background: #F9FAFB; border-bottom: 1px solid #F3F4F6; padding: 7px 10px; display: flex; align-items: center; gap: 6px; }
+    .site-dots { display: flex; gap: 4px; }
+    .site-dot-r { width: 8px; height: 8px; border-radius: 50%; background: #F87171; }
+    .site-dot-y { width: 8px; height: 8px; border-radius: 50%; background: #FBBF24; }
+    .site-dot-g { width: 8px; height: 8px; border-radius: 50%; background: #34D399; }
+    .site-url-pill { flex: 1; background: #F3F4F6; border-radius: 3px; font-size: 9.5px; color: #9CA3AF; padding: 2px 7px; font-family: 'SF Mono','Menlo',monospace; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .site-thumb { height: 118px; }
+    .site-foot { padding: 10px 12px; display: flex; align-items: flex-end; justify-content: space-between; }
+    .site-name { font-size: 13px; font-weight: 700; color: var(--hp-text); display: block; }
+    .site-plan { font-size: 11px; color: var(--hp-muted); margin-top: 2px; display: block; }
+    .site-status { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .site-status.active { background: #DCFCE7; color: #15803D; }
+    .site-status.cancelled { background: #FEE2E2; color: #DC2626; }
+
+    /* ─── Quick actions ─────────────────────────────── */
+    .qa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .qa-tile { background: white; border: 1px solid #E8E8E8; border-radius: 10px; padding: 14px 12px; display: flex; align-items: center; gap: 10px; cursor: default; }
+    .qa-tile:hover { background: #FAFAFA; }
+    .qa-icon-wrap { width: 32px; height: 32px; border-radius: 8px; background: #F3EEFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--hp-purple); }
+    .qa-label { font-size: 12.5px; font-weight: 600; color: var(--hp-text); }
+    .qa-sub { font-size: 11px; color: var(--hp-muted); margin-top: 2px; line-height: 1.35; }
+
+    /* ─── T2 card (left-border amber style) ─────────── */
+    .nudge-card-t2 {
+      background: white; border: 1px solid #E8E8E8; border-left: 3px solid #D97706;
+      border-radius: 10px; padding: 13px 14px;
+      display: flex; align-items: center; gap: 12px;
+      transition: opacity 0.3s;
+    }
+    .nudge-card-t2.snoozed { opacity: 0.4; pointer-events: none; }
+    .nudge-card-t2.dismissed { display: none; }
+    .t2-icon { width: 36px; height: 36px; border-radius: 8px; background: #FEF9C3; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #D97706; }
+    .t2-icon.email { background: #FEF9C3; color: #D97706; }
+    .btn-t2-snooze { display: flex; align-items: center; gap: 4px; padding: 5px 11px; background: transparent; color: #6B7280; border: 1px solid #E5E7EB; border-radius: 6px; font-size: 12px; cursor: pointer; white-space: nowrap; }
+    .btn-t2-snooze:hover { background: #F9FAFB; }
+    .btn-t2-renew { padding: 5px 13px; background: transparent; color: #D97706; border: 1.5px solid #D97706; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .btn-t2-renew:hover { background: #FFFBEB; }
 
     /* Generic content cards for non-nudge pages */
     .content-section { background: var(--hp-card-bg); border: 1px solid var(--hp-border); border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
@@ -700,9 +745,16 @@
 
     <!-- ── T1 Critical Banner (no dismiss) ── -->
     <div class="hp-t1" role="alert" aria-live="assertive">
-      <div class="t1-dot" aria-hidden="true">!</div>
-      <div class="t1-msg">Your payment method has expired — services may be suspended. <strong>Update now to avoid interruption.</strong></div>
-      <button class="hp-t1-cta">Update payment</button>
+      <div class="t1-icon-circle" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="1" y="3" width="14" height="9" rx="1.5"/><path d="M5 12v2M11 12v2M2 15h12"/><circle cx="8" cy="7.5" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div class="t1-body">
+        <span class="t1-title">Your Premium Web Hosting was cancelled</span>
+        <span class="t1-sub">10 days remaining to restore it and get your website(s) back online.</span>
+      </div>
+      <button class="hp-t1-cta">Restore</button>
     </div>
 
     <!-- ── Main body ── -->
@@ -828,69 +880,126 @@
       <!-- Content area -->
       <main class="hp-content" id="hpContent">
 
-        <!-- HOME — T2 solution state (max 2 nudge cards) -->
+        <!-- HOME -->
         <div class="page active" id="page-home">
-          <div class="page-greeting">Hello, Harry!</div>
-          <div class="section-header">
-            <span class="section-title">Your to-dos</span>
-            <span class="section-badge" id="todoBadge">2</span>
-          </div>
-          <div class="nudge-list" id="homeNudgeList">
+          <div class="page-greeting">Hello, Alex!</div>
 
-            <!-- T2 card 1: domain renewal -->
-            <div class="nudge-card" id="t2-domain">
-              <div class="nudge-icon-wrap" style="background:#FEE2E2;">
-                <svg viewBox="0 0 22 22" fill="none" stroke="#DC2626" stroke-width="1.8">
-                  <circle cx="11" cy="11" r="9"/><path d="M2 11h18M11 2a14 14 0 010 18M11 2a14 14 0 000 18"/>
-                  <circle cx="16" cy="6" r="4" fill="#DC2626" stroke="none"/>
-                  <path d="M16 4.5v2M16 7.5v.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
+          <!-- T2 "Needs attention" (max 2 cards) -->
+          <div id="t2-section">
+            <div class="section-header" style="margin-bottom:10px;">
+              <span class="section-title">Needs attention</span>
+              <span class="section-badge" id="todoBadge">2</span>
+            </div>
+            <div class="nudge-list" id="homeNudgeList" style="gap:10px; margin-bottom:24px;">
+
+              <!-- T2 card 1: domain expired -->
+              <div class="nudge-card-t2" id="t2-domain">
+                <div class="t2-icon">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7">
+                    <circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a13 13 0 010 16M10 2a13 13 0 000 16"/>
+                  </svg>
+                </div>
+                <div class="nudge-body">
+                  <div class="nudge-title">rocketman.xyz expired on Jun 3, 2026</div>
+                  <div class="nudge-desc">7 days left in grace period · Renew to keep this domain yours.</div>
+                </div>
+                <div class="nudge-actions">
+                  <button class="btn-t2-snooze" onclick="snooze('t2-domain','Reminder snoozed')">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="6" r="5"/><path d="M6 3.5v2.5l1.5 1"/></svg>
+                    Snooze
+                  </button>
+                  <button class="btn-t2-renew" onclick="resolve('t2-domain','Domain renewed!')">Renew</button>
+                  <button class="btn-dismiss" onclick="snooze('t2-domain','Snoozed')" aria-label="Dismiss">×</button>
+                </div>
               </div>
-              <div class="nudge-body">
-                <div class="nudge-title">Your domain <strong>carlos-mera.com</strong> expires in 8 days</div>
-                <div class="nudge-desc">Renew now to keep this domain yours.</div>
+
+              <!-- T2 card 2: email expiry -->
+              <div class="nudge-card-t2" id="t2-email-plan">
+                <div class="t2-icon email">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7">
+                    <rect x="2" y="4" width="16" height="13" rx="2"/><path d="M2 8l8 5 8-5"/>
+                  </svg>
+                </div>
+                <div class="nudge-body">
+                  <div class="nudge-title">Business Starter Email expires on Jun 21, 2026</div>
+                  <div class="nudge-desc">10 days remaining · Renew to keep sending and receiving emails.</div>
+                </div>
+                <div class="nudge-actions">
+                  <button class="btn-t2-snooze" onclick="snooze('t2-email-plan','Reminder snoozed')">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="6" r="5"/><path d="M6 3.5v2.5l1.5 1"/></svg>
+                    Snooze
+                  </button>
+                  <button class="btn-t2-renew" onclick="resolve('t2-email-plan','Email plan renewed!')">Renew</button>
+                  <button class="btn-dismiss" onclick="snooze('t2-email-plan','Snoozed')" aria-label="Dismiss">×</button>
+                </div>
               </div>
-              <div class="nudge-actions">
-                <button class="btn-hp-ghost" onclick="snooze('t2-domain','Reminder snoozed for 3 days')">Snooze</button>
-                <button class="btn-hp-primary" onclick="resolve('t2-domain','Domain renewed!')">Renew</button>
-                <button class="btn-dismiss" onclick="snooze('t2-domain','Reminder snoozed for 3 days')" aria-label="Snooze">×</button>
+
+            </div>
+          </div>
+
+          <!-- Website cards grid -->
+          <div class="section-label-sm">Your websites</div>
+          <div class="site-grid">
+
+            <div class="site-card">
+              <div class="site-browser-bar">
+                <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                <div class="site-url-pill">rocketman.xyz</div>
+              </div>
+              <div class="site-thumb" style="background: linear-gradient(135deg,#3b0764 0%,#6d28d9 55%,#a78bfa 100%);"></div>
+              <div class="site-foot">
+                <div><span class="site-name">rocketman.xyz</span><span class="site-plan">Premium Web Hosting</span></div>
+                <span class="site-status active">Active</span>
               </div>
             </div>
 
-            <!-- T2 card 2: email expiry -->
-            <div class="nudge-card" id="t2-email-plan">
-              <div class="nudge-icon-wrap" style="background:#FEF9C3;">
-                <svg viewBox="0 0 22 22" fill="none" stroke="#D97706" stroke-width="1.8">
-                  <rect x="2" y="5" width="18" height="14" rx="2"/><path d="M2 9l9 5 9-5"/>
-                  <circle cx="17" cy="7" r="4" fill="#D97706" stroke="none"/>
-                  <path d="M17 5.5v2M17 8.5v.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
+            <div class="site-card">
+              <div class="site-browser-bar">
+                <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                <div class="site-url-pill">studio-at.com</div>
               </div>
-              <div class="nudge-body">
-                <div class="nudge-title">Your <strong>Business Starter Email</strong> will expire soon</div>
-                <div class="nudge-desc">You have <strong>10 days</strong> to renew it to continue sending emails.</div>
+              <div class="site-thumb" style="background: linear-gradient(135deg,#1e3a8a 0%,#2563eb 55%,#93c5fd 100%);"></div>
+              <div class="site-foot">
+                <div><span class="site-name">studio-at.com</span><span class="site-plan">Starter Web Hosting</span></div>
+                <span class="site-status active">Active</span>
               </div>
-              <div class="nudge-actions">
-                <button class="btn-hp-ghost" onclick="snooze('t2-email-plan','Reminder snoozed for 3 days')">Snooze</button>
-                <button class="btn-hp-outline" onclick="resolve('t2-email-plan','Email plan renewed!')">Renew</button>
-                <button class="btn-dismiss" onclick="snooze('t2-email-plan','Reminder snoozed for 3 days')" aria-label="Snooze">×</button>
+            </div>
+
+            <div class="site-card">
+              <div class="site-browser-bar">
+                <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y" style="background:#e5e7eb"></span><span class="site-dot-g" style="background:#e5e7eb"></span></div>
+                <div class="site-url-pill">old-client.net</div>
+              </div>
+              <div class="site-thumb" style="background: linear-gradient(135deg,#374151 0%,#6b7280 60%,#d1d5db 100%); opacity:0.65;"></div>
+              <div class="site-foot">
+                <div><span class="site-name">old-client.net</span><span class="site-plan">Business Plan</span></div>
+                <span class="site-status cancelled">Cancelled</span>
               </div>
             </div>
 
           </div>
-          <!-- Regular home content below the-todos -->
-          <div style="margin-top:20px;">
-            <div class="content-section">
-              <div class="content-row">
-                <div><div class="content-row-title">carlos-mera.com</div><div class="content-row-sub">WordPress · Active · 2.3 GB used</div></div>
-                <button class="btn-hp-outline" style="font-size:12px; padding:4px 12px;">Manage</button>
-              </div>
-              <div class="content-row">
-                <div><div class="content-row-title">Hacker News clone</div><div class="content-row-sub">Node.js · Active · 0.8 GB used</div></div>
-                <button class="btn-hp-outline" style="font-size:12px; padding:4px 12px;">Manage</button>
-              </div>
+
+          <!-- Quick actions -->
+          <div class="section-label-sm" style="margin-top:4px;">Quick actions</div>
+          <div class="qa-grid">
+            <div class="qa-tile">
+              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v3M8 11v3M2 8h3M11 8h3M4.2 4.2l2.1 2.1M9.7 9.7l2.1 2.1M4.2 11.8l2.1-2.1M9.7 6.3l2.1-2.1"/></svg></div>
+              <div><div class="qa-label">Upgrade plan</div><div class="qa-sub">More power and storage</div></div>
+            </div>
+            <div class="qa-tile">
+              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M1.5 8h13M8 1.5a10 10 0 010 13M8 1.5a10 10 0 000 13"/></svg></div>
+              <div><div class="qa-label">Register domain</div><div class="qa-sub">Search for your perfect domain</div></div>
+            </div>
+            <div class="qa-tile">
+              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="2" width="14" height="10" rx="1.5"/><path d="M5 15h6M8 12v3"/></svg></div>
+              <div><div class="qa-label">Create website</div><div class="qa-sub">Build &amp; go live in minutes</div></div>
+            </div>
+            <div class="qa-tile">
+              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 6.5l7 4 7-4"/></svg></div>
+              <div><div class="qa-label">Add email</div><div class="qa-sub">Professional inbox setup</div></div>
             </div>
           </div>
+
         </div>
 
         <!-- WEBSITES -->
@@ -1073,8 +1182,8 @@
 <!-- Account dropdown (fixed position, JS-positioned) -->
 <div class="account-dropdown" id="accountDropdown" role="menu">
   <div class="acc-head">
-    <div class="acc-name">Harry Johnson</div>
-    <div class="acc-email">harry@example.com</div>
+    <div class="acc-name">Alex</div>
+    <div class="acc-email">alex@studio-at.com</div>
   </div>
   <div class="acc-nudge">
     <span class="acc-nudge-icon">✉️</span>

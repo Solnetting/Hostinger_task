@@ -529,7 +529,6 @@
     <li><a href="#solution">The system</a></li>
     <li><a href="#decisions">Key behaviors</a></li>
     <li><a href="#screens">Screens</a></li>
-    <li><a href="#ia-gap">IA gap</a></li>
     <li><a href="#prototype">→ Prototype</a></li>
     <li><a href="hi-fi-mobile.html">Mobile</a></li>
   </ul>
@@ -619,7 +618,7 @@
         <div class="nudge-cluster-header">
           <span class="tier-badge t2b">T2</span>
           <span class="nudge-cluster-label">Time-sensitive</span>
-          <span class="nudge-cluster-meta">17 types · home card · snooze · max 2 decision groups</span>
+          <span class="nudge-cluster-meta">15 types · home card · snooze · max 2 decision groups</span>
         </div>
         <div class="nudge-chips">
           <span class="nudge-chip dual">payment_card_expiring</span>
@@ -637,11 +636,8 @@
           <span class="nudge-chip dual">website_builder_free_trial_ended_upgrade</span>
           <span class="nudge-chip dual">hosting_plan_reached_limits</span>
           <span class="nudge-chip account">verify_your_email</span>
-          <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">requested_access</span>
-          <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">requested_access_with_payments</span>
-          <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">website_ownership_transfer_request</span>
         </div>
-        <div class="nudge-note">Dashed = dual-tier (also T3 on product page). Orange = account-level, avatar dropdown. Red = human-waiting, no snooze decay.</div>
+        <div class="nudge-note">Dashed = dual-tier (also T3 on product page). Orange = account-level, avatar dropdown.</div>
       </div>
 
       <div class="nudge-cluster">
@@ -673,29 +669,33 @@
         <div class="nudge-cluster-header">
           <span class="tier-badge t3b">T3</span>
           <span class="nudge-cluster-label">Contextual</span>
-          <span class="nudge-cluster-meta">3 brief types + broader in practice · product page only · sidebar dot bridge</span>
+          <span class="nudge-cluster-meta">6 brief types + broader in practice · product page only · sidebar dot bridge</span>
         </div>
         <div class="nudge-chips">
           <span class="nudge-chip">hosting_plan_near_limits</span>
           <span class="nudge-chip">domain_registration_pending</span>
           <span class="nudge-chip">domain_transfer_pending</span>
+          <span class="nudge-chip">requested_access</span>
+          <span class="nudge-chip">requested_access_with_payments</span>
+          <span class="nudge-chip">website_ownership_transfer_request</span>
         </div>
-        <div class="nudge-note">Only 3 from the brief — the original list was home-scoped. In practice T3 holds dozens more (SSL inactive, DNS issues, SPF missing) across Domains, Emails, Security.</div>
+        <div class="nudge-note">3 expiry-adjacent types from the brief + 3 access-request types. In practice T3 holds dozens more (SSL inactive, DNS issues, SPF missing) across Domains, Emails, Security.</div>
       </div>
 
       <div class="nudge-cluster">
         <div class="nudge-cluster-header">
           <span class="tier-badge t4b">T4</span>
           <span class="nudge-cluster-label">Offers</span>
-          <span class="nudge-cluster-meta">4 brief types + grows with product catalogue · pull drawer only · no badge</span>
+          <span class="nudge-cluster-meta">5 brief types + grows with product catalogue · pull drawer only · no badge</span>
         </div>
         <div class="nudge-chips">
           <span class="nudge-chip">claim_your_free_domain</span>
           <span class="nudge-chip">claim_your_free_domain_vps</span>
           <span class="nudge-chip">whatsapp_notifications</span>
           <span class="nudge-chip">phone_number_added</span>
+          <span class="nudge-chip">refer_a_friend</span>
         </div>
-        <div class="nudge-note">No harm, no deadline — user opens when they choose. <strong>An offer never earns a surface. It may decorate one that's already been earned.</strong> (<em>special_renewal_offer</em> and <em>drp_monthly_to_yearly_offer</em> have deadlines — they ride the T2 card as a discount chip, not T4.)</div>
+        <div class="nudge-note">No harm, no deadline — user opens when they choose. <strong>An offer never earns a surface. It may decorate one that's already been earned.</strong> (<em>special_renewal_offer</em> and <em>drp_monthly_to_yearly_offer</em> have deadlines — they ride the T2 card as a discount chip, not T4.) <em>refer_a_friend</em> was previously surfaced as a persistent home card — removed from home, moved to T4: it has no deadline, no user-facing consequence if ignored, and competes for attention against real tasks.</div>
       </div>
 
     </div>
@@ -742,8 +742,12 @@
     <h3>T4 is pull-only. No badge.</h3>
     <p>Drawer + passive below-fold shelf. Renewal discounts ride the T2 card as a chip — they don't earn their own T4 slot. The shelf gives PMs an impression channel without a single push notification.</p>
 
-    <h3>Human-waiting nudges route as T2, no snooze decay</h3>
-    <p><em>requested_access</em> family: a person is blocked, not a deadline ticking. Routes T2 with no snooze decay — the card stays until resolved.</p>
+    <h3>The referral card is removed from home — and that's a deliberate call</h3>
+    <p>Hostinger currently surfaces <em>refer_a_friend</em> as a persistent home card. It stays there indefinitely, regardless of what else is on screen. The problem: it has no deadline, no consequence if the user ignores it, and no relationship to the user's actual tasks. On a home screen where a domain is expiring in 7 days and a payment has failed, a referral CTA is noise. It dilutes the urgency signal that makes T1 and T2 trustworthy.</p>
+    <p>Moving it to T4 doesn't remove it — it routes it correctly. It's available in the Offers drawer whenever the user chooses to look. The business value is intact. What changes is that the home screen stops asking users to do Hostinger a favour before they've finished managing their own services.</p>
+
+    <h3>Access requests are T3, not T2</h3>
+    <p>The <em>requested_access</em> family has no deadline — a person is waiting for a decision, not a clock ticking. T2's 2-slot cap protects deadline items; an indefinitely-pending access request can displace a domain expiring in 7 days. These route T3: contextual to the specific resource being accessed, actioned in place, sidebar dot signals the waiting request from home. Closeable — only the account owner bears the consequence of ignoring.</p>
 
     <h3>Open questions</h3>
     <ul style="color:#374151;font-size:15px;line-height:1.8;padding-left:20px;margin-bottom:16px;">
@@ -815,13 +819,6 @@
       </div>
 
     </div>
-  </section>
-
-  <section class="cs-section" id="ia-gap">
-    <div class="cs-label">Structural finding</div>
-    <h2>There is no Account tab — and that's the root cause</h2>
-    <p>While tiering the 53 nudges, one category had no sidebar home: email verification, phone, account-level 2FA. hPanel's sidebar is organized by product — there's no Account tab. These nudges defaulted to home not because that was right, but because nowhere else existed.</p>
-    <p>The topbar avatar becomes a fifth surface — a lightweight account anchor. The triage process surfaced IA debt, not just notification clutter.</p>
   </section>
 
 </div>
@@ -1782,7 +1779,7 @@
       }
     });
   }, { rootMargin: '-20% 0px -70% 0px' });
-  ['problem','analysis','solution','decisions','screens','ia-gap','prototype'].map(id => document.getElementById(id)).filter(Boolean).forEach(s => spy.observe(s));
+  ['problem','analysis','solution','decisions','screens','prototype'].map(id => document.getElementById(id)).filter(Boolean).forEach(s => spy.observe(s));
 </script>
 
 </body>

@@ -91,6 +91,16 @@
     .criteria-table td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--cs-border); vertical-align: top; color: #374151; line-height: 1.5; }
     .criteria-table tr:last-child td { border-bottom: none; }
     .criteria-table td:first-child { font-weight: 600; color: var(--cs-text); white-space: nowrap; }
+    .nudge-clusters { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
+    .nudge-cluster { border: 1px solid var(--cs-border); border-radius: 10px; overflow: hidden; }
+    .nudge-cluster-header { display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: #FAFAFA; border-bottom: 1px solid var(--cs-border); }
+    .nudge-cluster-label { font-size: 13px; font-weight: 600; color: var(--cs-text); }
+    .nudge-cluster-meta { font-size: 11.5px; color: var(--cs-muted); margin-left: auto; }
+    .nudge-chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 14px 16px; }
+    .nudge-chip { font-size: 11.5px; font-family: 'SF Mono', 'Menlo', 'Monaco', monospace; background: #F3F4F6; color: #374151; padding: 3px 10px; border-radius: 100px; border: 1px solid #E5E7EB; white-space: nowrap; }
+    .nudge-chip.dual { background: #EFF6FF; color: #1e3a8a; border-color: #BFDBFE; border-style: dashed; }
+    .nudge-chip.account { background: #FFF7ED; color: #92400E; border-color: #FED7AA; }
+    .nudge-note { font-size: 11.5px; color: var(--cs-muted); padding: 0 16px 12px; margin-top: -4px; }
 
     /* ─── Prototype wrapper ────────────────────────── */
     #prototype { scroll-margin-top: 64px; }
@@ -408,6 +418,109 @@
       </tbody>
     </table>
     <p>If a nudge scored "immediate harm, account-wide, no product page," it's T1. If it had a deadline but a natural home on a product page, it was eligible for dual-tier routing — surfacing as both T2 (home card) and T3 (product page indicator) simultaneously. The routing is additive, not exclusive.</p>
+
+    <h3>All 53 nudges, sorted</h3>
+
+    <div class="nudge-clusters">
+
+      <div class="nudge-cluster">
+        <div class="nudge-cluster-header">
+          <span class="tier-badge t1b">T1</span>
+          <span class="nudge-cluster-label">Critical</span>
+          <span class="nudge-cluster-meta">6 types · non-dismissable · full-width strip</span>
+        </div>
+        <div class="nudge-chips">
+          <span class="nudge-chip">payment_failed</span>
+          <span class="nudge-chip">payment_method_expired</span>
+          <span class="nudge-chip">hosting_plan_expired</span>
+          <span class="nudge-chip">domain_suspended</span>
+          <span class="nudge-chip">account_suspended</span>
+          <span class="nudge-chip">critical_malware_detected</span>
+        </div>
+        <div class="nudge-note">No time window — these are active system states, not countdowns.</div>
+      </div>
+
+      <div class="nudge-cluster">
+        <div class="nudge-cluster-header">
+          <span class="tier-badge t2b">T2</span>
+          <span class="nudge-cluster-label">Time-sensitive</span>
+          <span class="nudge-cluster-meta">15 types · home card · snooze · max 2 shown</span>
+        </div>
+        <div class="nudge-chips">
+          <span class="nudge-chip dual">domain_expires_3d</span>
+          <span class="nudge-chip dual">domain_expires_7d</span>
+          <span class="nudge-chip dual">domain_expires_14d</span>
+          <span class="nudge-chip dual">domain_expires_30d</span>
+          <span class="nudge-chip dual">ssl_expires_7d</span>
+          <span class="nudge-chip dual">ssl_expires_14d</span>
+          <span class="nudge-chip dual">ssl_expires_30d</span>
+          <span class="nudge-chip dual">hosting_renewal_7d</span>
+          <span class="nudge-chip dual">hosting_renewal_14d</span>
+          <span class="nudge-chip dual">hosting_renewal_30d</span>
+          <span class="nudge-chip dual">vps_renewal_7d</span>
+          <span class="nudge-chip dual">email_hosting_renewal_7d</span>
+          <span class="nudge-chip dual">free_domain_expiring</span>
+          <span class="nudge-chip dual">domain_transfer_pending</span>
+          <span class="nudge-chip account">email_unverified</span>
+        </div>
+        <div class="nudge-note">Dashed border = dual-tier: also surfaces as T3 on the relevant product page. · <span style="color:#92400E">Orange</span> = account-level nudge — also surfaces in avatar dropdown (no sidebar anchor).</div>
+      </div>
+
+      <div class="nudge-cluster">
+        <div class="nudge-cluster-header">
+          <span class="tier-badge t3b">T3</span>
+          <span class="nudge-cluster-label">Contextual</span>
+          <span class="nudge-cluster-meta">22 types · product page only · sidebar dot bridge</span>
+        </div>
+        <div class="nudge-chips">
+          <span class="nudge-chip">dns_not_configured</span>
+          <span class="nudge-chip">nameservers_not_pointed</span>
+          <span class="nudge-chip">domain_not_connected</span>
+          <span class="nudge-chip">domain_privacy_disabled</span>
+          <span class="nudge-chip">addon_domain_unverified</span>
+          <span class="nudge-chip">free_ssl_available</span>
+          <span class="nudge-chip">ssl_inactive</span>
+          <span class="nudge-chip">cloudflare_not_active</span>
+          <span class="nudge-chip">wordpress_update_available</span>
+          <span class="nudge-chip">php_version_outdated</span>
+          <span class="nudge-chip">staging_push_pending</span>
+          <span class="nudge-chip">cache_not_enabled</span>
+          <span class="nudge-chip">backup_not_configured</span>
+          <span class="nudge-chip">backup_overdue</span>
+          <span class="nudge-chip">email_storage_full</span>
+          <span class="nudge-chip">email_dkim_missing</span>
+          <span class="nudge-chip">email_forwarding_inactive</span>
+          <span class="nudge-chip">spf_record_missing</span>
+          <span class="nudge-chip">vps_os_update_available</span>
+          <span class="nudge-chip">vps_backup_disabled</span>
+          <span class="nudge-chip">dark_web_scan_pending</span>
+          <span class="nudge-chip">2fa_not_enabled</span>
+        </div>
+        <div class="nudge-note">Never on home. Sidebar tab gets a red dot (no number) when one or more T3 nudges are active on that product page.</div>
+      </div>
+
+      <div class="nudge-cluster">
+        <div class="nudge-cluster-header">
+          <span class="tier-badge t4b">T4</span>
+          <span class="nudge-cluster-label">Offers</span>
+          <span class="nudge-cluster-meta">10 types · pull drawer only · no badge</span>
+        </div>
+        <div class="nudge-chips">
+          <span class="nudge-chip">upgrade_plan_offer</span>
+          <span class="nudge-chip">domain_bundle_discount</span>
+          <span class="nudge-chip">limited_domain_price</span>
+          <span class="nudge-chip">business_email_offer</span>
+          <span class="nudge-chip">priority_support_upgrade</span>
+          <span class="nudge-chip">cdn_performance_offer</span>
+          <span class="nudge-chip">referral_earn_credit</span>
+          <span class="nudge-chip">new_feature_horizons</span>
+          <span class="nudge-chip">accessibility_scanner_tip</span>
+          <span class="nudge-chip">phone_number_optional</span>
+        </div>
+        <div class="nudge-note">No harm, no deadline. User pulls this drawer when they choose to. Never badged, never pushed.</div>
+      </div>
+
+    </div>
   </section>
 
   <section class="cs-section" id="solution">

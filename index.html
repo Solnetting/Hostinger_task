@@ -496,7 +496,7 @@
           <span class="nudge-chip">dark_web_scan_pending</span>
           <span class="nudge-chip">2fa_not_enabled</span>
         </div>
-        <div class="nudge-note">Never on home. Sidebar tab gets a red dot (no number) when active. Dismiss from the product page — gone permanently, no snooze, no reappearance.</div>
+        <div class="nudge-note">Never on home. Sidebar tab gets a red dot (no number) when active. No close button, no snooze — clears only when the underlying issue is resolved via the primary CTA.</div>
       </div>
 
       <div class="nudge-cluster">
@@ -532,7 +532,7 @@
       <tbody>
         <tr><td><span class="tier-badge t1b">T1</span></td><td>Critical</td><td>Persistent strip, top of content — always visible</td><td>Never</td><td>None</td></tr>
         <tr><td><span class="tier-badge t2b">T2</span></td><td>Time-sensitive</td><td>Home screen nudge cards</td><td>Snooze (reappears when &lt;3 days left)</td><td>2 items max</td></tr>
-        <tr><td><span class="tier-badge t3b">T3</span></td><td>Contextual</td><td>Inline on the relevant product page</td><td>Dismiss on page — gone permanently</td><td>Unlimited</td></tr>
+        <tr><td><span class="tier-badge t3b">T3</span></td><td>Contextual</td><td>Inline on the relevant product page</td><td>Resolves on action — no close, no snooze</td><td>Unlimited</td></tr>
         <tr><td><span class="tier-badge t4b">T4</span></td><td>Offers</td><td>Offers drawer (pull-only, topbar pill)</td><td>Read = dismissed</td><td>Unlimited</td></tr>
       </tbody>
     </table>
@@ -551,7 +551,7 @@
     <p>The cap is the feature. When a T2 card is resolved or snoozed, the next queued item automatically slots in. Overflow is shown as a passive count chip: <em>"+ 2 more need attention"</em> — gray, no arrow, non-interactive. There is no "View all" link and no separate notification page for T2. A separate destination would be an IA orphan: only reachable during overflow, never from primary nav. Reachable means discoverable — and that discoverability would need a permanent entry point. Which is the original problem all over again.</p>
 
     <h3>T3 never appears on home. The sidebar dot is the bridge.</h3>
-    <p>T3 nudges live exclusively on their product page. The sidebar tab gets a red dot — no number. A dot says <em>something here</em>. A badge says <em>manage this list</em>. When the user sees the Domains tab has a dot, they navigate intentionally; T3 never pushes. Snoozeing a T2 version of the same nudge hides the home card but keeps the dot — snooze is a home action, not a global resolution.</p>
+    <p>T3 nudges live exclusively on their product page. The sidebar tab gets a red dot — no number. A dot says <em>something here</em>. A badge says <em>manage this list</em>. When the user sees the Domains tab has a dot, they navigate intentionally; T3 never pushes. There is no close button and no snooze — a T3 nudge clears only when the underlying issue is resolved through the primary CTA. You can't dismiss a misconfigured DNS record; you can only fix it. Snoozeing the T2 version of the same nudge (dual-tier) hides the home card but keeps the dot — snooze is a home action, not a global resolution.</p>
 
     <h3>Dual-tier routing: same nudge, two surfaces</h3>
     <p>Some nudges qualify as both T2 and T3 simultaneously. "rocketman.xyz expires in 2 days" is a home card with Snooze + Renew CTA (T2) and an inline row indicator on the Domains page (T3) — same event, two surfaces, different treatment. Resolving from either surface clears both. This isn't redundancy: the Domains page is where you manage the domain, so the nudge belongs there too. Tier describes <em>where</em> a nudge surfaces, not <em>what</em> it is.</p>
@@ -857,7 +857,6 @@
               </div>
               <div class="nudge-actions">
                 <button class="btn-hp-primary" onclick="dismissT3('t3-domain')">Fix payment</button>
-                <button class="btn-dismiss" onclick="dismissT3('t3-domain')" aria-label="Dismiss">×</button>
               </div>
             </div>
           </div>
@@ -890,7 +889,6 @@
               </div>
               <div class="nudge-actions">
                 <button class="btn-hp-primary" onclick="dismissT3('t3-email')">Set up</button>
-                <button class="btn-dismiss" onclick="dismissT3('t3-email')" aria-label="Dismiss">×</button>
               </div>
             </div>
           </div>
@@ -931,7 +929,6 @@
               </div>
               <div class="nudge-actions">
                 <button class="btn-hp-primary" onclick="dismissT3('t3-darkweb')">Activate</button>
-                <button class="btn-dismiss" onclick="dismissT3('t3-darkweb')" aria-label="Dismiss">×</button>
               </div>
             </div>
           </div>

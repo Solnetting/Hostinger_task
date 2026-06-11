@@ -67,6 +67,8 @@
     .cs-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cs-muted); margin-bottom: 14px; }
     h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 18px; }
     h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; }
+    h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; margin-top: 32px; color: var(--cs-text); }
+    h3:first-of-type { margin-top: 0; }
     p { color: #374151; margin-bottom: 16px; }
     p:last-child { margin-bottom: 0; }
     em { font-style: italic; color: var(--cs-text); }
@@ -84,6 +86,11 @@
     .t3b { background: #dbeafe; color: #1e3a8a; }
     .t4b { background: #ede9fe; color: #4c1d95; }
     .divider { border: none; border-top: 1px solid var(--cs-border); margin: 72px 0; }
+    .criteria-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 24px 0; }
+    .criteria-table th { text-align: left; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cs-muted); padding: 0 12px 10px 0; border-bottom: 1px solid var(--cs-border); }
+    .criteria-table td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--cs-border); vertical-align: top; color: #374151; line-height: 1.5; }
+    .criteria-table tr:last-child td { border-bottom: none; }
+    .criteria-table td:first-child { font-weight: 600; color: var(--cs-text); white-space: nowrap; }
 
     /* ─── Prototype wrapper ────────────────────────── */
     #prototype { scroll-margin-top: 64px; }
@@ -333,7 +340,7 @@
     <li><a href="#problem">Problem</a></li>
     <li><a href="#analysis">Analysis</a></li>
     <li><a href="#solution">The system</a></li>
-    <li><a href="#decisions">Decisions</a></li>
+    <li><a href="#decisions">Key behaviors</a></li>
     <li><a href="#ia-gap">IA gap</a></li>
     <li><a href="#prototype">→ Prototype</a></li>
   </ul>
@@ -371,6 +378,36 @@
     <p>Each nudge was mapped along two axes: <strong>urgency</strong> — what happens if the user ignores this, and how quickly — and <strong>scope</strong> — is this tied to a specific product (Domains, Emails, VPS, Dark web monitoring) or to the account itself?</p>
     <p>That mapping revealed four natural clusters. Not by feature area, but by behavior: how large the time window is, whether real harm follows inaction, and whether there's a more contextually appropriate surface outside the home screen.</p>
     <p>A domain expiring in two days is categorically different from a promotional offer. A payment failure is not the same as a suggestion to add 2FA. Once those differences are explicit, the right surfaces follow naturally.</p>
+
+    <h3>Routing criteria</h3>
+    <p>Each of the 53 nudge types was put through three questions:</p>
+    <table class="criteria-table">
+      <thead><tr><th>Question</th><th>T1</th><th>T2</th><th>T3</th><th>T4</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>What happens if ignored?</td>
+          <td>Service disruption or billing failure — immediate</td>
+          <td>Real loss (expiry, lockout) within days</td>
+          <td>Suboptimal outcome, recoverable</td>
+          <td>Nothing — purely optional</td>
+        </tr>
+        <tr>
+          <td>Is there a deadline?</td>
+          <td>Yes — hours to days</td>
+          <td>Yes — days to weeks</td>
+          <td>Open-ended or no urgency</td>
+          <td>No deadline</td>
+        </tr>
+        <tr>
+          <td>Is there a natural product-page context?</td>
+          <td>No — affects entire account</td>
+          <td>Yes, but home is also appropriate</td>
+          <td>Yes — belongs exclusively on the relevant page</td>
+          <td>N/A — it's a promotion, not a task</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>If a nudge scored "immediate harm, account-wide, no product page," it's T1. If it had a deadline but a natural home on a product page, it was eligible for dual-tier routing — surfacing as both T2 (home card) and T3 (product page indicator) simultaneously. The routing is additive, not exclusive.</p>
   </section>
 
   <section class="cs-section" id="solution">
@@ -383,18 +420,38 @@
         <tr><td><span class="tier-badge t1b">T1</span></td><td>Critical</td><td>Persistent strip, top of content — always visible</td><td>Never</td><td>None</td></tr>
         <tr><td><span class="tier-badge t2b">T2</span></td><td>Time-sensitive</td><td>Home screen nudge cards</td><td>Snooze (reappears when &lt;3 days left)</td><td>2 items max</td></tr>
         <tr><td><span class="tier-badge t3b">T3</span></td><td>Contextual</td><td>Inline on the relevant product page</td><td>Dismiss on page — gone permanently</td><td>Unlimited</td></tr>
-        <tr><td><span class="tier-badge t4b">T4</span></td><td>Offers &amp; tips</td><td>Promotions &amp; offers drawer (pull-only, topbar pill)</td><td>Read = dismissed</td><td>Unlimited</td></tr>
+        <tr><td><span class="tier-badge t4b">T4</span></td><td>Offers</td><td>Offers drawer (pull-only, topbar pill)</td><td>Read = dismissed</td><td>Unlimited</td></tr>
       </tbody>
     </table>
-    <p>T2 is hard-capped at 2 cards because showing more recreates the original problem. If a third item qualifies as time-sensitive, the oldest card gets demoted or resolved before the new one appears.</p>
+    <p>T2 is hard-capped at 2 cards. When a card is resolved or snoozed, the next queued item auto-slots in. Overflow shows as a passive count chip — not a "View all" link. There is no separate notification page for T2.</p>
     <p>T4 carries no badge on its topbar pill. A badge is push in disguise — it manufactures urgency where none exists. T4 is pull-only by definition. The user opens it when they want to.</p>
   </section>
 
   <section class="cs-section" id="decisions">
     <div class="cs-label">Design decisions</div>
-    <h2>T1 stays crisp when the T4 drawer opens</h2>
-    <p>When a user opens the Promotions &amp; offers drawer, a dim overlay covers the content area. But the T1 banner — which sits between the topbar and content — cannot be suppressed. A user with a critical billing issue should still be able to act on it even with the drawer open.</p>
-    <p>The dim overlay is scoped to start below the T1 banner. T1 has no dismiss button by design: non-dismissable is the point. Open the Promotions &amp; offers drawer in the prototype below to see this behavior in action.</p>
+    <h2>Five behaviors that define the system</h2>
+
+    <h3>T1 follows the user everywhere</h3>
+    <p>The T1 strip sits above both the sidebar and the content frame at full viewport width — a direct child of the screen, not scoped to the content area. A cancelled hosting plan isn't a home-page problem; it's a system-level one. The strip is present on Domains, Emails, VPS — every page the user navigates to — until resolved. Scoping T1 to home would imply the problem goes away when the user navigates. It doesn't.</p>
+
+    <h3>T2 is capped at 2. No "View all."</h3>
+    <p>The cap is the feature. When a T2 card is resolved or snoozed, the next queued item automatically slots in. Overflow is shown as a passive count chip: <em>"+ 2 more need attention"</em> — gray, no arrow, non-interactive. There is no "View all" link and no separate notification page for T2. A separate destination would be an IA orphan: only reachable during overflow, never from primary nav. Reachable means discoverable — and that discoverability would need a permanent entry point. Which is the original problem all over again.</p>
+
+    <h3>T3 never appears on home. The sidebar dot is the bridge.</h3>
+    <p>T3 nudges live exclusively on their product page. The sidebar tab gets a red dot — no number. A dot says <em>something here</em>. A badge says <em>manage this list</em>. When the user sees the Domains tab has a dot, they navigate intentionally; T3 never pushes. Snoozeing a T2 version of the same nudge hides the home card but keeps the dot — snooze is a home action, not a global resolution.</p>
+
+    <h3>Dual-tier routing: same nudge, two surfaces</h3>
+    <p>Some nudges qualify as both T2 and T3 simultaneously. "rocketman.xyz expires in 2 days" is a home card with Snooze + Renew CTA (T2) and an inline row indicator on the Domains page (T3) — same event, two surfaces, different treatment. Resolving from either surface clears both. This isn't redundancy: the Domains page is where you manage the domain, so the nudge belongs there too. Tier describes <em>where</em> a nudge surfaces, not <em>what</em> it is.</p>
+
+    <h3>T1 stays crisp when T4 opens</h3>
+    <p>When the Offers drawer opens, a dim overlay covers the content area — but not the T1 banner. The overlay is scoped to start below T1. A user with a critical billing issue can still act on it while browsing deals. T1 has no dismiss button. Non-dismissable is the point. Open the Offers drawer in the prototype below to see this behavior in action.</p>
+
+    <div class="callout">
+      Pulling T2 into the T4 drawer would recreate the notification center with a better icon. The original problem wasn't the visual design of the list — it was routing everything to the same surface. Aggregating tiers dissolves the signal. Each tier must stay on its own surface.
+    </div>
+
+    <h3>T4 is pull-only — and "Offers" is the right word</h3>
+    <p>The drawer carries no badge on its topbar pill. A badge is push in disguise: it manufactures urgency where none exists. T4 is user-initiated by definition. The label "Promotions &amp; offers" was replaced with "Offers" — shorter, less commercial-feeling, and honest about what it is. The user opens it when they want to. Never before.</p>
   </section>
 
   <section class="cs-section" id="ia-gap">
@@ -403,7 +460,7 @@
     <p>While placing nudges into tiers, a category emerged that didn't fit any product page: nudges that belong to the user's account, not to any hosted service. Email verification. Phone number. Account-level 2FA.</p>
     <p>hPanel's sidebar is organized by product: Websites, Domains, Horizons, Emails, Reach, VPS, Dark web monitoring, Billing, Marketplace. There is no Account section. These nudges had no sidebar home, so they defaulted to the home screen — not because that was the right place, but because there was nowhere else.</p>
     <div class="callout">
-      The triage process surfaced IA debt, not just notification clutter. The bloated list was a symptom of a structural gap: the product had grown account-level features without a dedicated account surface.
+      The triage process surfaced IA debt, not just notification clutter. The bloated list was a symptom of a structural gap: the product had grown account-level features without a dedicated account surface. Notifications aren't objects — they're routing policies. The list was a symptom of having no routing logic at all.
     </div>
     <p>The fix treats the topbar avatar as a fifth surface — a lightweight, always-present account anchor. Account nudges live in the avatar dropdown: scoped, unobtrusive, and contextually correct. No new sidebar tab required.</p>
     <p>The avatar has a badge in the prototype below. Click it to see how the account nudge surfaces without interrupting the product flow.</p>
@@ -451,9 +508,9 @@
           Ask AI
         </button>
         <!-- Pill button -->
-        <button class="hp-refer-btn" id="pillBtn" aria-label="Open promotions and offers" aria-expanded="false" style="gap:6px;">
+        <button class="hp-refer-btn" id="pillBtn" aria-label="Open offers" aria-expanded="false" style="gap:6px;">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM7 4v3l2 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Promotions &amp; offers
+          Offers
         </button>
         <!-- Avatar -->
         <div class="hp-avatar-wrap">
@@ -791,11 +848,11 @@
         <div class="hp-dim" id="dimOverlay" aria-hidden="true"></div>
       </main>
 
-      <!-- T4 Promotions & offers Drawer -->
-      <div class="hp-drawer" id="t4Drawer" role="dialog" aria-label="Promotions and offers" aria-modal="true">
+      <!-- T4 Offers Drawer -->
+      <div class="hp-drawer" id="t4Drawer" role="dialog" aria-label="Offers" aria-modal="true">
         <div class="drawer-header">
           <div class="drawer-header-text">
-            <div class="drawer-title">Promotions &amp; offers</div>
+            <div class="drawer-title">Offers</div>
             <div class="drawer-subtitle">Pull-only · No badge · user opens by choice</div>
           </div>
           <button class="drawer-close" id="drawerClose" aria-label="Close promotions drawer">✕</button>
@@ -837,7 +894,7 @@
     <div class="legend-item"><span class="tier-badge t1b" style="font-size:10px;padding:1px 7px;">T1</span> Critical — always visible, no dismiss</div>
     <div class="legend-item"><span class="tier-badge t2b" style="font-size:10px;padding:1px 7px;">T2</span> Time-sensitive — home screen, max 2</div>
     <div class="legend-item"><span class="tier-badge t3b" style="font-size:10px;padding:1px 7px;">T3</span> Contextual — on the relevant product page</div>
-    <div class="legend-item"><span class="tier-badge t4b" style="font-size:10px;padding:1px 7px;">T4</span> Promotions &amp; offers — pull-only, no badge</div>
+    <div class="legend-item"><span class="tier-badge t4b" style="font-size:10px;padding:1px 7px;">T4</span> Offers — pull-only, no badge</div>
   </div>
 
 </div><!-- /proto-wrapper -->

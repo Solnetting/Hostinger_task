@@ -87,6 +87,7 @@
     .t2b { background: #fef3c7; color: #78350f; }
     .t3b { background: #dbeafe; color: #1e3a8a; }
     .t4b { background: #ede9fe; color: #4c1d95; }
+    .t2pb { background: #f0fdf4; color: #166534; }
     .divider { border: none; border-top: 1px solid var(--cs-border); margin: 72px 0; }
     .criteria-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 24px 0; }
     .criteria-table th { text-align: left; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cs-muted); padding: 0 12px 10px 0; border-bottom: 1px solid var(--cs-border); }
@@ -174,7 +175,7 @@
     }
     .hp-avatar:hover { border-color: var(--hp-purple); color: var(--hp-purple); }
     .hp-avatar:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
-    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #EA580C; border-radius: 50%; border: 2px solid white; }
+    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #DC2626; border-radius: 50%; border: 2px solid white; }
 
     /* ─── T1 Critical Banner (Figma: pink, #ffe8ef) ── */
     .hp-t1 {
@@ -268,7 +269,7 @@
     .sidebar-icon { width: 20px; height: 20px; flex-shrink: 0; color: #58585e; display: flex; align-items: center; justify-content: center; }
     .sidebar-item.active .sidebar-icon { color: #18181a; }
     .sidebar-chevron { margin-left: auto; color: #9CA3AF; font-size: 12px; }
-    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #EA580C; margin-left: auto; flex-shrink: 0; }
+    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #DC2626; margin-left: auto; flex-shrink: 0; }
 
     .sidebar-footer { border-top: 1px solid rgba(0,0,0,0.08); padding: 8px 0; margin-top: 4px; }
 
@@ -530,6 +531,7 @@
     <li><a href="#screens">Screens</a></li>
     <li><a href="#ia-gap">IA gap</a></li>
     <li><a href="#prototype">→ Prototype</a></li>
+    <li><a href="hi-fi-mobile.html">Mobile</a></li>
   </ul>
 </nav>
 
@@ -562,17 +564,18 @@
   <section class="cs-section" id="analysis">
     <div class="cs-label">Analysis</div>
     <h2>Mapping urgency against type</h2>
-    <p>Each nudge was mapped along two axes: <strong>urgency</strong> — what happens if ignored, and how quickly — and <strong>scope</strong> — product-specific or account-level. That mapping revealed four natural clusters defined by behavior, not feature area.</p>
+    <p>Each nudge was mapped along two axes: <strong>urgency</strong> — what happens if ignored, and how quickly — and <strong>scope</strong> — product-specific or account-level. That mapping revealed four tiers plus one sub-class, all defined by behavior, not feature area.</p>
 
     <h3>Routing criteria</h3>
     <p>Each of the 53 nudge types was put through three questions:</p>
     <table class="criteria-table">
-      <thead><tr><th>Question</th><th>T1</th><th>T2</th><th>T3</th><th>T4</th></tr></thead>
+      <thead><tr><th>Question</th><th>T1</th><th>T2</th><th>T2+ Setup</th><th>T3</th><th>T4</th></tr></thead>
       <tbody>
         <tr>
           <td>What happens if ignored?</td>
           <td>Service disruption or billing failure — immediate</td>
           <td>Real loss (expiry, lockout) within days</td>
+          <td>Missed activation — conversion loss for Hostinger, delayed value for user</td>
           <td>Suboptimal outcome, recoverable</td>
           <td>Nothing — purely optional</td>
         </tr>
@@ -580,6 +583,7 @@
           <td>Is there a deadline?</td>
           <td>Yes — hours to days</td>
           <td>Yes — days to weeks</td>
+          <td>No — open-ended, but conversion-sensitive</td>
           <td>Open-ended or no urgency</td>
           <td>No deadline</td>
         </tr>
@@ -587,14 +591,16 @@
           <td>Is there a natural product-page context?</td>
           <td>No — affects entire account</td>
           <td>Yes, but home is also appropriate</td>
+          <td>Not yet — the product isn't configured</td>
           <td>Yes — belongs exclusively on the relevant page</td>
           <td>N/A — it's a promotion, not a task</td>
         </tr>
       </tbody>
     </table>
-    <p>T1 = immediate harm, account-wide. Dual-tier routing = a deadline plus a product-page home — same nudge as a T2 home card and a T3 product-page indicator simultaneously.</p>
+    <p>T1 = immediate harm, account-wide. Dual-tier routing = a deadline plus a product-page home — same nudge surfaces as a T2 home card and a T3 product-page indicator simultaneously, resolving from either.</p>
 
     <h3>All 53 nudges, sorted</h3>
+    <p style="font-size:14px;color:#6b7280;margin-bottom:8px;margin-top:-4px;">Identifiers are verbatim from Hostinger's brief. Tier assignment follows the three routing questions above, not feature area — a few types are reclassified from the brief's original grouping where the routing logic demands it.</p>
 
     <div class="nudge-clusters">
 
@@ -602,97 +608,106 @@
         <div class="nudge-cluster-header">
           <span class="tier-badge t1b">T1</span>
           <span class="nudge-cluster-label">Critical</span>
-          <span class="nudge-cluster-meta">6 types · non-dismissable · full-width strip</span>
+          <span class="nudge-cluster-meta">12 types · non-dismissable · full-width strip · every page</span>
         </div>
         <div class="nudge-chips">
-          <span class="nudge-chip">payment_failed</span>
-          <span class="nudge-chip">payment_method_expired</span>
+          <span class="nudge-chip">payment_unsuccessful</span>
+          <span class="nudge-chip">payment_card_expired</span>
+          <span class="nudge-chip">failed_preauthorization</span>
+          <span class="nudge-chip">hosting_plan_cancelled</span>
           <span class="nudge-chip">hosting_plan_expired</span>
-          <span class="nudge-chip">domain_suspended</span>
-          <span class="nudge-chip">account_suspended</span>
-          <span class="nudge-chip">critical_malware_detected</span>
+          <span class="nudge-chip">cpanel_hosting_plan_expired</span>
+          <span class="nudge-chip">domain_expired_redemption</span>
+          <span class="nudge-chip">vps_plan_expired</span>
+          <span class="nudge-chip">email_plan_expired</span>
+          <span class="nudge-chip">google_workspace_plan_expired</span>
+          <span class="nudge-chip">titan_mail_plan_expired</span>
+          <span class="nudge-chip">reach_plan_expired</span>
         </div>
-        <div class="nudge-note">No time window — these are active system states, not countdowns.</div>
+        <div class="nudge-note">Active system states — services are already down or payment has already failed. Once triggered, the strip persists on every page until the underlying state is resolved.</div>
       </div>
 
       <div class="nudge-cluster">
         <div class="nudge-cluster-header">
           <span class="tier-badge t2b">T2</span>
           <span class="nudge-cluster-label">Time-sensitive</span>
-          <span class="nudge-cluster-meta">15 types · home card · snooze · max 2 shown</span>
+          <span class="nudge-cluster-meta">17 types · home card · snooze · max 2 decision groups</span>
         </div>
         <div class="nudge-chips">
-          <span class="nudge-chip dual">domain_expires_3d</span>
-          <span class="nudge-chip dual">domain_expires_7d</span>
-          <span class="nudge-chip dual">domain_expires_14d</span>
-          <span class="nudge-chip dual">domain_expires_30d</span>
-          <span class="nudge-chip dual">ssl_expires_7d</span>
-          <span class="nudge-chip dual">ssl_expires_14d</span>
-          <span class="nudge-chip dual">ssl_expires_30d</span>
-          <span class="nudge-chip dual">hosting_renewal_7d</span>
-          <span class="nudge-chip dual">hosting_renewal_14d</span>
-          <span class="nudge-chip dual">hosting_renewal_30d</span>
-          <span class="nudge-chip dual">vps_renewal_7d</span>
-          <span class="nudge-chip dual">email_hosting_renewal_7d</span>
-          <span class="nudge-chip dual">free_domain_expiring</span>
-          <span class="nudge-chip dual">domain_transfer_pending</span>
-          <span class="nudge-chip account">email_unverified</span>
+          <span class="nudge-chip dual">payment_card_expiring</span>
+          <span class="nudge-chip dual">hosting_plan_expiring</span>
+          <span class="nudge-chip dual">cpanel_hosting_plan_expiring</span>
+          <span class="nudge-chip dual">domain_expired_grace</span>
+          <span class="nudge-chip dual">domain_expiring</span>
+          <span class="nudge-chip dual">vps_plan_expiring</span>
+          <span class="nudge-chip dual">email_plan_expiring</span>
+          <span class="nudge-chip dual">email_plan_trial_expiring</span>
+          <span class="nudge-chip dual">google_workspace_plan_expiring</span>
+          <span class="nudge-chip dual">titan_mail_plan_expiring</span>
+          <span class="nudge-chip dual">reach_plan_expiring</span>
+          <span class="nudge-chip dual">horizons_trial_expiring</span>
+          <span class="nudge-chip dual">website_builder_free_trial_ended_upgrade</span>
+          <span class="nudge-chip dual">hosting_plan_reached_limits</span>
+          <span class="nudge-chip account">verify_your_email</span>
+          <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">requested_access</span>
+          <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">requested_access_with_payments</span>
+          <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">website_ownership_transfer_request</span>
         </div>
-        <div class="nudge-note">Dashed border = dual-tier: also surfaces as T3 on the relevant product page. · <span style="color:#92400E">Orange</span> = account-level nudge — also surfaces in avatar dropdown (no sidebar anchor).</div>
+        <div class="nudge-note">Dashed border = dual-tier: also surfaces as T3 on the relevant product page. · <span style="color:#92400E">Orange</span> = account-level (no sidebar anchor), also surfaces in avatar dropdown. · <span style="color:#9F1239">Red</span> = human-waiting: a person is blocked waiting for your response — no snooze decay, no deadline needed. · <em>verify_your_email</em>, the three red items, and <em>website_ownership_transfer_request</em> are reclassified from the brief's T3 — routing logic (consequence of ignoring + home-level action needed) places them here.</div>
+      </div>
+
+      <div class="nudge-cluster">
+        <div class="nudge-cluster-header">
+          <span class="tier-badge t2pb">T2+</span>
+          <span class="nudge-cluster-label">Setup / Continue</span>
+          <span class="nudge-cluster-meta">14 types · single grouped home card · dismissable · no deadline escalation</span>
+        </div>
+        <div class="nudge-chips">
+          <span class="nudge-chip">hosting_setup_in_progress</span>
+          <span class="nudge-chip">hosting_plan_setup_continue</span>
+          <span class="nudge-chip">hosting_plan_setup_pending</span>
+          <span class="nudge-chip">hosting_for_client_pending</span>
+          <span class="nudge-chip">cpanel_setup_pending</span>
+          <span class="nudge-chip">website_builder_free_trial_edit_website</span>
+          <span class="nudge-chip">hosting_horizons_setup_continue</span>
+          <span class="nudge-chip">vps_setup_pending</span>
+          <span class="nudge-chip">vps_for_client_pending</span>
+          <span class="nudge-chip">email_setup_pending</span>
+          <span class="nudge-chip">email_for_client_pending</span>
+          <span class="nudge-chip">google_workspace_setup_pending</span>
+          <span class="nudge-chip">google_workspace_for_client_pending</span>
+          <span class="nudge-chip">titan_mail_setup_pending</span>
+        </div>
+        <div class="nudge-note">Collapse all active setup nudges into one "Finish setting up (N)" grouped card on Home — occupies one T2 slot. Dismissable (abandoning setup is a valid choice). No deadline escalation. Reclassified from brief's T3 — these have no product page to live on yet, so T3 is structurally impossible for them.</div>
       </div>
 
       <div class="nudge-cluster">
         <div class="nudge-cluster-header">
           <span class="tier-badge t3b">T3</span>
           <span class="nudge-cluster-label">Contextual</span>
-          <span class="nudge-cluster-meta">22 types · product page only · sidebar dot bridge</span>
+          <span class="nudge-cluster-meta">3 brief types + broader in practice · product page only · sidebar dot bridge</span>
         </div>
         <div class="nudge-chips">
-          <span class="nudge-chip">dns_not_configured</span>
-          <span class="nudge-chip">nameservers_not_pointed</span>
-          <span class="nudge-chip">domain_not_connected</span>
-          <span class="nudge-chip">domain_privacy_disabled</span>
-          <span class="nudge-chip">addon_domain_unverified</span>
-          <span class="nudge-chip">free_ssl_available</span>
-          <span class="nudge-chip">ssl_inactive</span>
-          <span class="nudge-chip">cloudflare_not_active</span>
-          <span class="nudge-chip">wordpress_update_available</span>
-          <span class="nudge-chip">php_version_outdated</span>
-          <span class="nudge-chip">staging_push_pending</span>
-          <span class="nudge-chip">cache_not_enabled</span>
-          <span class="nudge-chip">backup_not_configured</span>
-          <span class="nudge-chip">backup_overdue</span>
-          <span class="nudge-chip">email_storage_full</span>
-          <span class="nudge-chip">email_dkim_missing</span>
-          <span class="nudge-chip">email_forwarding_inactive</span>
-          <span class="nudge-chip">spf_record_missing</span>
-          <span class="nudge-chip">vps_os_update_available</span>
-          <span class="nudge-chip">vps_backup_disabled</span>
-          <span class="nudge-chip">dark_web_scan_pending</span>
-          <span class="nudge-chip">2fa_not_enabled</span>
+          <span class="nudge-chip">hosting_plan_near_limits</span>
+          <span class="nudge-chip">domain_registration_pending</span>
+          <span class="nudge-chip">domain_transfer_pending</span>
         </div>
-        <div class="nudge-note">Never on home. Sidebar tab gets a red dot (no number) when active. No close button, no snooze — clears only when the underlying issue is resolved via the primary CTA.</div>
+        <div class="nudge-note">Only 3 of the brief's 53 nudges are pure T3 — because the original "Your to-dos" list was home-screen-scoped; product-page contextual signals (SSL inactive, DNS not pointed, SPF missing, email storage full) weren't part of it. In a real implementation, T3 would hold dozens of types across Domains, Emails, Security, and VPS pages that were never surfaced on home.</div>
       </div>
 
       <div class="nudge-cluster">
         <div class="nudge-cluster-header">
           <span class="tier-badge t4b">T4</span>
           <span class="nudge-cluster-label">Offers</span>
-          <span class="nudge-cluster-meta">10 types · pull drawer only · no badge</span>
+          <span class="nudge-cluster-meta">4 brief types + grows with product catalogue · pull drawer only · no badge</span>
         </div>
         <div class="nudge-chips">
-          <span class="nudge-chip">upgrade_plan_offer</span>
-          <span class="nudge-chip">domain_bundle_discount</span>
-          <span class="nudge-chip">limited_domain_price</span>
-          <span class="nudge-chip">business_email_offer</span>
-          <span class="nudge-chip">priority_support_upgrade</span>
-          <span class="nudge-chip">cdn_performance_offer</span>
-          <span class="nudge-chip">referral_earn_credit</span>
-          <span class="nudge-chip">new_feature_horizons</span>
-          <span class="nudge-chip">accessibility_scanner_tip</span>
-          <span class="nudge-chip">phone_number_optional</span>
+          <span class="nudge-chip">claim_your_free_domain</span>
+          <span class="nudge-chip">claim_your_free_domain_vps</span>
+          <span class="nudge-chip">whatsapp_notifications</span>
+          <span class="nudge-chip">phone_number_added</span>
         </div>
-        <div class="nudge-note">No harm, no deadline. User pulls this drawer when they choose to. Never badged, never pushed.</div>
+        <div class="nudge-note">No harm, no deadline. User pulls this drawer when they choose to. Never badged, never pushed. · Hybrid routing rule: <em>special_renewal_offer</em> and <em>drp_monthly_to_yearly_offer</em> are not T4 items — both are attached to a renewal moment with a deadline, which earns T2 placement. The discount is content that decorates the T2 card; it doesn't earn its own surface. <strong>An offer never earns a surface. It may decorate one that's already been earned.</strong></div>
       </div>
 
     </div>
@@ -705,26 +720,36 @@
     <table class="tier-table">
       <thead><tr><th>Tier</th><th>Label</th><th>Surface</th><th>Dismissal</th><th>Cap</th></tr></thead>
       <tbody>
-        <tr><td><span class="tier-badge t1b">T1</span></td><td>Critical</td><td>Persistent strip, top of content — always visible</td><td>Never</td><td>None</td></tr>
-        <tr><td><span class="tier-badge t2b">T2</span></td><td>Time-sensitive</td><td>Home screen nudge cards</td><td>Snooze (reappears when &lt;3 days left)</td><td>2 items max</td></tr>
-        <tr><td><span class="tier-badge t3b">T3</span></td><td>Contextual</td><td>Inline on the relevant product page</td><td>Resolves on action — no close, no snooze</td><td>Unlimited</td></tr>
-        <tr><td><span class="tier-badge t4b">T4</span></td><td>Offers</td><td>Offers drawer (pull-only, topbar pill)</td><td>Read = dismissed</td><td>Unlimited</td></tr>
+        <tr><td><span class="tier-badge t1b">T1</span></td><td>Critical</td><td>Persistent strip, top of content — every page</td><td>Never</td><td>None</td></tr>
+        <tr><td><span class="tier-badge t2b">T2</span></td><td>Time-sensitive</td><td>Home screen nudge cards</td><td>Snooze (reappears when &lt;3 days left)</td><td>2 groups max</td></tr>
+        <tr><td><span class="tier-badge" style="background:#f0fdf4;color:#166534;font-size:10px;">T2+</span></td><td>Setup / Continue</td><td>Home screen — single grouped card, 1 slot</td><td>Permanent dismiss (abandoning setup is valid)</td><td>1 grouped card</td></tr>
+        <tr><td><span class="tier-badge t3b">T3</span></td><td>Contextual</td><td>Inline on the relevant product page</td><td>Resolves on action (no-close types) or one-time dismiss (advisory types)</td><td>Unlimited</td></tr>
+        <tr><td><span class="tier-badge t4b">T4</span></td><td>Offers &amp; announcements</td><td>Pull drawer (topbar pill) + passive shelf</td><td>Read = dismissed</td><td>Unlimited</td></tr>
       </tbody>
     </table>
-    <p>T2 caps at 2. Overflow is a passive chip — never a "View all." T4 carries no badge on its pill: a badge is push in disguise.</p>
+    <p>T2 caps at 2 decision groups — same-family nudges collapse into one card. Overflow is a passive chip, never a "View all." T4 carries no badge: a badge is push in disguise.</p>
   </section>
 
   <section class="cs-section" id="decisions">
     <div class="cs-label">Design decisions</div>
-    <h2>Five behaviors that define the system</h2>
+    <h2>The decisions that define the system</h2>
 
     <h3>T1 follows the user everywhere</h3>
     <p>The T1 strip sits above both sidebar and content at full viewport width — not scoped to the content area. A cancelled hosting plan isn't a home-page problem; it's system-level. The strip persists on Domains, Emails, VPS — every page — until resolved.</p>
 
-    <h3>T2 is capped at 2. No "View all."</h3>
-    <p>When a card is resolved or snoozed, the next queued item slots in. Overflow shows as a passive chip: <em>"+ 2 more need attention"</em> — gray, non-interactive. No "View all" link, no separate destination. A separate page would only be reachable during overflow, never from primary nav — the original problem with a better label.</p>
+    <h3>T2 is capped at 2 decision groups. No "View all."</h3>
+    <p>The cap is two <em>groups</em>, not two items. Same-family nudges collapse into one card: "3 domains expiring this month" is one decision group, not three cards. The group is expandable inline — a chevron reveals the individual items and their distinct CTAs — which fixes the information-access problem without creating a navigation destination. Overflow beyond two groups shows as a passive chip: <em>"+ 2 more need attention"</em> — gray, non-interactive. No "View all" link, no separate page. A separate destination would only be reachable during overflow, never from primary nav — the original problem with a better label.</p>
     <p>Each card offers <strong>Snooze</strong>, not Dismiss. Snooze delays the card until the deadline crosses a critical threshold (for example, &lt;3 days left on a domain), then resurfaces it automatically. A permanent dismiss doesn't exist for deadline-sensitive nudges — a user who dismisses a domain expiry warning could lose the domain. The amber left bar is the urgency signal: it maps to T2 across all cards so the pattern is consistent. A secondary × lets users clear the card view temporarily without committing to an action; internally it behaves identically to Snooze.</p>
-    <p>There is no Notification Center. Combining T2 with T4 offers into a single drawer would recreate the original 53-item list — just with better visual design. The routing problem wasn't in the UI, it was in the surface logic. Each tier must own its surface: T2 belongs on Home where the user takes action; T4 offers belong in a pull-initiated drawer. Merging them undoes the whole model.</p>
+
+    <h3>Setup / Continue is a protected T2 slot, not a new tier</h3>
+    <p>The brief includes ~8 nudges from the <em>*_setup_in_progress</em> and <em>*_setup_pending</em> family. These don't fit the standard T2 rules: they have no deadline, so there's no escalation; and abandoning setup is a legitimate user choice, so a permanent dismiss is acceptable. Rather than create a fifth tier — which would require its own routing question — they're handled as a T2 sub-class with three distinct rules: dismissable; no snooze decay; collapses into a single "Finish setting up (N)" grouped card that occupies one T2 slot. The rationale is business-level: setup completion is conversion-critical for a multi-product company. These nudges earn a protected home-screen slot, but one — they don't compete with expiry deadlines for the two visible positions.</p>
+
+    <h3>On not building a Notification Center</h3>
+    <p>The brief's "excessive number of products" note is real, and the history use case is real: an audit of billing, access grants, and expiry events is genuinely useful. The argument here isn't that a history feed is worthless — it's that it isn't a triage surface. A Notification Center tries to serve two distinct jobs: urgency routing (act on this now) and record-keeping (what happened). Combined, they recreate the original 53-item list — now with better icons. The routing problem was the list treating urgency as a content problem; merging again undoes the fix.</p>
+    <p>The record-keeping use case belongs under Billing and Account settings as an activity log — not as a surface that receives pushed notifications. Hostinger already has the concept in billing history; extending it to include domain events, access grants, and security activity is a separate IA addition, not a replacement for triage. Building them separately means both can be good at their job.</p>
+
+    <h3>Offers that ride a deadline belong on T2, not in the drawer</h3>
+    <p>Two nudges from the brief's list — <em>special_renewal_offer</em> and <em>drp_monthly_to_yearly_offer</em> — sit at the T2/T4 boundary. Both are attached to a renewal moment with an active deadline. Routing them to the drawer by their label (they look like offers) would contradict the system's own routing rule: if ignored, the domain expires. The deadline routes them to T2; the offer is content that decorates the card. This protects the conversion surface the brief describes as underperforming, without readmitting pure promotions to Home.</p>
 
     <h3>T3 never appears on home. The sidebar dot is the bridge.</h3>
     <p>T3 nudges live exclusively on their product page. The sidebar tab gets a red dot — no number. A dot says <em>something here</em>; a badge says <em>manage this list</em>. T3 clears only when the underlying issue is resolved. Snoozing the T2 version hides the home card but keeps the dot — snooze is a home action, not a global resolution.</p>
@@ -735,8 +760,22 @@
     <h3>T1 stays crisp when T4 opens</h3>
     <p>When the Offers drawer opens, a dim overlay covers the content area — but not T1. The overlay starts below the banner. A user with a critical billing issue can still act on it while browsing deals.</p>
 
-    <h3>T4 is pull-only — "Offers" is the right word</h3>
-    <p>No badge on the pill. The label "Promotions &amp; offers" was shortened to "Offers" — honest about what it is. The user opens it when they choose to. Never before.</p>
+    <h3>T4 is pull-only — "Offers &amp; announcements" is the right label</h3>
+    <p>No badge on the pill. The drawer holds two zero-harm, pull-appropriate content types: <strong>offers</strong> (discounts, referrals, upsells) and <strong>announcements</strong> (new features, product launches). Both share the same routing logic — no harm if ignored, no deadline — so they earn the same surface. The user opens it when they choose to. Never before.</p>
+    <p>One renewal-discount rule: offer deadlines stay in the drawer. If a user has an active T2 renewal card (e.g. domain expiring in 5 days), the associated discount surfaces as a chip inside that T2 card — the deadline routes it, the discount decorates it. The drawer keeps the standalone version for users without an active renewal.</p>
+    <p>The concern with a pure pull surface is zero impressions for users who never find the drawer. The below-fold shelf (Screen · T4 shelf alt) is the answer: it sits below website cards, visible when the user scrolls, invisible when they don't. No badge, no push, no interruption. Framing: the drawer is the canonical T4 surface; the shelf is its passive companion — ambient impressions for users who scroll, full control for users who don't. A product manager gets a real impression channel without a single push notification being added.</p>
+
+    <h3>Human-waiting nudges route as T2, no snooze decay</h3>
+    <p><em>requested_access</em>, <em>requested_access_with_payments</em>, and <em>website_ownership_transfer_request</em> introduce a third urgency dimension the routing criteria table doesn't explicitly name: a person is waiting. There's no system-generated deadline, but leaving a collaborator or client blocked is a business consequence. These route as T2 (home card, full CTA), with one rule change: no snooze decay. Snooze on a deadline nudge makes sense — resurface when the window narrows. Snooze on a human-waiting nudge doesn't — the person is still waiting. The card stays visible until the user acts or explicitly dismisses it.</p>
+
+    <h3>Open questions</h3>
+    <p>What this system deliberately doesn't solve — and what I'd validate first before adding complexity:</p>
+    <ul style="color:#374151;font-size:15px;line-height:1.8;padding-left:20px;margin-bottom:16px;">
+      <li><strong>Avatar dropdown at scale.</strong> The topbar avatar as an account-nudge surface works for 1–2 types. At 5–6 account-level nudges it becomes a dense dropdown. An explicit Account tab in the sidebar may eventually be the right answer — the triage process surfaced the gap, not the solution.</li>
+      <li><strong>Snooze lifecycle.</strong> What happens after 5 snoozes on a domain that keeps renewing its grace period? The system needs a snooze limit and an escalation path before that edge case becomes a real support ticket.</li>
+      <li><strong>T3 dot discoverability for non-technical users.</strong> A red dot on a sidebar tab assumes the user knows to navigate there. First-time users with a misconfigured SPF record may never find it. An onboarding-aware variant — one that surfaces T3 as T2 for new accounts — is worth validating.</li>
+      <li><strong>T1 false-positive recovery.</strong> If a payment processes but the T1 banner doesn't clear within a few minutes, users will be confused and support volume will spike. The system needs a clear resolution confirmation state, not just banner removal.</li>
+    </ul>
   </section>
 
   <section class="cs-section" id="screens">
@@ -860,10 +899,6 @@
       </div>
       <!-- Actions -->
       <div class="hp-topbar-actions">
-        <button class="hp-refer-btn" tabindex="-1" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4 7 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          Refer &amp; earn up to $200
-        </button>
         <button class="hp-ask-ai-btn" tabindex="-1" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v2M7 11v2M1 7h2M11 7h2M3 3l1.5 1.5M9.5 9.5L11 11M3 11l1.5-1.5M9.5 4.5L11 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           Ask AI
@@ -913,8 +948,8 @@
         </div>
       </div>
       <div class="t1-multi-body">
-        <div class="t1-multi-title">2 Critical issues require your attention</div>
-        <div class="t1-multi-sub"><strong>1</strong> Payment failed &nbsp;·&nbsp; <strong>2</strong> Hosting Cancelled</div>
+        <div class="t1-multi-title">2 services need immediate action</div>
+        <div class="t1-multi-sub">Payment failed &nbsp;·&nbsp; Hosting cancelled</div>
       </div>
       <button class="hp-t1-see-all" id="t1MultiToggle" onclick="toggleMultiT1()">See all ▾</button>
     </div>
@@ -1327,7 +1362,7 @@
         <div class="drawer-header">
           <div class="drawer-header-text">
             <div class="drawer-title">Offers</div>
-            <div class="drawer-subtitle">Pull-only · No badge · user opens by choice</div>
+            <div class="drawer-subtitle">Offers &amp; announcements</div>
           </div>
           <button class="drawer-close" id="drawerClose" aria-label="Close promotions drawer">✕</button>
         </div>
@@ -1351,7 +1386,7 @@
             <button class="btn-hp-outline" style="font-size:12px; padding:5px 14px;" onclick="markRead('t4-3')">Get link</button>
           </div>
           <div class="t4-card" id="t4-4" tabindex="0" role="article">
-            <div class="t4-label">New feature</div>
+            <div class="t4-label">Announcement</div>
             <div class="t4-title">Horizons is now on your plan</div>
             <div class="t4-desc">Build and launch web apps visually — no code required.</div>
             <button class="btn-hp-outline" style="font-size:12px; padding:5px 14px;" onclick="markRead('t4-4')">Try Horizons</button>
@@ -1368,7 +1403,7 @@
     <div class="legend-item"><span class="tier-badge t1b" style="font-size:10px;padding:1px 7px;">T1</span> Critical — always visible, no dismiss</div>
     <div class="legend-item"><span class="tier-badge t2b" style="font-size:10px;padding:1px 7px;">T2</span> Time-sensitive — home screen, max 2</div>
     <div class="legend-item"><span class="tier-badge t3b" style="font-size:10px;padding:1px 7px;">T3</span> Contextual — on the relevant product page</div>
-    <div class="legend-item"><span class="tier-badge t4b" style="font-size:10px;padding:1px 7px;">T4</span> Offers — pull-only, no badge</div>
+    <div class="legend-item"><span class="tier-badge t4b" style="font-size:10px;padding:1px 7px;">T4</span> Offers &amp; announcements — pull-only, no badge</div>
   </div>
 
   <!-- ── Use case divider ── -->
@@ -1398,10 +1433,6 @@
         <div class="hp-search-kb"><kbd>⌘</kbd><kbd>K</kbd></div>
       </div>
       <div class="hp-topbar-actions">
-        <button class="hp-refer-btn" tabindex="-1" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4 7 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          Refer &amp; earn up to $200
-        </button>
         <button class="hp-ask-ai-btn" tabindex="-1" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v2M7 11v2M1 7h2M11 7h2M3 3l1.5 1.5M9.5 9.5L11 11M3 11l1.5-1.5M9.5 4.5L11 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           Ask AI
@@ -1442,7 +1473,7 @@
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="12" rx="2"/><path d="M6 19h8M10 15v4"/></svg></span>
             Websites
-            <span class="sidebar-dot-badge" style="background:#fc5185;" aria-label="Affected by T1"></span>
+            <span class="sidebar-dot-badge" style="background:#DC2626;" aria-label="Affected by T1"></span>
           </button>
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a13 13 0 010 16M10 2a13 13 0 000 16"/></svg></span>
@@ -1464,7 +1495,7 @@
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="5" rx="1.5"/><rect x="2" y="12" width="16" height="5" rx="1.5"/></svg></span>
             VPS
-            <span class="sidebar-dot-badge" style="background:#fc5185;" aria-label="Affected by T1"></span>
+            <span class="sidebar-dot-badge" style="background:#DC2626;" aria-label="Affected by T1"></span>
           </button>
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2l7 3v5c0 4-3 7.5-7 8.5C6 17.5 3 14 3 10V5l7-3z"/></svg></span>

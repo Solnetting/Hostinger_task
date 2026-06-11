@@ -111,7 +111,7 @@
     .hp-avatar-wrap { position: relative; }
     .hp-avatar { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--hp-border); background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--hp-muted); }
     .hp-avatar:hover { border-color: var(--hp-purple); }
-    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #EA580C; border-radius: 50%; border: 2px solid white; }
+    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #DC2626; border-radius: 50%; border: 2px solid white; }
 
     /* ─── T1 Banner ──────────────────────── */
     .hp-t1 {
@@ -165,7 +165,7 @@
     .sidebar-item.active { background: var(--hp-active-bg); font-weight: 700; }
     .sidebar-icon { width: 20px; height: 20px; flex-shrink: 0; color: #58585e; display: flex; align-items: center; justify-content: center; }
     .sidebar-chevron { margin-left: auto; color: #9CA3AF; font-size: 12px; }
-    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #EA580C; margin-left: auto; flex-shrink: 0; }
+    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #DC2626; margin-left: auto; flex-shrink: 0; }
     .sidebar-footer { border-top: 1px solid rgba(0,0,0,0.08); padding: 8px 0; margin-top: 4px; }
 
     /* ─── Content area ───────────────────────── */
@@ -321,10 +321,6 @@
           <div class="hp-search-kb"><kbd>⌘</kbd><kbd>K</kbd></div>
         </div>
         <div class="hp-topbar-actions">
-          <button class="hp-refer-btn" tabindex="-1" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4 7 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-            Refer &amp; earn up to $200
-          </button>
           <button class="hp-ask-ai-btn" tabindex="-1" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v2M7 11v2M1 7h2M11 7h2M3 3l1.5 1.5M9.5 9.5L11 11M3 11l1.5-1.5M9.5 4.5L11 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
             Ask AI
@@ -364,8 +360,8 @@
           <div class="t1-multi-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 2v3.5M5 7.5v.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg></div>
         </div>
         <div class="t1-multi-body">
-          <div class="t1-multi-title">2 Critical issues require your attention</div>
-          <div class="t1-multi-sub"><strong>1</strong> Payment failed &nbsp;·&nbsp; <strong>2</strong> Hosting Cancelled</div>
+          <div class="t1-multi-title">2 services need immediate action</div>
+          <div class="t1-multi-sub">Payment failed &nbsp;·&nbsp; Hosting cancelled</div>
         </div>
         <button class="hp-t1-see-all" id="t1MultiToggle" onclick="toggleMultiT1()">See all ▾</button>
       </div>
@@ -682,7 +678,7 @@
           <div class="drawer-header">
             <div>
               <div class="drawer-title">Offers</div>
-              <div class="drawer-subtitle">Pull-only · No badge · user opens by choice</div>
+              <div class="drawer-subtitle">Offers &amp; announcements</div>
             </div>
             <button class="drawer-close" id="drawerClose" aria-label="Close drawer">✕</button>
           </div>
@@ -706,7 +702,7 @@
               <button style="padding:5px 14px; background:transparent; color:var(--hp-purple); border:1.5px solid var(--hp-purple-border); border-radius:7px; font-size:12px; cursor:pointer;" onclick="markRead('t4-3')">Get link</button>
             </div>
             <div class="t4-card" id="t4-4" tabindex="0">
-              <div class="t4-label">New feature</div>
+              <div class="t4-label">Announcement</div>
               <div class="t4-title">Horizons is now on your plan</div>
               <div class="t4-desc">Build and launch web apps visually — no code required.</div>
               <button style="padding:5px 14px; background:transparent; color:var(--hp-purple); border:1.5px solid var(--hp-purple-border); border-radius:7px; font-size:12px; cursor:pointer;" onclick="markRead('t4-4')">Try Horizons</button>

@@ -97,9 +97,9 @@
       padding: 0 24px; gap: 16px;
       flex-shrink: 0; z-index: 200;
     }
-    .hp-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
-    .hp-logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
-    .hp-logo-text { height: 16px; flex-shrink: 0; }
+    .hp-logo { position: relative; width: 150px; height: 30px; text-decoration: none; flex-shrink: 0; display: block; }
+    .hp-logo-icon { position: absolute; left: 0; top: 0; width: 25.67px; height: 30px; }
+    .hp-logo-text { position: absolute; left: 37.67px; top: 8.5px; width: 112.43px; height: 13px; }
     .hp-search { flex: 1; max-width: 380px; height: 40px; border: 1px solid #D1D5DB; border-radius: 8px; display: flex; align-items: center; padding: 0 12px; gap: 8px; font-size: 13px; color: #9CA3AF; background: #fff; margin: 0 auto; }
     .hp-search-icon { width: 16px; height: 16px; flex-shrink: 0; }
     .hp-search-kb { display: flex; gap: 3px; margin-left: auto; }
@@ -310,8 +310,8 @@
       <!-- Topbar -->
       <div class="hp-topbar">
         <div class="hp-logo">
-          <img class="hp-logo-icon" src="screens/logo-symbol.svg" alt="H" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <svg class="hp-logo-icon" viewBox="0 0 28 28" fill="none" style="display:none;"><rect width="28" height="28" rx="6" fill="#1A1A1A"/><path d="M8 7h3v5.5h6V7h3v14h-3v-5.5H11V21H8V7z" fill="white"/></svg>
+          <img class="hp-logo-icon" src="screens/logo-symbol.svg" alt="H" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <svg class="hp-logo-icon" viewBox="0 0 25.67 30" fill="none" style="display:none;"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 14.046V0L7.089 3.78v6.329l9.384.004 7.204 3.933H0zM18.393 8.95V0L25.673 3.686v9.494L18.393 8.95zm-.001 17.168v-6.274L8.936 19.837 1.612 15.842 25.673 15.955V30l-7.281-3.882zM0 26.118V16.939l7.089 4.13v8.735L0 26.118z" fill="#18181A"/></svg>
           <img class="hp-logo-text" src="screens/logo-text.svg" alt="HOSTINGER" onerror="this.outerHTML='<span style=&quot;font-size:15px;font-weight:800;color:#14141a;&quot;>HOSTINGER</span>'">
         </div>
         <div class="hp-search" aria-hidden="true">

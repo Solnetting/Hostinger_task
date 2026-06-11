@@ -112,9 +112,9 @@
 
     /* ─── Prototype wrapper ────────────────────────── */
     #prototype { scroll-margin-top: 64px; }
-    .proto-wrapper { background: #f0f0f2; border-top: 1px solid var(--cs-border); padding: 60px 32px 80px; }
+    .proto-wrapper { background: #f0f0f2; border-top: 1px solid var(--cs-border); padding: 60px 32px 80px; overflow-x: auto; }
     .proto-intro { max-width: 720px; margin: 0 auto 36px; }
-    .proto-frame-outer { max-width: 1320px; margin: 0 auto; border-radius: 12px; box-shadow: 0 12px 48px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.07); overflow: hidden; }
+    .proto-frame-outer { max-width: 1320px; min-width: 900px; margin: 0 auto; border-radius: 12px; box-shadow: 0 12px 48px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.07); overflow: hidden; }
     .proto-frame { height: 720px; display: flex; flex-direction: column; background: var(--hp-content-bg); position: relative; }
 
     /* ─── hPanel Topbar (72px) ─────────────────────── */
@@ -126,9 +126,9 @@
       padding: 0 24px; gap: 16px;
       flex-shrink: 0; z-index: 200;
     }
-    .hp-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
-    .hp-logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
-    .hp-logo-text { height: 16px; flex-shrink: 0; }
+    .hp-logo { position: relative; width: 150px; height: 30px; text-decoration: none; flex-shrink: 0; display: block; }
+    .hp-logo-icon { position: absolute; left: 0; top: 0; width: 25.67px; height: 30px; }
+    .hp-logo-text { position: absolute; left: 37.67px; top: 8.5px; width: 112.43px; height: 13px; }
 
     .hp-search {
       flex: 1; max-width: 380px; height: 40px;
@@ -490,7 +490,9 @@
     /* ─── State switcher ──────────────────────────── */
     .state-switcher {
       display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-      max-width: 1320px; margin: 0 auto 14px; padding: 0 4px;
+      max-width: 1320px; margin: 0 auto 0; padding: 0 4px 18px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      margin-bottom: 24px;
     }
     .state-switcher-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; margin-right: 4px; white-space: nowrap; }
     .state-btn {
@@ -717,6 +719,8 @@
 
     <h3>T2 is capped at 2. No "View all."</h3>
     <p>When a card is resolved or snoozed, the next queued item slots in. Overflow shows as a passive chip: <em>"+ 2 more need attention"</em> — gray, non-interactive. No "View all" link, no separate destination. A separate page would only be reachable during overflow, never from primary nav — the original problem with a better label.</p>
+    <p>Each card offers <strong>Snooze</strong>, not Dismiss. Snooze delays the card until the deadline crosses a critical threshold (for example, &lt;3 days left on a domain), then resurfaces it automatically. A permanent dismiss doesn't exist for deadline-sensitive nudges — a user who dismisses a domain expiry warning could lose the domain. The amber left bar is the urgency signal: it maps to T2 across all cards so the pattern is consistent. A secondary × lets users clear the card view temporarily without committing to an action; internally it behaves identically to Snooze.</p>
+    <p>There is no Notification Center. Combining T2 with T4 offers into a single drawer would recreate the original 53-item list — just with better visual design. The routing problem wasn't in the UI, it was in the surface logic. Each tier must own its surface: T2 belongs on Home where the user takes action; T4 offers belong in a pull-initiated drawer. Merging them undoes the whole model.</p>
 
     <h3>T3 never appears on home. The sidebar dot is the bridge.</h3>
     <p>T3 nudges live exclusively on their product page. The sidebar tab gets a red dot — no number. A dot says <em>something here</em>; a badge says <em>manage this list</em>. T3 clears only when the underlying issue is resolved. Snoozing the T2 version hides the home card but keeps the dot — snooze is a home action, not a global resolution.</p>
@@ -842,8 +846,8 @@
     <div class="hp-topbar">
       <!-- Logo -->
       <div class="hp-logo">
-        <img class="hp-logo-icon" src="screens/logo-symbol.svg" alt="Hostinger H" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <svg class="hp-logo-icon" viewBox="0 0 28 28" fill="none" style="display:none;"><rect width="28" height="28" rx="6" fill="#1A1A1A"/><path d="M8 7h3v5.5h6V7h3v14h-3v-5.5H11V21H8V7z" fill="white"/></svg>
+        <img class="hp-logo-icon" src="screens/logo-symbol.svg" alt="Hostinger H" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <svg class="hp-logo-icon" viewBox="0 0 25.67 30" fill="none" style="display:none;"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 14.046V0L7.089 3.78v6.329l9.384.004 7.204 3.933H0zM18.393 8.95V0L25.673 3.686v9.494L18.393 8.95zm-.001 17.168v-6.274L8.936 19.837 1.612 15.842 25.673 15.955V30l-7.281-3.882zM0 26.118V16.939l7.089 4.13v8.735L0 26.118z" fill="#18181A"/></svg>
         <img class="hp-logo-text" src="screens/logo-text.svg" alt="HOSTINGER" onerror="this.outerHTML='<span style=&quot;font-size:15px;font-weight:800;color:#14141a;letter-spacing:-0.01em;&quot;>HOSTINGER</span>'">
       </div>
       <!-- Search -->

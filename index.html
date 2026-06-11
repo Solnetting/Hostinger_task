@@ -431,6 +431,21 @@
     .acc-menu-item:hover { background: #F9FAFB; }
     .acc-menu-item:focus { outline: 2px solid var(--hp-purple); outline-offset: -2px; }
 
+    /* ─── State switcher ──────────────────────────── */
+    .state-switcher {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      max-width: 1100px; margin: 0 auto 14px; padding: 0 4px;
+    }
+    .state-switcher-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; margin-right: 4px; white-space: nowrap; }
+    .state-btn {
+      padding: 5px 13px; background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(0,0,0,0.13); border-radius: 100px;
+      font-size: 12px; font-weight: 500; color: #374151; cursor: pointer;
+      transition: all 0.12s;
+    }
+    .state-btn:hover { background: white; border-color: #9ca3af; }
+    .state-btn.active { background: #14141a; color: white; border-color: #14141a; }
+
     /* ─── Prototype legend ─────────────────────────── */
     .proto-legend { max-width: 1100px; margin: 18px auto 0; display: flex; gap: 24px; flex-wrap: wrap; padding: 0 4px; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #6b7280; }
@@ -743,6 +758,18 @@
     <p style="color:#6b7280;font-size:15px;margin-bottom:0;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges on Domains, Emails, and Dark web monitoring. Open Promotions &amp; offers (no badge — pull-only). Click the avatar for the account nudge. Snooze or resolve T2 cards on Home.</p>
   </div>
 
+  <!-- State switcher -->
+  <div class="state-switcher">
+    <span class="state-switcher-label">Screen state:</span>
+    <button class="state-btn active" data-state="s0" onclick="setState('s0')">S0 · Healthy home</button>
+    <button class="state-btn" data-state="s1" onclick="setState('s1')">S1 · T1 critical</button>
+    <button class="state-btn" data-state="s3" onclick="setState('s3')">S2 · T1 + T2</button>
+    <button class="state-btn" data-state="s4" onclick="setState('s4')">S3 · T2 only</button>
+    <button class="state-btn" data-state="s5" onclick="setState('s5')">S4 · T2 overflow</button>
+    <button class="state-btn" data-state="s6" onclick="setState('s6')">S5 · T3 Domains</button>
+    <button class="state-btn" data-state="s7" onclick="setState('s7')">S6 · T4 Drawer</button>
+  </div>
+
   <div class="proto-frame-outer">
    <div class="proto-frame">
 
@@ -790,7 +817,7 @@
     </div>
 
     <!-- ── T1 Critical Banner (no dismiss) ── -->
-    <div class="hp-t1" role="alert" aria-live="assertive">
+    <div class="hp-t1" id="hp-t1-banner" role="alert" aria-live="assertive" style="display:none">
       <div class="t1-icon-circle" aria-hidden="true">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
           <rect x="1" y="3" width="14" height="9" rx="1.5"/><path d="M5 12v2M11 12v2M2 15h12"/><circle cx="8" cy="7.5" r="1.5" fill="currentColor" stroke="none"/>
@@ -931,7 +958,7 @@
           <div class="page-greeting">Hello, Alex!</div>
 
           <!-- T2 "Needs attention" (max 2 cards) -->
-          <div id="t2-section">
+          <div id="t2-section" style="display:none">
             <div class="section-header" style="margin-bottom:10px;">
               <span class="section-title">Needs attention</span>
               <span class="section-badge" id="todoBadge">2</span>
@@ -981,6 +1008,12 @@
               </div>
 
             </div>
+
+            <!-- T2 overflow chip (passive, non-interactive) -->
+            <div id="t2-overflow-chip" style="display:none; align-items:center; padding: 8px 4px 4px; color: #8c8c99; font-size: 13px; font-family: 'Inter', sans-serif;">
+              + 2 more need attention
+            </div>
+
           </div>
 
           <!-- Website cards grid -->
@@ -1326,7 +1359,7 @@
 
   /* ── T2: snooze / resolve ── */
   function updateTodoBadge() {
-    const visible = document.querySelectorAll('#homeNudgeList .nudge-card:not(.snoozed):not(.dismissed)').length;
+    const visible = document.querySelectorAll('#homeNudgeList .nudge-card-t2:not(.snoozed):not(.dismissed)').length;
     const badge = document.getElementById('todoBadge');
     badge.textContent = visible;
     badge.style.display = visible === 0 ? 'none' : '';
@@ -1362,6 +1395,69 @@
     toastEl.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  /* ── Prototype state switcher ── */
+  function navigateTo(page) {
+    document.querySelectorAll('.sidebar-item').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-current'); });
+    const sideBtn = document.querySelector(`[data-page="${page}"]`);
+    if (sideBtn) { sideBtn.classList.add('active'); sideBtn.setAttribute('aria-current', 'page'); }
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const pageEl = document.getElementById('page-' + page);
+    if (pageEl) pageEl.classList.add('active');
+  }
+
+  function resetT2Cards() {
+    ['t2-domain', 't2-email-plan'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('snoozed', 'dismissed');
+      el.style.opacity = '';
+      el.style.display = '';
+    });
+  }
+
+  function setState(s) {
+    // Reset everything to clean baseline
+    document.getElementById('hp-t1-banner').style.display = 'none';
+    document.getElementById('t2-section').style.display = 'none';
+    document.getElementById('t2-overflow-chip').style.display = 'none';
+    resetT2Cards();
+    closeDrawer();
+    navigateTo('home');
+
+    switch (s) {
+      case 's0': break; // healthy — all hidden
+      case 's1':
+        document.getElementById('hp-t1-banner').style.display = 'flex';
+        break;
+      case 's3':
+        document.getElementById('hp-t1-banner').style.display = 'flex';
+        document.getElementById('t2-section').style.display = 'block';
+        updateTodoBadge();
+        break;
+      case 's4':
+        document.getElementById('t2-section').style.display = 'block';
+        updateTodoBadge();
+        break;
+      case 's5':
+        document.getElementById('t2-section').style.display = 'block';
+        document.getElementById('t2-overflow-chip').style.display = 'flex';
+        updateTodoBadge();
+        break;
+      case 's6':
+        document.getElementById('hp-t1-banner').style.display = 'flex';
+        navigateTo('domains');
+        break;
+      case 's7':
+        navigateTo('home');
+        setTimeout(openDrawer, 80);
+        break;
+    }
+
+    document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
+    const btn = document.querySelector(`.state-btn[data-state="${s}"]`);
+    if (btn) btn.classList.add('active');
   }
 
   /* ── Top nav scrollspy ── */

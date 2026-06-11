@@ -108,7 +108,7 @@
     .screen-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
     .screen-item { padding: 52px 0; }
     .screen-item:first-child { padding-top: 8px; }
-    .screen-item + .screen-item { border-top: 2px solid #d1d5db; }
+    .screen-item + .screen-item { border-top: 1px solid #d1d5db; }
     .screen-img { width: 100%; display: block; border-radius: 10px; border: 1px solid #e5e7eb; box-shadow: 0 4px 20px rgba(0,0,0,0.09); }
     .screen-tag { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--cs-muted); margin-top: 10px; margin-bottom: 5px; }
     .screen-note { font-size: 13.5px; color: #4b5563; margin: 0; line-height: 1.6; }
@@ -817,17 +817,13 @@
 <!-- ══ Prototype ════════════════════════════════════ -->
 <div class="proto-wrapper" id="prototype">
   <div class="proto-intro">
-    <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:16px;">
-      <div>
-        <div class="cs-label">Interactive prototype</div>
-        <h2 style="margin-bottom:8px;">Try the system</h2>
-      </div>
-      <a href="prototype.html" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; padding:7px 14px; background:white; border:1px solid rgba(0,0,0,0.15); border-radius:8px; font-size:13px; font-weight:500; color:#374151; text-decoration:none; white-space:nowrap; flex-shrink:0; margin-top:4px;">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2h4v4M14 0L7.5 6.5M6 3H2a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Open full size
-      </a>
-    </div>
-    <p style="color:#6b7280;font-size:15px;margin-bottom:0;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges on Domains, Emails, and Dark web monitoring. Open Promotions &amp; offers (no badge — pull-only). Click the avatar for the account nudge. Snooze or resolve T2 cards on Home.</p>
+    <div class="cs-label">Interactive prototype</div>
+    <h2 style="margin-bottom:12px;">Try the system</h2>
+    <p style="color:#6b7280;font-size:15px;margin-bottom:24px;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges on Domains, Emails, and Dark web monitoring. Open Promotions &amp; offers (no badge — pull-only). Click the avatar for the account nudge. Snooze or resolve T2 cards on Home.</p>
+    <a href="prototype.html" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:11px 22px; background:#7B2FBE; color:white; border-radius:8px; font-size:14px; font-weight:600; text-decoration:none; white-space:nowrap; letter-spacing:-0.01em;">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2h4v4M12 2L7.5 6.5M6 3H2a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Open full size
+    </a>
   </div>
 
   <!-- State switcher -->

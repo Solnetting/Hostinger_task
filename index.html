@@ -224,14 +224,17 @@
       border-bottom: 1px solid #e5e7eb;
       display: flex;
       align-items: center;
-      padding: 0 20px;
-      gap: 12px;
+      padding: 0 16px;
+      gap: 10px;
       flex-shrink: 0;
       z-index: 100;
     }
-    .hp-logo { font-weight: 800; font-size: 15px; color: var(--hp-purple); letter-spacing: -0.03em; }
-    .hp-logo span { color: #1a1a1a; }
+    .hp-logo { font-weight: 800; font-size: 14px; color: #111827; letter-spacing: -0.02em; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+    .hp-logo-h { width: 22px; height: 22px; background: var(--hp-purple); color: white; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; flex-shrink: 0; }
+    .hp-search { flex: 1; max-width: 280px; height: 30px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 7px; display: flex; align-items: center; padding: 0 10px; gap: 6px; font-size: 12px; color: #9ca3af; margin: 0 8px; }
     .hp-topbar-gap { flex: 1; }
+    .hp-ask-ai { display: flex; align-items: center; gap: 5px; padding: 5px 11px; border: 1px solid #ddd6fe; border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--hp-purple); background: var(--hp-purple-light); cursor: pointer; white-space: nowrap; }
+    .hp-ask-ai:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
 
     .hp-pill {
       display: flex;
@@ -312,12 +315,16 @@
 
     /* ── Sidebar ── */
     .hp-sidebar {
-      width: 188px;
+      width: 200px;
       background: var(--hp-sidebar-bg);
       flex-shrink: 0;
       padding: 10px 0;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
+    .sidebar-main { flex: 1; }
+    .sidebar-footer { padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.08); }
     .sidebar-item {
       display: flex;
       align-items: center;
@@ -358,7 +365,8 @@
 
     .page { display: none; }
     .page.active { display: block; }
-    .page-title { font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 14px; }
+    .page-greeting { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 4px; }
+    .page-title { font-size: 13px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
 
     /* T2 */
     .t2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
@@ -426,8 +434,10 @@
       flex-direction: column;
     }
     .hp-drawer.open { transform: translateX(0); }
-    .drawer-head { padding: 13px 16px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .drawer-head { padding: 13px 16px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0; }
+    .drawer-head-text {}
     .drawer-title { font-size: 13.5px; font-weight: 700; color: #111827; }
+    .drawer-subtitle { font-size: 10.5px; color: #9ca3af; margin-top: 2px; letter-spacing: 0.01em; }
     .drawer-close { width: 26px; height: 26px; border: none; background: #f3f4f6; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #6b7280; }
     .drawer-close:hover { background: #e5e7eb; }
     .drawer-close:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
@@ -555,7 +565,7 @@
   <section class="cs-section" id="analysis">
     <div class="cs-label">Analysis</div>
     <h2>Mapping urgency against type</h2>
-    <p>Each nudge was mapped along two axes: <strong>urgency</strong> — what happens if the user ignores this, and how quickly — and <strong>scope</strong> — is this tied to a specific product (Domains, Emails, Security) or to the account itself?</p>
+    <p>Each nudge was mapped along two axes: <strong>urgency</strong> — what happens if the user ignores this, and how quickly — and <strong>scope</strong> — is this tied to a specific product (Domains, Emails, VPS, Dark web monitoring) or to the account itself?</p>
     <p>That mapping revealed four natural clusters. Not by feature area, but by behavior: how large the time window is, whether real harm follows inaction, and whether there's a more contextually appropriate surface outside the home screen.</p>
     <p>A domain expiring in two days is categorically different from a promotional offer. A payment failure is not the same as a suggestion to add 2FA. Once those differences are explicit, the right surfaces follow naturally.</p>
   </section>
@@ -622,7 +632,7 @@
     <div class="cs-label">Structural finding</div>
     <h2>There is no Account tab — and that's the root cause</h2>
     <p>While placing nudges into tiers, a category emerged that didn't fit any product page: nudges that belong to the user's account, not to any hosted service. Email verification. Phone number. Account-level 2FA.</p>
-    <p>hPanel's sidebar is organized by product: Websites, Domains, Emails, Security, VPS, Help. There is no Account section. These nudges had no sidebar home, so they defaulted to the home screen — not because that was the right place, but because there was nowhere else.</p>
+    <p>hPanel's sidebar is organized by product: Websites, Domains, Horizons, Emails, Reach, VPS, Dark web monitoring, Billing, Marketplace. There is no Account section. These nudges had no sidebar home, so they defaulted to the home screen — not because that was the right place, but because there was nowhere else.</p>
     <div class="callout">
       The triage process surfaced IA debt, not just notification clutter. The bloated list was a symptom of a structural gap: the product had grown account-level features without a dedicated account surface.
     </div>
@@ -637,7 +647,7 @@
   <div class="proto-intro">
     <div class="cs-label">Interactive prototype</div>
     <h2 style="margin-bottom:8px;">Try the system</h2>
-    <p style="color:#6b7280;font-size:15px;margin-bottom:0;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges per product. Open the Promotions drawer. Click the avatar to surface the account-level nudge. Snooze or resolve T2 cards on the home screen.</p>
+    <p style="color:#6b7280;font-size:15px;margin-bottom:0;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges on Domains, Emails, and Dark web monitoring. Open the Promotions &amp; offers drawer (no badge — pull-only). Click the avatar to surface the account-level nudge. Snooze or resolve T2 cards on Home.</p>
   </div>
 
   <div class="proto-frame-outer">
@@ -645,10 +655,12 @@
 
       <!-- Topbar -->
       <div class="hp-topbar">
-        <div class="hp-logo">hostinger<span>.</span></div>
+        <div class="hp-logo"><span class="hp-logo-h">H</span> HOSTINGER</div>
+        <div class="hp-search" aria-hidden="true">🔍 Search…</div>
         <div class="hp-topbar-gap"></div>
-        <button class="hp-pill" id="pillBtn" aria-label="Open promotions drawer" aria-expanded="false">
-          🔔 Promotions
+        <button class="hp-ask-ai" tabindex="-1" aria-hidden="true">✦ Ask AI</button>
+        <button class="hp-pill" id="pillBtn" aria-label="Open promotions and offers drawer" aria-expanded="false">
+          🔔 Promotions &amp; offers
         </button>
         <div class="hp-avatar-wrap">
           <button class="hp-avatar" id="avatarBtn" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
@@ -670,30 +682,46 @@
 
         <!-- Sidebar -->
         <nav class="hp-sidebar" aria-label="hPanel navigation">
-          <button class="sidebar-item active" data-page="home" aria-current="page">
-            <span class="sidebar-icon" aria-hidden="true">🏠</span> Home
-          </button>
-          <button class="sidebar-item" data-page="websites">
-            <span class="sidebar-icon" aria-hidden="true">🌐</span> Websites
-          </button>
-          <button class="sidebar-item" data-page="domains">
-            <span class="sidebar-icon" aria-hidden="true">🔗</span> Domains
-            <span class="sidebar-dot" aria-hidden="true"></span>
-          </button>
-          <button class="sidebar-item" data-page="emails">
-            <span class="sidebar-icon" aria-hidden="true">📧</span> Emails
-            <span class="sidebar-dot" aria-hidden="true"></span>
-          </button>
-          <button class="sidebar-item" data-page="security">
-            <span class="sidebar-icon" aria-hidden="true">🔒</span> Security
-            <span class="sidebar-dot" aria-hidden="true"></span>
-          </button>
-          <button class="sidebar-item" data-page="vps">
-            <span class="sidebar-icon" aria-hidden="true">🖥</span> VPS
-          </button>
-          <button class="sidebar-item" data-page="help">
-            <span class="sidebar-icon" aria-hidden="true">❓</span> Help
-          </button>
+          <div class="sidebar-main">
+            <button class="sidebar-item active" data-page="home" aria-current="page">
+              <span class="sidebar-icon" aria-hidden="true">🏠</span> Home
+            </button>
+            <button class="sidebar-item" data-page="websites">
+              <span class="sidebar-icon" aria-hidden="true">🌐</span> Websites
+            </button>
+            <button class="sidebar-item" data-page="domains">
+              <span class="sidebar-icon" aria-hidden="true">🔗</span> Domains
+              <span class="sidebar-dot" aria-hidden="true"></span>
+            </button>
+            <button class="sidebar-item" data-page="horizons">
+              <span class="sidebar-icon" aria-hidden="true">🌅</span> Horizons
+            </button>
+            <button class="sidebar-item" data-page="emails">
+              <span class="sidebar-icon" aria-hidden="true">📧</span> Emails
+              <span class="sidebar-dot" aria-hidden="true"></span>
+            </button>
+            <button class="sidebar-item" data-page="reach">
+              <span class="sidebar-icon" aria-hidden="true">📡</span> Reach
+            </button>
+            <button class="sidebar-item" data-page="vps">
+              <span class="sidebar-icon" aria-hidden="true">🖥</span> VPS
+            </button>
+            <button class="sidebar-item" data-page="darkweb">
+              <span class="sidebar-icon" aria-hidden="true">🔒</span> Dark web monitoring
+              <span class="sidebar-dot" aria-hidden="true"></span>
+            </button>
+            <button class="sidebar-item" data-page="billing">
+              <span class="sidebar-icon" aria-hidden="true">💳</span> Billing
+            </button>
+            <button class="sidebar-item" data-page="marketplace">
+              <span class="sidebar-icon" aria-hidden="true">🛒</span> Marketplace
+            </button>
+          </div>
+          <div class="sidebar-footer">
+            <button class="sidebar-item" data-page="home" tabindex="-1" style="opacity:0.5; pointer-events:none;">
+              <span class="sidebar-icon" aria-hidden="true">👥</span> Account sharing
+            </button>
+          </div>
         </nav>
 
         <!-- Content area -->
@@ -701,7 +729,8 @@
 
           <!-- HOME -->
           <div class="page active" id="page-home">
-            <div class="page-title">Home</div>
+            <div class="page-greeting">Hello, Harry!</div>
+            <div class="page-title">Your to-dos</div>
             <div class="t2-grid">
               <div class="t2-card" id="t2-domain">
                 <div class="t2-label">⏱ Time-sensitive</div>
@@ -731,8 +760,8 @@
           <!-- WEBSITES -->
           <div class="page" id="page-websites">
             <div class="page-title">Websites</div>
-            <div class="content-card"><div class="content-card-title">carlos-mera.com</div><div class="content-card-sub">WordPress · Active</div></div>
-            <div class="content-card"><div class="content-card-title">Hacker News clone</div><div class="content-card-sub">Node.js · Active</div></div>
+            <div class="content-card"><div class="content-card-title">carlos-mera.com</div><div class="content-card-sub">WordPress · Active · 2.3 GB</div></div>
+            <div class="content-card"><div class="content-card-title">Hacker News clone</div><div class="content-card-sub">Node.js · Active · 0.8 GB</div></div>
           </div>
 
           <!-- DOMAINS -->
@@ -750,6 +779,12 @@
             <div class="content-card"><div class="content-card-title">carlos-mera.com</div><div class="content-card-sub">Expires Jun 19, 2026 · Auto-renew on</div></div>
           </div>
 
+          <!-- HORIZONS -->
+          <div class="page" id="page-horizons">
+            <div class="page-title">Horizons</div>
+            <div class="content-card"><div class="content-card-title">My first project</div><div class="content-card-sub">Horizons · Draft · Last edited 3 days ago</div></div>
+          </div>
+
           <!-- EMAILS -->
           <div class="page" id="page-emails">
             <div class="page-title">Emails</div>
@@ -765,19 +800,10 @@
             <div class="content-card"><div class="content-card-title">hello@carlos-mera.com</div><div class="content-card-sub">Titan Mail · Active</div></div>
           </div>
 
-          <!-- SECURITY -->
-          <div class="page" id="page-security">
-            <div class="page-title">Security</div>
-            <div class="t3-nudge" id="t3-security">
-              <div class="t3-icon" aria-hidden="true">🔒</div>
-              <div class="t3-body">
-                <div class="t3-title">Two-factor authentication is off</div>
-                <div class="t3-desc">Protect your account from unauthorized access.</div>
-              </div>
-              <button class="btn-t3" onclick="dismissT3('t3-security')">Enable 2FA →</button>
-              <button class="btn-t3-dismiss" onclick="dismissT3('t3-security')">Dismiss</button>
-            </div>
-            <div class="content-card"><div class="content-card-title">SSL certificates</div><div class="content-card-sub">1 active · 1 expiring soon</div></div>
+          <!-- REACH -->
+          <div class="page" id="page-reach">
+            <div class="page-title">Reach</div>
+            <div class="content-card"><div class="content-card-title">carlos-mera.com newsletter</div><div class="content-card-sub">234 subscribers · Last sent Jun 1</div></div>
           </div>
 
           <!-- VPS -->
@@ -786,11 +812,32 @@
             <div class="content-card"><div class="content-card-title">VPS #1 — Ubuntu 22.04</div><div class="content-card-sub">2 vCPU · 4 GB RAM · Running</div></div>
           </div>
 
-          <!-- HELP -->
-          <div class="page" id="page-help">
-            <div class="page-title">Help</div>
-            <div class="content-card"><div class="content-card-title">Knowledge base</div><div class="content-card-sub">Browse guides and tutorials</div></div>
-            <div class="content-card"><div class="content-card-title">Live chat support</div><div class="content-card-sub">Typically replies in under 2 min</div></div>
+          <!-- DARK WEB MONITORING -->
+          <div class="page" id="page-darkweb">
+            <div class="page-title">Dark web monitoring</div>
+            <div class="t3-nudge" id="t3-darkweb">
+              <div class="t3-icon" aria-hidden="true">🔒</div>
+              <div class="t3-body">
+                <div class="t3-title">Monitoring not active for carlos-mera.com</div>
+                <div class="t3-desc">Get alerted if your credentials appear in known data breaches.</div>
+              </div>
+              <button class="btn-t3" onclick="dismissT3('t3-darkweb')">Activate →</button>
+              <button class="btn-t3-dismiss" onclick="dismissT3('t3-darkweb')">Dismiss</button>
+            </div>
+            <div class="content-card"><div class="content-card-title">Monitored emails</div><div class="content-card-sub">0 of 1 active — setup needed</div></div>
+          </div>
+
+          <!-- BILLING -->
+          <div class="page" id="page-billing">
+            <div class="page-title">Billing</div>
+            <div class="content-card"><div class="content-card-title">Next payment</div><div class="content-card-sub">Jun 19, 2026 · $11.99 · Domain renewal</div></div>
+            <div class="content-card"><div class="content-card-title">Payment methods</div><div class="content-card-sub">No valid card on file — update required</div></div>
+          </div>
+
+          <!-- MARKETPLACE -->
+          <div class="page" id="page-marketplace">
+            <div class="page-title">Marketplace</div>
+            <div class="content-card"><div class="content-card-title">Plugins &amp; integrations</div><div class="content-card-sub">Browse tools for your websites</div></div>
           </div>
 
           <!-- Dim overlay — starts below T1 -->
@@ -798,10 +845,13 @@
 
         </main>
 
-        <!-- T4 Promotions Drawer -->
-        <div class="hp-drawer" id="t4Drawer" role="dialog" aria-label="Promotions" aria-modal="true">
+        <!-- T4 Promotions & offers Drawer -->
+        <div class="hp-drawer" id="t4Drawer" role="dialog" aria-label="Promotions and offers" aria-modal="true">
           <div class="drawer-head">
-            <div class="drawer-title">Promotions</div>
+            <div class="drawer-head-text">
+              <div class="drawer-title">Promotions &amp; offers</div>
+              <div class="drawer-subtitle">Pull-only · No badge · user opens by choice</div>
+            </div>
             <button class="drawer-close" id="drawerClose" aria-label="Close promotions drawer">✕</button>
           </div>
           <div class="drawer-body">
@@ -823,6 +873,12 @@
               <div class="t4-desc">Your friend gets 20% off their first purchase. You earn $20 credit.</div>
               <button class="btn-t4" onclick="markRead('t4-3')">Get referral link</button>
             </div>
+            <div class="t4-item" id="t4-4" tabindex="0" role="article">
+              <div class="t4-label">New feature</div>
+              <div class="t4-title">Horizons is now available on your plan</div>
+              <div class="t4-desc">Build and launch web apps visually — no code required.</div>
+              <button class="btn-t4" onclick="markRead('t4-4')">Try Horizons</button>
+            </div>
           </div>
         </div>
 
@@ -835,7 +891,7 @@
     <div class="annotation"><span class="tier-badge t1b annotation-badge">T1</span> Critical — always visible, no dismiss</div>
     <div class="annotation"><span class="tier-badge t2b annotation-badge">T2</span> Time-sensitive — home screen, snooze or resolve</div>
     <div class="annotation"><span class="tier-badge t3b annotation-badge">T3</span> Contextual — shown on the relevant product page</div>
-    <div class="annotation"><span class="tier-badge t4b annotation-badge">T4</span> Promotions — pull-only drawer, no badge</div>
+    <div class="annotation"><span class="tier-badge t4b annotation-badge">T4</span> Promotions &amp; offers — pull-only drawer, no badge</div>
   </div>
 
 </div><!-- /proto-wrapper -->

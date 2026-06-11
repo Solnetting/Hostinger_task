@@ -112,10 +112,10 @@
 
     /* ─── Prototype wrapper ────────────────────────── */
     #prototype { scroll-margin-top: 64px; }
-    .proto-wrapper { background: #f0f0f2; border-top: 1px solid var(--cs-border); padding: 60px 24px 80px; }
+    .proto-wrapper { background: #f0f0f2; border-top: 1px solid var(--cs-border); padding: 60px 32px 80px; }
     .proto-intro { max-width: 720px; margin: 0 auto 36px; }
-    .proto-frame-outer { max-width: 1100px; margin: 0 auto; border-radius: 12px; box-shadow: 0 12px 48px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.07); overflow: hidden; }
-    .proto-frame { height: 680px; display: flex; flex-direction: column; background: var(--hp-content-bg); position: relative; }
+    .proto-frame-outer { max-width: 1320px; margin: 0 auto; border-radius: 12px; box-shadow: 0 12px 48px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.07); overflow: hidden; }
+    .proto-frame { height: 720px; display: flex; flex-direction: column; background: var(--hp-content-bg); position: relative; }
 
     /* ─── hPanel Topbar (72px) ─────────────────────── */
     .hp-topbar {
@@ -173,22 +173,35 @@
     .hp-avatar:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
     .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #EA580C; border-radius: 50%; border: 2px solid white; }
 
-    /* ─── T1 Critical Banner ───────────────────────── */
+    /* ─── T1 Critical Banner (Figma: pink, #ffe8ef) ── */
     .hp-t1 {
-      background: #FEF2F2;
-      border-bottom: 1px solid #FECACA;
-      border-left: 4px solid var(--hp-red);
-      padding: 10px 20px 10px 16px;
-      display: flex; align-items: center; gap: 12px;
-      font-size: 13px; flex-shrink: 0; z-index: 100;
+      background: #ffe8ef;
+      border-bottom: 1px solid #ffd0de;
+      padding: 12px 32px 12px calc(var(--hp-sidebar-w) + 32px);
+      display: flex; align-items: center; gap: 16px;
+      flex-shrink: 0; z-index: 100;
     }
-    .t1-icon-circle { width: 32px; height: 32px; border-radius: 50%; background: #FEE2E2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--hp-red); }
+    .t1-accent-bar { width: 4px; height: 36px; background: #d63163; border-radius: 2px; flex-shrink: 0; }
+    .t1-icon-wrap { position: relative; flex-shrink: 0; }
+    .t1-icon-circle { width: 40px; height: 40px; border-radius: 12px; background: #ffd0de; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .t1-icon-circle img { width: 22px; height: 22px; }
+    .t1-icon-badge { position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #d63163; border: 2px solid #ffe8ef; display: flex; align-items: center; justify-content: center; }
+    .t1-icon-badge img { width: 8px; height: 8px; }
     .t1-body { flex: 1; }
-    .t1-title { display: block; font-size: 13px; font-weight: 700; color: #7F1D1D; }
-    .t1-sub { display: block; font-size: 11.5px; color: #991B1B; margin-top: 2px; }
-    .hp-t1-cta { padding: 5px 14px; background: transparent; color: var(--hp-red); border: 1.5px solid var(--hp-red); border-radius: 7px; font-size: 12.5px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-    .hp-t1-cta:hover { background: #FEE2E2; }
-    .hp-t1-cta:focus { outline: 2px solid var(--hp-red); outline-offset: 2px; }
+    .t1-title { display: block; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #d63163; letter-spacing: -0.01em; }
+    .t1-sub { display: block; font-family: 'Inter', sans-serif; font-size: 13px; color: #664052; margin-top: 2px; }
+    .hp-t1-cta { padding: 6px 16px; background: transparent; color: #090909; border: 1px solid #090909; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .hp-t1-cta:hover { background: rgba(0,0,0,0.05); }
+    .hp-t1-cta:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
+
+    /* ─── Proto use-case divider ──────────────────── */
+    .proto-uc-divider {
+      max-width: 1320px; margin: 52px auto 0; padding: 0 4px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .proto-uc-divider::before,
+    .proto-uc-divider::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
+    .proto-uc-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; white-space: nowrap; }
 
     /* ─── hp-body: sidebar + content + drawer ──────── */
     .hp-body { display: flex; flex: 1; overflow: hidden; position: relative; }
@@ -434,7 +447,7 @@
     /* ─── State switcher ──────────────────────────── */
     .state-switcher {
       display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-      max-width: 1100px; margin: 0 auto 14px; padding: 0 4px;
+      max-width: 1320px; margin: 0 auto 14px; padding: 0 4px;
     }
     .state-switcher-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; margin-right: 4px; white-space: nowrap; }
     .state-btn {
@@ -447,7 +460,7 @@
     .state-btn.active { background: #14141a; color: white; border-color: #14141a; }
 
     /* ─── Prototype legend ─────────────────────────── */
-    .proto-legend { max-width: 1100px; margin: 18px auto 0; display: flex; gap: 24px; flex-wrap: wrap; padding: 0 4px; }
+    .proto-legend { max-width: 1320px; margin: 18px auto 0; display: flex; gap: 24px; flex-wrap: wrap; padding: 0 4px; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #6b7280; }
 
     /* ─── Toast ────────────────────────────────────── */
@@ -818,10 +831,12 @@
 
     <!-- ── T1 Critical Banner (no dismiss) ── -->
     <div class="hp-t1" id="hp-t1-banner" role="alert" aria-live="assertive" style="display:none">
-      <div class="t1-icon-circle" aria-hidden="true">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
-          <rect x="1" y="3" width="14" height="9" rx="1.5"/><path d="M5 12v2M11 12v2M2 15h12"/><circle cx="8" cy="7.5" r="1.5" fill="currentColor" stroke="none"/>
-        </svg>
+      <div class="t1-accent-bar" aria-hidden="true"></div>
+      <div class="t1-icon-wrap" aria-hidden="true">
+        <div class="t1-icon-circle">
+          <img src="screens/icon-t1.png" alt="">
+        </div>
+        <div class="t1-icon-badge"><img src="screens/icon-t1-badge.png" alt=""></div>
       </div>
       <div class="t1-body">
         <span class="t1-title">Your Premium Web Hosting was cancelled</span>
@@ -1262,6 +1277,183 @@
     <div class="legend-item"><span class="tier-badge t4b" style="font-size:10px;padding:1px 7px;">T4</span> Offers — pull-only, no badge</div>
   </div>
 
+  <!-- ── Use case divider ── -->
+  <div class="proto-uc-divider">
+    <span class="proto-uc-label">Use case 2 · T1 Critical alert</span>
+  </div>
+
+  <!-- ── Second proto intro ── -->
+  <div class="proto-intro" style="margin-top:24px;">
+    <div class="cs-label" style="font-size:11px;">Trigger: hosting plan cancelled</div>
+    <p style="font-size:15px;color:#374151;margin-top:6px;max-width:660px;">A non-dismissable T1 banner appears across all pages. The sidebar dots on Websites and VPS signal affected products. User must act — Restore — to clear the state.</p>
+  </div>
+
+  <!-- ── Second prototype: T1 Critical state ── -->
+  <div class="proto-frame-outer" style="margin-top:20px;">
+   <div class="proto-frame">
+
+    <!-- Topbar -->
+    <div class="hp-topbar">
+      <div class="hp-logo">
+        <img class="hp-logo-icon" src="screens/logo-symbol.png" alt="Hostinger H" onerror="this.style.display='none'">
+        <img class="hp-logo-text" src="screens/logo-text.png" alt="HOSTINGER" onerror="this.outerHTML='<span style=&quot;font-size:15px;font-weight:800;color:#14141a;&quot;>HOSTINGER</span>'">
+      </div>
+      <div class="hp-search" aria-hidden="true">
+        <svg class="hp-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5l3 3"/></svg>
+        <span>Search</span>
+        <div class="hp-search-kb"><kbd>⌘</kbd><kbd>K</kbd></div>
+      </div>
+      <div class="hp-topbar-actions">
+        <button class="hp-refer-btn" tabindex="-1" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4 7 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          Refer &amp; earn up to $200
+        </button>
+        <button class="hp-ask-ai-btn" tabindex="-1" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v2M7 11v2M1 7h2M11 7h2M3 3l1.5 1.5M9.5 9.5L11 11M3 11l1.5-1.5M9.5 4.5L11 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Ask AI
+        </button>
+        <button class="hp-refer-btn" tabindex="-1" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5C4.5 1.5 2.5 3.5 2.5 6c0 3 4.5 7 4.5 7s4.5-4 4.5-7c0-2.5-2-4.5-4.5-4.5zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Offers
+        </button>
+        <button class="hp-avatar" tabindex="-1" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="7" r="3.5"/><path d="M2.5 17c0-3.59 3.36-6.5 7.5-6.5s7.5 2.91 7.5 6.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- T1 banner (always visible in this use case) -->
+    <div class="hp-t1" id="hp-t1-uc2" role="alert" aria-live="assertive">
+      <div class="t1-accent-bar" aria-hidden="true"></div>
+      <div class="t1-icon-wrap" aria-hidden="true">
+        <div class="t1-icon-circle"><img src="screens/icon-t1.png" alt=""></div>
+        <div class="t1-icon-badge"><img src="screens/icon-t1-badge.png" alt=""></div>
+      </div>
+      <div class="t1-body">
+        <span class="t1-title">Your Premium Web Hosting was cancelled</span>
+        <span class="t1-sub">10 days remaining to restore it and get your website(s) back online.</span>
+      </div>
+      <button class="hp-t1-cta" onclick="restoreUC2()">Restore</button>
+    </div>
+
+    <!-- Body -->
+    <div class="hp-body">
+      <!-- Sidebar with pink badges on Websites + VPS -->
+      <nav class="hp-sidebar" aria-label="hPanel navigation">
+        <div class="sidebar-nav">
+          <button class="sidebar-item active">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7.5L10 2l8 5.5V18H13v-5H7v5H2V7.5z"/></svg></span>
+            Home
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="12" rx="2"/><path d="M6 19h8M10 15v4"/></svg></span>
+            Websites
+            <span class="sidebar-dot-badge" style="background:#fc5185;" aria-label="Affected by T1"></span>
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a13 13 0 010 16M10 2a13 13 0 000 16"/></svg></span>
+            Domains
+            <span class="sidebar-chevron">›</span>
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6c2-2 4-2 6 0s4 2 6 0M2 11c2-2 4-2 6 0s4 2 6 0M2 16c2-2 4-2 6 0s4 2 6 0"/></svg></span>
+            Horizons
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="16" height="12" rx="2"/><path d="M2 7l8 5 8-5"/></svg></span>
+            Emails
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="2"/><path d="M10 2v3M10 15v3M2 10h3M15 10h3"/></svg></span>
+            Reach
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="5" rx="1.5"/><rect x="2" y="12" width="16" height="5" rx="1.5"/></svg></span>
+            VPS
+            <span class="sidebar-dot-badge" style="background:#fc5185;" aria-label="Affected by T1"></span>
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2l7 3v5c0 4-3 7.5-7 8.5C6 17.5 3 14 3 10V5l7-3z"/></svg></span>
+            Dark web monitoring
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="5" width="18" height="13" rx="2"/><path d="M6 5V4a4 4 0 018 0v1"/></svg></span>
+            Billing
+            <span class="sidebar-chevron">›</span>
+          </button>
+          <button class="sidebar-item">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="8" r="3"/><path d="M4 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></span>
+            Marketplace
+            <span class="sidebar-chevron">›</span>
+          </button>
+        </div>
+        <div class="sidebar-footer">
+          <button class="sidebar-item" style="color:#58585e;">
+            <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="14" cy="8" r="3"/><path d="M1 18c0-3 2.7-5 6-5M10 13c3.3 0 6 2 6 5"/></svg></span>
+            Account sharing
+          </button>
+        </div>
+      </nav>
+
+      <!-- Content: home page, no T2 -->
+      <main class="hp-content" id="uc2Content">
+        <div class="page active">
+          <div class="page-greeting">Hello, Alex!</div>
+          <div class="section-label-sm">Your websites</div>
+          <div class="site-grid">
+            <div class="site-card">
+              <div class="site-browser-chrome">
+                <div class="site-browser-bar">
+                  <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                  <div class="site-url-pill">rocketman.xyz</div>
+                </div>
+                <div class="site-thumb"><img src="screens/thumb-rocketman.png" alt="rocketman.xyz preview"></div>
+              </div>
+              <div class="site-foot">
+                <div><span class="site-name">rocketman.xyz</span><span class="site-plan">Premium Web Hosting</span></div>
+                <span class="site-status active">Active</span>
+              </div>
+            </div>
+            <div class="site-card">
+              <div class="site-browser-chrome">
+                <div class="site-browser-bar">
+                  <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                  <div class="site-url-pill">studio-at.com</div>
+                </div>
+                <div class="site-thumb"><img src="screens/thumb-studio.png" alt="studio-at.com preview"></div>
+              </div>
+              <div class="site-foot">
+                <div><span class="site-name">studio-at.com</span><span class="site-plan">Starter Web Hosting</span></div>
+                <span class="site-status active">Active</span>
+              </div>
+            </div>
+            <div class="site-card">
+              <div class="site-browser-chrome">
+                <div class="site-browser-bar">
+                  <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                  <div class="site-url-pill">old-client.net</div>
+                </div>
+                <div class="site-thumb"><img src="screens/thumb-old-client.png" alt="old-client.net preview" style="opacity:0.75;"></div>
+              </div>
+              <div class="site-foot">
+                <div><span class="site-name">old-client.net</span><span class="site-plan">Business Plan</span></div>
+                <span class="site-status cancelled">Cancelled</span>
+              </div>
+            </div>
+          </div>
+          <div class="section-label-sm" style="margin-top:8px;">Quick actions</div>
+          <div class="qa-grid">
+            <div class="qa-tile"><div class="qa-icon-wrap"><img src="screens/icon-upgrade.png" alt=""></div><div><div class="qa-label">Upgrade plan</div><div class="qa-sub">More power and storage</div></div></div>
+            <div class="qa-tile"><div class="qa-icon-wrap"><img src="screens/icon-domain.png" alt=""></div><div><div class="qa-label">Register domain</div><div class="qa-sub">Search for your perfect domain</div></div></div>
+            <div class="qa-tile"><div class="qa-icon-wrap"><img src="screens/icon-create.png" alt=""></div><div><div class="qa-label">Create website</div><div class="qa-sub">Build &amp; go live in minutes</div></div></div>
+            <div class="qa-tile"><div class="qa-icon-wrap"><img src="screens/icon-email.png" alt=""></div><div><div class="qa-label">Add email</div><div class="qa-sub">Professional inbox setup</div></div></div>
+          </div>
+        </div>
+      </main>
+    </div><!-- /hp-body -->
+   </div><!-- /proto-frame -->
+  </div><!-- /proto-frame-outer -->
+
 </div><!-- /proto-wrapper -->
 
 <!-- Account dropdown (fixed position, JS-positioned) -->
@@ -1395,6 +1587,15 @@
     toastEl.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  /* ── UC2: Restore action ── */
+  function restoreUC2() {
+    const banner = document.getElementById('hp-t1-uc2');
+    banner.style.transition = 'opacity 0.35s';
+    banner.style.opacity = '0';
+    setTimeout(() => { banner.style.display = 'none'; }, 360);
+    showToast('Plan restored — banner cleared.');
   }
 
   /* ── Prototype state switcher ── */

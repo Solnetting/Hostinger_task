@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title>hPanel Nudge Triage — Case Study by Carlos Mera</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,18 +28,18 @@
       --hp-topbar-bg:    #FFFFFF;
       --hp-topbar-h:     72px;
       --hp-sidebar-bg:   #FFFFFF;
-      --hp-sidebar-w:    240px;
-      --hp-content-bg:   #F5F5F7;
+      --hp-sidebar-w:    260px;
+      --hp-content-bg:   #f5f5f6;
       --hp-card-bg:      #FFFFFF;
-      --hp-border:       #E8E8E8;
-      --hp-text:         #1A1A1A;
-      --hp-muted:        #6B7280;
-      --hp-active-bg:    #F2F2F2;
+      --hp-border:       #f3f4f6;
+      --hp-text:         #14141a;
+      --hp-muted:        #8c8c99;
+      --hp-active-bg:    rgba(0,0,0,0.05);
     }
 
     html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       font-size: 16px;
       line-height: 1.75;
       color: var(--cs-text);
@@ -119,14 +121,14 @@
     .hp-topbar {
       height: var(--hp-topbar-h);
       background: var(--hp-topbar-bg);
-      border-bottom: 1px solid var(--hp-border);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
       display: flex; align-items: center;
       padding: 0 24px; gap: 16px;
       flex-shrink: 0; z-index: 200;
     }
     .hp-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
     .hp-logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
-    .hp-logo-text { font-size: 15px; font-weight: 800; color: var(--hp-text); letter-spacing: -0.01em; }
+    .hp-logo-text { height: 16px; flex-shrink: 0; }
 
     .hp-search {
       flex: 1; max-width: 380px; height: 40px;
@@ -195,35 +197,36 @@
     .hp-sidebar {
       width: var(--hp-sidebar-w);
       background: var(--hp-sidebar-bg);
-      border-right: 1px solid var(--hp-border);
+      border-right: 1px solid rgba(0,0,0,0.08);
       flex-shrink: 0;
       display: flex; flex-direction: column;
       overflow-y: auto;
-      padding: 8px 0;
+      padding: 12px;
     }
-    .sidebar-nav { flex: 1; padding: 4px 0; }
+    .sidebar-nav { flex: 1; display: flex; flex-direction: column; gap: 2px; }
     .sidebar-item {
       display: flex; align-items: center; gap: 10px;
-      width: 100%; padding: 10px 16px;
-      font-size: 13.5px; color: #374151;
+      width: 100%; padding: 12px;
+      height: 44px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 500; color: #18181a;
       background: transparent; border: none;
       text-align: left; cursor: pointer;
-      border-radius: 6px; margin: 0 6px;
-      width: calc(100% - 12px);
-      transition: background 0.12s, color 0.12s;
+      border-radius: 8px;
+      transition: background 0.12s;
     }
-    .sidebar-item:hover { background: #F9FAFB; color: var(--hp-text); }
-    .sidebar-item.active { background: var(--hp-active-bg); color: var(--hp-text); font-weight: 700; }
+    .sidebar-item:hover { background: rgba(0,0,0,0.04); }
+    .sidebar-item.active { background: var(--hp-active-bg); font-weight: 700; }
     .sidebar-item:focus { outline: 2px solid var(--hp-purple); outline-offset: -2px; }
-    .sidebar-icon { width: 20px; height: 20px; flex-shrink: 0; color: #6B7280; display: flex; align-items: center; justify-content: center; }
-    .sidebar-item.active .sidebar-icon { color: var(--hp-text); }
+    .sidebar-icon { width: 20px; height: 20px; flex-shrink: 0; color: #58585e; display: flex; align-items: center; justify-content: center; }
+    .sidebar-item.active .sidebar-icon { color: #18181a; }
     .sidebar-chevron { margin-left: auto; color: #9CA3AF; font-size: 12px; }
     .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #EA580C; margin-left: auto; flex-shrink: 0; }
 
-    .sidebar-footer { border-top: 1px solid var(--hp-border); padding: 8px 0; margin-top: 4px; }
+    .sidebar-footer { border-top: 1px solid rgba(0,0,0,0.08); padding: 8px 0; margin-top: 4px; }
 
     /* ─── Content area ─────────────────────────────── */
-    .hp-content { flex: 1; background: var(--hp-content-bg); overflow-y: auto; padding: 28px 32px; position: relative; }
+    .hp-content { flex: 1; background: var(--hp-content-bg); overflow-y: auto; padding: 32px 40px; position: relative; }
     .hp-dim { position: absolute; inset: 0; background: rgba(0,0,0,0.32); z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
     .hp-dim.visible { opacity: 1; pointer-events: all; }
 
@@ -231,7 +234,7 @@
     .page.active { display: block; }
 
     /* Page header */
-    .page-greeting { font-size: 24px; font-weight: 800; letter-spacing: -0.025em; color: var(--hp-text); margin-bottom: 24px; }
+    .page-greeting { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.025em; color: #14141a; margin-bottom: 32px; }
     .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
     .section-title { font-size: 16px; font-weight: 700; color: var(--hp-text); }
     .section-badge { background: var(--hp-purple); color: white; font-size: 11px; font-weight: 700; min-width: 20px; height: 20px; border-radius: 100px; display: flex; align-items: center; justify-content: center; padding: 0 6px; }
@@ -283,30 +286,75 @@
     .btn-dismiss:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
 
     /* ─── Website card grid ────────────────────────── */
-    .section-label-sm { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hp-muted); margin-bottom: 10px; }
-    .site-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
-    .site-card { background: white; border: 1px solid #E8E8E8; border-radius: 12px; overflow: hidden; }
-    .site-browser-bar { background: #F9FAFB; border-bottom: 1px solid #F3F4F6; padding: 7px 10px; display: flex; align-items: center; gap: 6px; }
+    .section-label-sm { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: #8c8c99; margin-bottom: 12px; }
+    .site-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .site-card {
+      background: white;
+      border: 1px solid #f3f4f6;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.1);
+    }
+    .site-browser-chrome {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 6px 6px 0;
+    }
+    .site-browser-bar {
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 8px 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
     .site-dots { display: flex; gap: 4px; }
-    .site-dot-r { width: 8px; height: 8px; border-radius: 50%; background: #F87171; }
-    .site-dot-y { width: 8px; height: 8px; border-radius: 50%; background: #FBBF24; }
-    .site-dot-g { width: 8px; height: 8px; border-radius: 50%; background: #34D399; }
-    .site-url-pill { flex: 1; background: #F3F4F6; border-radius: 3px; font-size: 9.5px; color: #9CA3AF; padding: 2px 7px; font-family: 'SF Mono','Menlo',monospace; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-    .site-thumb { height: 118px; }
-    .site-foot { padding: 10px 12px; display: flex; align-items: flex-end; justify-content: space-between; }
-    .site-name { font-size: 13px; font-weight: 700; color: var(--hp-text); display: block; }
-    .site-plan { font-size: 11px; color: var(--hp-muted); margin-top: 2px; display: block; }
-    .site-status { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
-    .site-status.active { background: #DCFCE7; color: #15803D; }
-    .site-status.cancelled { background: #FEE2E2; color: #DC2626; }
+    .site-dot-r { width: 10px; height: 10px; border-radius: 50%; background: #ff6467; }
+    .site-dot-y { width: 10px; height: 10px; border-radius: 50%; background: #fdc700; }
+    .site-dot-g { width: 10px; height: 10px; border-radius: 50%; background: #05df72; }
+    .site-url-pill {
+      flex: 1; background: white; border: 1px solid #e5e7eb;
+      border-radius: 8px; height: 24px; line-height: 24px;
+      font-size: 10px; color: #99a1af; padding: 0 8px;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
+    .site-thumb { height: 120px; overflow: hidden; }
+    .site-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .site-foot { padding: 12px 16px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .site-name { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #14141a; display: block; letter-spacing: -0.01em; }
+    .site-plan { font-family: 'Inter', sans-serif; font-size: 12px; color: #666673; margin-top: 2px; display: block; }
+    .site-status {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 100px;
+      white-space: nowrap; flex-shrink: 0;
+      border: 1px solid transparent;
+    }
+    .site-status.active { background: #f0fdf4; border-color: #b9f8cf; color: #00a63e; }
+    .site-status.cancelled { background: #fef2f2; border-color: #ffc9c9; color: #ff6467; }
 
     /* ─── Quick actions ─────────────────────────────── */
-    .qa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
-    .qa-tile { background: white; border: 1px solid #E8E8E8; border-radius: 10px; padding: 14px 12px; display: flex; align-items: center; gap: 10px; cursor: default; }
-    .qa-tile:hover { background: #FAFAFA; }
-    .qa-icon-wrap { width: 32px; height: 32px; border-radius: 8px; background: #F3EEFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--hp-purple); }
-    .qa-label { font-size: 12.5px; font-weight: 600; color: var(--hp-text); }
-    .qa-sub { font-size: 11px; color: var(--hp-muted); margin-top: 2px; line-height: 1.35; }
+    .qa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 4px; }
+    .qa-tile {
+      background: white;
+      border: 1px solid #f3f4f6;
+      border-radius: 16px;
+      padding: 17px 16px;
+      display: flex; align-items: center; gap: 16px;
+      cursor: default;
+      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.08);
+    }
+    .qa-tile:hover { background: #fafafa; }
+    .qa-icon-wrap {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: #ede9f7;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .qa-icon-wrap img { width: 22px; height: 22px; }
+    .qa-label { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: #14141a; }
+    .qa-sub { font-family: 'Inter', sans-serif; font-size: 11px; color: #8c8c99; margin-top: 2px; line-height: 1.35; }
 
     /* ─── T2 card (left-border amber style) ─────────── */
     .nudge-card-t2 {
@@ -702,11 +750,9 @@
     <div class="hp-topbar">
       <!-- Logo -->
       <div class="hp-logo">
-        <svg class="hp-logo-icon" viewBox="0 0 28 28" fill="none">
-          <rect width="28" height="28" rx="6" fill="#1A1A1A"/>
-          <path d="M8 7h3v5.5h6V7h3v14h-3v-5.5H11V21H8V7z" fill="white"/>
-        </svg>
-        <span class="hp-logo-text">HOSTINGER</span>
+        <img class="hp-logo-icon" src="screens/logo-symbol.png" alt="Hostinger H" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <svg class="hp-logo-icon" viewBox="0 0 28 28" fill="none" style="display:none;"><rect width="28" height="28" rx="6" fill="#1A1A1A"/><path d="M8 7h3v5.5h6V7h3v14h-3v-5.5H11V21H8V7z" fill="white"/></svg>
+        <img class="hp-logo-text" src="screens/logo-text.png" alt="HOSTINGER" onerror="this.outerHTML='<span style=&quot;font-size:15px;font-weight:800;color:#14141a;letter-spacing:-0.01em;&quot;>HOSTINGER</span>'">
       </div>
       <!-- Search -->
       <div class="hp-search" aria-hidden="true">
@@ -942,11 +988,13 @@
           <div class="site-grid">
 
             <div class="site-card">
-              <div class="site-browser-bar">
-                <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
-                <div class="site-url-pill">rocketman.xyz</div>
+              <div class="site-browser-chrome">
+                <div class="site-browser-bar">
+                  <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                  <div class="site-url-pill">rocketman.xyz</div>
+                </div>
+                <div class="site-thumb"><img src="screens/thumb-rocketman.png" alt="rocketman.xyz preview"></div>
               </div>
-              <div class="site-thumb" style="background: linear-gradient(135deg,#3b0764 0%,#6d28d9 55%,#a78bfa 100%);"></div>
               <div class="site-foot">
                 <div><span class="site-name">rocketman.xyz</span><span class="site-plan">Premium Web Hosting</span></div>
                 <span class="site-status active">Active</span>
@@ -954,11 +1002,13 @@
             </div>
 
             <div class="site-card">
-              <div class="site-browser-bar">
-                <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
-                <div class="site-url-pill">studio-at.com</div>
+              <div class="site-browser-chrome">
+                <div class="site-browser-bar">
+                  <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                  <div class="site-url-pill">studio-at.com</div>
+                </div>
+                <div class="site-thumb"><img src="screens/thumb-studio.png" alt="studio-at.com preview"></div>
               </div>
-              <div class="site-thumb" style="background: linear-gradient(135deg,#1e3a8a 0%,#2563eb 55%,#93c5fd 100%);"></div>
               <div class="site-foot">
                 <div><span class="site-name">studio-at.com</span><span class="site-plan">Starter Web Hosting</span></div>
                 <span class="site-status active">Active</span>
@@ -966,11 +1016,13 @@
             </div>
 
             <div class="site-card">
-              <div class="site-browser-bar">
-                <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y" style="background:#e5e7eb"></span><span class="site-dot-g" style="background:#e5e7eb"></span></div>
-                <div class="site-url-pill">old-client.net</div>
+              <div class="site-browser-chrome">
+                <div class="site-browser-bar">
+                  <div class="site-dots"><span class="site-dot-r"></span><span class="site-dot-y"></span><span class="site-dot-g"></span></div>
+                  <div class="site-url-pill">old-client.net</div>
+                </div>
+                <div class="site-thumb"><img src="screens/thumb-old-client.png" alt="old-client.net preview" style="opacity:0.75;"></div>
               </div>
-              <div class="site-thumb" style="background: linear-gradient(135deg,#374151 0%,#6b7280 60%,#d1d5db 100%); opacity:0.65;"></div>
               <div class="site-foot">
                 <div><span class="site-name">old-client.net</span><span class="site-plan">Business Plan</span></div>
                 <span class="site-status cancelled">Cancelled</span>
@@ -980,22 +1032,22 @@
           </div>
 
           <!-- Quick actions -->
-          <div class="section-label-sm" style="margin-top:4px;">Quick actions</div>
+          <div class="section-label-sm" style="margin-top:8px;">Quick actions</div>
           <div class="qa-grid">
             <div class="qa-tile">
-              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v3M8 11v3M2 8h3M11 8h3M4.2 4.2l2.1 2.1M9.7 9.7l2.1 2.1M4.2 11.8l2.1-2.1M9.7 6.3l2.1-2.1"/></svg></div>
+              <div class="qa-icon-wrap"><img src="screens/icon-upgrade.png" alt=""></div>
               <div><div class="qa-label">Upgrade plan</div><div class="qa-sub">More power and storage</div></div>
             </div>
             <div class="qa-tile">
-              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M1.5 8h13M8 1.5a10 10 0 010 13M8 1.5a10 10 0 000 13"/></svg></div>
+              <div class="qa-icon-wrap"><img src="screens/icon-domain.png" alt=""></div>
               <div><div class="qa-label">Register domain</div><div class="qa-sub">Search for your perfect domain</div></div>
             </div>
             <div class="qa-tile">
-              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="2" width="14" height="10" rx="1.5"/><path d="M5 15h6M8 12v3"/></svg></div>
+              <div class="qa-icon-wrap"><img src="screens/icon-create.png" alt=""></div>
               <div><div class="qa-label">Create website</div><div class="qa-sub">Build &amp; go live in minutes</div></div>
             </div>
             <div class="qa-tile">
-              <div class="qa-icon-wrap"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 6.5l7 4 7-4"/></svg></div>
+              <div class="qa-icon-wrap"><img src="screens/icon-email.png" alt=""></div>
               <div><div class="qa-label">Add email</div><div class="qa-sub">Professional inbox setup</div></div>
             </div>
           </div>

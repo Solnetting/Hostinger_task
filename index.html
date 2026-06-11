@@ -541,8 +541,7 @@
   <section class="cs-section" id="intro">
     <div class="cs-label">Product Design — Hostinger Challenge</div>
     <h1>Fixing hPanel's notification overload</h1>
-    <p>hPanel's "Your to-dos" surfaces 53 nudge types in a single dismissable list. Renewal reminders sit next to promotional offers. Security alerts share visual weight with upsell prompts. Nothing feels urgent because everything does.</p>
-    <p>This is the design process for replacing that list with a tiered, contextual notification system — and the structural finding that surfaced along the way.</p>
+    <p>hPanel's "Your to-dos" surfaces 53 nudge types in one list — renewal reminders next to promo offers, security alerts sharing visual weight with upsell prompts. Nothing feels urgent because everything does. This is the system that replaced it.</p>
     <div class="cs-meta">
       <span><strong>Role</strong> Product Designer</span>
       <span><strong>Type</strong> Design Challenge</span>
@@ -553,21 +552,13 @@
   <section class="cs-section" id="problem">
     <div class="cs-label">The problem</div>
     <h2>Everything looks urgent, so nothing is</h2>
-    <p>hPanel's home screen has a persistent "Your to-dos" list that collects every pending action across the account: domain renewals, email verification, SSL notices, promotional offers, security tips, upsell prompts. All rendered with the same card format, the same visual weight, the same dismiss button.</p>
-    <p>The result is a list users learn to ignore. A domain renewal due in 3 days competes visually with "Add a phone number to your account." Neither feels important. CTA conversion is low despite the list being always visible.</p>
-    <div class="callout">
-      The audit found 53 nudge types. All of them defaulted to the home screen. None had priority logic. The list treated urgency as a content problem rather than a design problem.
-    </div>
-    <p>The core question wasn't how to make the list shorter. It was: <em>what is each nudge actually asking the user to do, and does the surface match the stakes?</em></p>
+    <p>53 nudge types, all rendered with the same card format and dismiss button. A domain expiring in 3 days competes visually with "Add a phone number." The question wasn't how to shorten the list — it was whether each nudge's <em>surface matched its stakes</em>.</p>
   </section>
 
   <section class="cs-section" id="analysis">
     <div class="cs-label">Analysis</div>
     <h2>Mapping urgency against type</h2>
-    <p>Each nudge was mapped along two axes: <strong>urgency</strong> — what happens if ignored, and how quickly — and <strong>scope</strong> — product-specific or account-level. That mapping revealed four tiers plus one sub-class, all defined by behavior, not feature area.</p>
-
     <h3>Routing criteria</h3>
-    <p>Each of the 53 nudge types was put through three questions:</p>
     <table class="criteria-table">
       <thead><tr><th>Question</th><th>T1</th><th>T2</th><th>T2+ Setup</th><th>T3</th><th>T4</th></tr></thead>
       <tbody>
@@ -597,10 +588,7 @@
         </tr>
       </tbody>
     </table>
-    <p>T1 = immediate harm, account-wide. Dual-tier routing = a deadline plus a product-page home — same nudge surfaces as a T2 home card and a T3 product-page indicator simultaneously, resolving from either.</p>
-
     <h3>All 53 nudges, sorted</h3>
-    <p style="font-size:14px;color:#6b7280;margin-bottom:8px;margin-top:-4px;">Identifiers are verbatim from Hostinger's brief. Tier assignment follows the three routing questions above, not feature area — a few types are reclassified from the brief's original grouping where the routing logic demands it.</p>
 
     <div class="nudge-clusters">
 
@@ -624,7 +612,7 @@
           <span class="nudge-chip">titan_mail_plan_expired</span>
           <span class="nudge-chip">reach_plan_expired</span>
         </div>
-        <div class="nudge-note">Active system states — services are already down or payment has already failed. Once triggered, the strip persists on every page until the underlying state is resolved.</div>
+        <div class="nudge-note">Services already down or payment already failed. Strip persists on every page until resolved.</div>
       </div>
 
       <div class="nudge-cluster">
@@ -653,7 +641,7 @@
           <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">requested_access_with_payments</span>
           <span class="nudge-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3;">website_ownership_transfer_request</span>
         </div>
-        <div class="nudge-note">Dashed border = dual-tier: also surfaces as T3 on the relevant product page. · <span style="color:#92400E">Orange</span> = account-level (no sidebar anchor), also surfaces in avatar dropdown. · <span style="color:#9F1239">Red</span> = human-waiting: a person is blocked waiting for your response — no snooze decay, no deadline needed. · <em>verify_your_email</em>, the three red items, and <em>website_ownership_transfer_request</em> are reclassified from the brief's T3 — routing logic (consequence of ignoring + home-level action needed) places them here.</div>
+        <div class="nudge-note">Dashed = dual-tier (also T3 on product page). Orange = account-level, avatar dropdown. Red = human-waiting, no snooze decay.</div>
       </div>
 
       <div class="nudge-cluster">
@@ -678,7 +666,7 @@
           <span class="nudge-chip">google_workspace_for_client_pending</span>
           <span class="nudge-chip">titan_mail_setup_pending</span>
         </div>
-        <div class="nudge-note">Collapse all active setup nudges into one "Finish setting up (N)" grouped card on Home — occupies one T2 slot. Dismissable (abandoning setup is a valid choice). No deadline escalation. Reclassified from brief's T3 — these have no product page to live on yet, so T3 is structurally impossible for them.</div>
+        <div class="nudge-note">Collapses into one "Finish setting up (N)" card — 1 T2 slot. Dismissable. No deadline escalation.</div>
       </div>
 
       <div class="nudge-cluster">
@@ -692,7 +680,7 @@
           <span class="nudge-chip">domain_registration_pending</span>
           <span class="nudge-chip">domain_transfer_pending</span>
         </div>
-        <div class="nudge-note">Only 3 of the brief's 53 nudges are pure T3 — because the original "Your to-dos" list was home-screen-scoped; product-page contextual signals (SSL inactive, DNS not pointed, SPF missing, email storage full) weren't part of it. In a real implementation, T3 would hold dozens of types across Domains, Emails, Security, and VPS pages that were never surfaced on home.</div>
+        <div class="nudge-note">Only 3 from the brief — the original list was home-scoped. In practice T3 holds dozens more (SSL inactive, DNS issues, SPF missing) across Domains, Emails, Security.</div>
       </div>
 
       <div class="nudge-cluster">
@@ -707,7 +695,7 @@
           <span class="nudge-chip">whatsapp_notifications</span>
           <span class="nudge-chip">phone_number_added</span>
         </div>
-        <div class="nudge-note">No harm, no deadline. User pulls this drawer when they choose to. Never badged, never pushed. · Hybrid routing rule: <em>special_renewal_offer</em> and <em>drp_monthly_to_yearly_offer</em> are not T4 items — both are attached to a renewal moment with a deadline, which earns T2 placement. The discount is content that decorates the T2 card; it doesn't earn its own surface. <strong>An offer never earns a surface. It may decorate one that's already been earned.</strong></div>
+        <div class="nudge-note">No harm, no deadline — user opens when they choose. <strong>An offer never earns a surface. It may decorate one that's already been earned.</strong> (<em>special_renewal_offer</em> and <em>drp_monthly_to_yearly_offer</em> have deadlines — they ride the T2 card as a discount chip, not T4.)</div>
       </div>
 
     </div>
@@ -716,7 +704,7 @@
   <section class="cs-section" id="solution">
     <div class="cs-label">The system</div>
     <h2>A 4-tier triage model</h2>
-    <p>Each tier maps to a specific surface, a dismissal behavior, and a display cap. The goal: the surface itself communicates urgency before a user reads a single word.</p>
+    <p>The surface communicates urgency before a user reads a word.</p>
     <table class="tier-table">
       <thead><tr><th>Tier</th><th>Label</th><th>Surface</th><th>Dismissal</th><th>Cap</th></tr></thead>
       <tbody>
@@ -727,7 +715,6 @@
         <tr><td><span class="tier-badge t4b">T4</span></td><td>Offers &amp; announcements</td><td>Pull drawer (topbar pill) + passive shelf</td><td>Read = dismissed</td><td>Unlimited</td></tr>
       </tbody>
     </table>
-    <p>T2 caps at 2 decision groups — same-family nudges collapse into one card. Overflow is a passive chip, never a "View all." T4 carries no badge: a badge is push in disguise.</p>
   </section>
 
   <section class="cs-section" id="decisions">
@@ -735,46 +722,35 @@
     <h2>The decisions that define the system</h2>
 
     <h3>T1 follows the user everywhere</h3>
-    <p>The T1 strip sits above both sidebar and content at full viewport width — not scoped to the content area. A cancelled hosting plan isn't a home-page problem; it's system-level. The strip persists on Domains, Emails, VPS — every page — until resolved.</p>
+    <p>Full-width, above sidebar and content. Not home-scoped — a cancelled plan is a system problem, not a page problem.</p>
 
-    <h3>T2 is capped at 2 decision groups. No "View all."</h3>
-    <p>The cap is two <em>groups</em>, not two items. Same-family nudges collapse into one card: "3 domains expiring this month" is one decision group, not three cards. The group is expandable inline — a chevron reveals the individual items and their distinct CTAs — which fixes the information-access problem without creating a navigation destination. Overflow beyond two groups shows as a passive chip: <em>"+ 2 more need attention"</em> — gray, non-interactive. No "View all" link, no separate page. A separate destination would only be reachable during overflow, never from primary nav — the original problem with a better label.</p>
-    <p>Each card offers <strong>Snooze</strong>, not Dismiss. Snooze delays the card until the deadline crosses a critical threshold (for example, &lt;3 days left on a domain), then resurfaces it automatically. A permanent dismiss doesn't exist for deadline-sensitive nudges — a user who dismisses a domain expiry warning could lose the domain. The amber left bar is the urgency signal: it maps to T2 across all cards so the pattern is consistent. A secondary × lets users clear the card view temporarily without committing to an action; internally it behaves identically to Snooze.</p>
+    <h3>T2 caps at 2 decision groups. No "View all."</h3>
+    <p>Same-family nudges collapse into one card. Overflow is a passive gray chip — no destination page, because a destination only reachable during overflow is the original problem with better styling. Cards offer Snooze (auto-resurfaces near deadline), not permanent dismiss.</p>
 
     <h3>Setup / Continue is a protected T2 slot, not a new tier</h3>
-    <p>The brief includes ~8 nudges from the <em>*_setup_in_progress</em> and <em>*_setup_pending</em> family. These don't fit the standard T2 rules: they have no deadline, so there's no escalation; and abandoning setup is a legitimate user choice, so a permanent dismiss is acceptable. Rather than create a fifth tier — which would require its own routing question — they're handled as a T2 sub-class with three distinct rules: dismissable; no snooze decay; collapses into a single "Finish setting up (N)" grouped card that occupies one T2 slot. The rationale is business-level: setup completion is conversion-critical for a multi-product company. These nudges earn a protected home-screen slot, but one — they don't compete with expiry deadlines for the two visible positions.</p>
+    <p>14 setup nudges collapse into one "Finish setting up (N)" card — 1 T2 slot. Dismissable (abandoning is valid). Earns home-screen presence because setup completion is conversion-critical; doesn't compete with expiry deadlines.</p>
 
-    <h3>On not building a Notification Center</h3>
-    <p>The brief's "excessive number of products" note is real, and the history use case is real: an audit of billing, access grants, and expiry events is genuinely useful. The argument here isn't that a history feed is worthless — it's that it isn't a triage surface. A Notification Center tries to serve two distinct jobs: urgency routing (act on this now) and record-keeping (what happened). Combined, they recreate the original 53-item list — now with better icons. The routing problem was the list treating urgency as a content problem; merging again undoes the fix.</p>
-    <p>The record-keeping use case belongs under Billing and Account settings as an activity log — not as a surface that receives pushed notifications. Hostinger already has the concept in billing history; extending it to include domain events, access grants, and security activity is a separate IA addition, not a replacement for triage. Building them separately means both can be good at their job.</p>
+    <h3>No Notification Center</h3>
+    <p>A Notification Center combines urgency routing with record-keeping — which recreates the 53-item list with better icons. Record-keeping belongs under Billing as an activity log, not a triage surface.</p>
 
-    <h3>Offers that ride a deadline belong on T2, not in the drawer</h3>
-    <p>Two nudges from the brief's list — <em>special_renewal_offer</em> and <em>drp_monthly_to_yearly_offer</em> — sit at the T2/T4 boundary. Both are attached to a renewal moment with an active deadline. Routing them to the drawer by their label (they look like offers) would contradict the system's own routing rule: if ignored, the domain expires. The deadline routes them to T2; the offer is content that decorates the card. This protects the conversion surface the brief describes as underperforming, without readmitting pure promotions to Home.</p>
-
-    <h3>T3 never appears on home. The sidebar dot is the bridge.</h3>
-    <p>T3 nudges live exclusively on their product page. The sidebar tab gets a red dot — no number. A dot says <em>something here</em>; a badge says <em>manage this list</em>. T3 clears only when the underlying issue is resolved. Snoozing the T2 version hides the home card but keeps the dot — snooze is a home action, not a global resolution.</p>
+    <h3>T3 never appears on home. The sidebar dot is the only bridge.</h3>
+    <p>Dot = something here. Badge = manage this list. Snoozing the T2 version hides the home card but keeps the dot — snooze is a home action, not a global resolution.</p>
 
     <h3>Dual-tier routing: same nudge, two surfaces</h3>
-    <p>Some nudges qualify as both T2 and T3 simultaneously. Resolving from either surface clears both. Tier describes <em>where</em> a nudge surfaces, not <em>what</em> it is.</p>
+    <p>Some nudges qualify as both T2 (home card) and T3 (product page indicator) simultaneously. Resolving from either clears both.</p>
 
-    <h3>T1 stays crisp when T4 opens</h3>
-    <p>When the Offers drawer opens, a dim overlay covers the content area — but not T1. The overlay starts below the banner. A user with a critical billing issue can still act on it while browsing deals.</p>
-
-    <h3>T4 is pull-only — "Offers &amp; announcements" is the right label</h3>
-    <p>No badge on the pill. The drawer holds two zero-harm, pull-appropriate content types: <strong>offers</strong> (discounts, referrals, upsells) and <strong>announcements</strong> (new features, product launches). Both share the same routing logic — no harm if ignored, no deadline — so they earn the same surface. The user opens it when they choose to. Never before.</p>
-    <p>One renewal-discount rule: offer deadlines stay in the drawer. If a user has an active T2 renewal card (e.g. domain expiring in 5 days), the associated discount surfaces as a chip inside that T2 card — the deadline routes it, the discount decorates it. The drawer keeps the standalone version for users without an active renewal.</p>
-    <p>The concern with a pure pull surface is zero impressions for users who never find the drawer. The below-fold shelf (Screen · T4 shelf alt) is the answer: it sits below website cards, visible when the user scrolls, invisible when they don't. No badge, no push, no interruption. Framing: the drawer is the canonical T4 surface; the shelf is its passive companion — ambient impressions for users who scroll, full control for users who don't. A product manager gets a real impression channel without a single push notification being added.</p>
+    <h3>T4 is pull-only. No badge.</h3>
+    <p>Drawer + passive below-fold shelf. Renewal discounts ride the T2 card as a chip — they don't earn their own T4 slot. The shelf gives PMs an impression channel without a single push notification.</p>
 
     <h3>Human-waiting nudges route as T2, no snooze decay</h3>
-    <p><em>requested_access</em>, <em>requested_access_with_payments</em>, and <em>website_ownership_transfer_request</em> introduce a third urgency dimension the routing criteria table doesn't explicitly name: a person is waiting. There's no system-generated deadline, but leaving a collaborator or client blocked is a business consequence. These route as T2 (home card, full CTA), with one rule change: no snooze decay. Snooze on a deadline nudge makes sense — resurface when the window narrows. Snooze on a human-waiting nudge doesn't — the person is still waiting. The card stays visible until the user acts or explicitly dismisses it.</p>
+    <p><em>requested_access</em> family: a person is blocked, not a deadline ticking. Routes T2 with no snooze decay — the card stays until resolved.</p>
 
     <h3>Open questions</h3>
-    <p>What this system deliberately doesn't solve — and what I'd validate first before adding complexity:</p>
     <ul style="color:#374151;font-size:15px;line-height:1.8;padding-left:20px;margin-bottom:16px;">
-      <li><strong>Avatar dropdown at scale.</strong> The topbar avatar as an account-nudge surface works for 1–2 types. At 5–6 account-level nudges it becomes a dense dropdown. An explicit Account tab in the sidebar may eventually be the right answer — the triage process surfaced the gap, not the solution.</li>
-      <li><strong>Snooze lifecycle.</strong> What happens after 5 snoozes on a domain that keeps renewing its grace period? The system needs a snooze limit and an escalation path before that edge case becomes a real support ticket.</li>
-      <li><strong>T3 dot discoverability for non-technical users.</strong> A red dot on a sidebar tab assumes the user knows to navigate there. First-time users with a misconfigured SPF record may never find it. An onboarding-aware variant — one that surfaces T3 as T2 for new accounts — is worth validating.</li>
-      <li><strong>T1 false-positive recovery.</strong> If a payment processes but the T1 banner doesn't clear within a few minutes, users will be confused and support volume will spike. The system needs a clear resolution confirmation state, not just banner removal.</li>
+      <li><strong>Avatar at scale.</strong> Works for 1–2 account nudges. At 5–6 it becomes a dense dropdown.</li>
+      <li><strong>Snooze lifecycle.</strong> What happens after N snoozes on a perpetually-in-grace-period domain?</li>
+      <li><strong>T3 dot discoverability.</strong> A red sidebar dot assumes the user knows to navigate there.</li>
+      <li><strong>T1 false-positive recovery.</strong> If a payment clears but the banner doesn't, support volume spikes.</li>
     </ul>
   </section>
 
@@ -844,11 +820,8 @@
   <section class="cs-section" id="ia-gap">
     <div class="cs-label">Structural finding</div>
     <h2>There is no Account tab — and that's the root cause</h2>
-    <p>While placing nudges into tiers, a category emerged that didn't fit any product page: email verification, phone, account-level 2FA. hPanel's sidebar has no Account section. These nudges had no sidebar home, so they defaulted to home — not because that was right, but because there was nowhere else.</p>
-    <div class="callout">
-      The triage process surfaced IA debt, not just notification clutter. The bloated list was a symptom of a structural gap: the product had grown account-level features without a dedicated account surface. Notifications aren't objects — they're routing policies. The list was a symptom of having no routing logic at all.
-    </div>
-    <p>The topbar avatar becomes a fifth surface — a lightweight, always-present account anchor. Account nudges live in the dropdown: scoped, unobtrusive, contextually correct. Whether the avatar scales as hPanel grows is an open question — one the triage process surfaced, not resolved.</p>
+    <p>While tiering the 53 nudges, one category had no sidebar home: email verification, phone, account-level 2FA. hPanel's sidebar is organized by product — there's no Account tab. These nudges defaulted to home not because that was right, but because nowhere else existed.</p>
+    <p>The topbar avatar becomes a fifth surface — a lightweight account anchor. The triage process surfaced IA debt, not just notification clutter.</p>
   </section>
 
 </div>
@@ -858,7 +831,7 @@
   <div class="proto-intro">
     <div class="cs-label">Interactive prototype</div>
     <h2 style="margin-bottom:12px;">Try the system</h2>
-    <p style="color:#6b7280;font-size:15px;margin-bottom:24px;">All four tiers are live. Navigate the sidebar to see T3 contextual nudges on Domains, Emails, and Dark web monitoring. Open Promotions &amp; offers (no badge — pull-only). Click the avatar for the account nudge. Snooze or resolve T2 cards on Home.</p>
+    <p style="color:#6b7280;font-size:15px;margin-bottom:24px;">All four tiers live. Navigate the sidebar for T3 contextual nudges. Open Promotions &amp; offers (pull-only, no badge). Snooze or resolve T2 cards on Home.</p>
     <a href="prototype.html" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:11px 22px; background:#7B2FBE; color:white; border-radius:8px; font-size:14px; font-weight:600; text-decoration:none; white-space:nowrap; letter-spacing:-0.01em;">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2h4v4M12 2L7.5 6.5M6 3H2a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Open full size

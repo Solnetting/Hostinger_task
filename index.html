@@ -967,7 +967,7 @@
               </svg>
             </span>
             Domains
-            <span class="sidebar-dot-badge" aria-label="Has notifications"></span>
+            <span class="sidebar-dot-badge" id="dot-domains" aria-label="Has notifications"></span>
           </button>
 
           <button class="sidebar-item" data-page="horizons">
@@ -1453,7 +1453,7 @@
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="12" rx="2"/><path d="M6 19h8M10 15v4"/></svg></span>
             Websites
-            <span class="sidebar-dot-badge" style="background:#DC2626;" aria-label="Affected by T1"></span>
+            <span class="sidebar-dot-badge" style="background:#DC2626;display:block;" aria-label="Affected by T1"></span>
           </button>
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a13 13 0 010 16M10 2a13 13 0 000 16"/></svg></span>
@@ -1475,7 +1475,7 @@
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="5" rx="1.5"/><rect x="2" y="12" width="16" height="5" rx="1.5"/></svg></span>
             VPS
-            <span class="sidebar-dot-badge" style="background:#DC2626;" aria-label="Affected by T1"></span>
+            <span class="sidebar-dot-badge" style="background:#DC2626;display:block;" aria-label="Affected by T1"></span>
           </button>
           <button class="sidebar-item">
             <span class="sidebar-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2l7 3v5c0 4-3 7.5-7 8.5C6 17.5 3 14 3 10V5l7-3z"/></svg></span>
@@ -1766,6 +1766,7 @@
         break;
       case 's6':
         document.getElementById('hp-t1-banner').style.display = 'flex';
+        document.getElementById('dot-domains').style.display = 'block';
         navigateTo('domains');
         break;
       case 's7':

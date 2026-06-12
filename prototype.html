@@ -111,7 +111,7 @@
     .hp-avatar-wrap { position: relative; }
     .hp-avatar { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--hp-border); background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--hp-muted); }
     .hp-avatar:hover { border-color: var(--hp-purple); }
-    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #DC2626; border-radius: 50%; border: 2px solid white; display: none; }
+    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #DC2626; border-radius: 50%; border: 2px solid white; }
 
     /* ─── T1 Banner ──────────────────────── */
     .hp-t1 {
@@ -165,7 +165,7 @@
     .sidebar-item.active { background: var(--hp-active-bg); font-weight: 700; }
     .sidebar-icon { width: 20px; height: 20px; flex-shrink: 0; color: #58585e; display: flex; align-items: center; justify-content: center; }
     .sidebar-chevron { margin-left: auto; color: #9CA3AF; font-size: 12px; }
-    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #DC2626; margin-left: auto; flex-shrink: 0; display: none; }
+    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #DC2626; margin-left: auto; flex-shrink: 0; }
     .sidebar-footer { border-top: 1px solid rgba(0,0,0,0.08); padding: 8px 0; margin-top: 4px; }
 
     /* ─── Content area ───────────────────────── */
@@ -894,10 +894,17 @@
       case 's7': setTimeout(openDrawer, 80); break;
     }
 
+    const dotsVisible = s !== 's0' ? '' : 'none';
+    document.getElementById('avatarBadge').style.display = dotsVisible;
+    document.getElementById('dot-domains').style.display = dotsVisible;
+    document.getElementById('dot-emails').style.display = dotsVisible;
+    document.getElementById('dot-darkweb').style.display = dotsVisible;
+
     document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
     const btn = document.querySelector(`.state-btn[data-state="${s}"]`);
     if (btn) btn.classList.add('active');
   }
+  setState('s0');
 </script>
 
 </body>

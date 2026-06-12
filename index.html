@@ -175,7 +175,7 @@
     }
     .hp-avatar:hover { border-color: var(--hp-purple); color: var(--hp-purple); }
     .hp-avatar:focus { outline: 2px solid var(--hp-purple); outline-offset: 2px; }
-    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #DC2626; border-radius: 50%; border: 2px solid white; display: none; }
+    .avatar-badge { position: absolute; top: -1px; right: -1px; width: 9px; height: 9px; background: #DC2626; border-radius: 50%; border: 2px solid white; }
 
     /* ─── T1 Critical Banner (Figma: pink, #ffe8ef) ── */
     .hp-t1 {
@@ -269,7 +269,7 @@
     .sidebar-icon { width: 20px; height: 20px; flex-shrink: 0; color: #58585e; display: flex; align-items: center; justify-content: center; }
     .sidebar-item.active .sidebar-icon { color: #18181a; }
     .sidebar-chevron { margin-left: auto; color: #9CA3AF; font-size: 12px; }
-    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #DC2626; margin-left: auto; flex-shrink: 0; display: none; }
+    .sidebar-dot-badge { width: 7px; height: 7px; border-radius: 50%; background: #DC2626; margin-left: auto; flex-shrink: 0; }
 
     .sidebar-footer { border-top: 1px solid rgba(0,0,0,0.08); padding: 8px 0; margin-top: 4px; }
 
@@ -1774,6 +1774,10 @@
         break;
     }
 
+    const dotsVisible = s !== 's0' ? '' : 'none';
+    document.getElementById('avatarBadge').style.display = dotsVisible;
+    document.getElementById('dot-domains').style.display = dotsVisible;
+
     document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
     const btn = document.querySelector(`.state-btn[data-state="${s}"]`);
     if (btn) btn.classList.add('active');
@@ -1791,6 +1795,7 @@
     });
   }, { rootMargin: '-20% 0px -70% 0px' });
   ['problem','analysis','solution','decisions','screens','prototype'].map(id => document.getElementById(id)).filter(Boolean).forEach(s => spy.observe(s));
+  setState('s0');
 </script>
 
 </body>

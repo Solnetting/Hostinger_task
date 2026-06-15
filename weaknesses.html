@@ -19,6 +19,22 @@
       --border:       #e5e7eb;
       --bg:           #f9fafb;
       --surface:      #ffffff;
+      /* hPanel design system tokens */
+      --hp-purple:       #7B2FBE;
+      --hp-purple-hover: #6a27a8;
+      --hp-purple-light: #F3EEFF;
+      --hp-purple-border:#D8B4FE;
+      --hp-red:          #DC2626;
+      --hp-red-bg:       #FEF2F2;
+      --hp-red-border:   #FECACA;
+      --hp-orange:       #D97706;
+      --hp-sidebar-bg:   #FFFFFF;
+      --hp-content-bg:   #f5f5f6;
+      --hp-card-bg:      #FFFFFF;
+      --hp-border:       #f3f4f6;
+      --hp-text:         #14141a;
+      --hp-muted:        #8c8c99;
+      --hp-active-bg:    rgba(0,0,0,0.05);
     }
 
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
@@ -71,7 +87,6 @@
       font-size: 12px; font-weight: 700; color: var(--purple);
       margin-top: 2px;
     }
-    .card-head-text {}
     .card-weakness-label {
       font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
@@ -85,6 +100,194 @@
       text-transform: uppercase; color: var(--purple); margin-bottom: 10px;
     }
     .solution-text { font-size: 14px; color: #3d1a6e; line-height: 1.7; }
+
+    /* ── UI Example section ── */
+    .card-ui {
+      padding: 20px 24px 24px;
+      background: var(--hp-content-bg);
+      border-top: 1px solid var(--border);
+    }
+    .ui-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--hp-muted); margin-bottom: 14px;
+    }
+    .ui-col-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: #9ca3af; margin-bottom: 8px;
+    }
+    .ui-footnote { font-size: 11px; color: #9ca3af; margin-top: 8px; padding-left: 2px; }
+
+    /* ── Mini sidebar ── */
+    .mini-sidebar {
+      background: white; border-radius: 8px; overflow: hidden;
+      border: 1px solid #e0e0e5;
+    }
+    .mini-sidebar-header {
+      padding: 9px 12px 8px;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--hp-muted);
+    }
+    .mini-sidebar-nav { padding: 5px; display: flex; flex-direction: column; gap: 1px; }
+    .mini-si {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 10px; border-radius: 6px;
+      font-size: 12.5px; font-weight: 500; color: var(--hp-text);
+    }
+    .mini-si.active { background: var(--hp-active-bg); font-weight: 700; }
+    .mini-si-icon {
+      width: 14px; height: 14px; color: #58585e;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .mini-si-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--hp-red); margin-left: auto; flex-shrink: 0;
+    }
+    .mini-si-dot.pulse { animation: dot-pulse 1.8s ease-in-out infinite; }
+    @keyframes dot-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.5); }
+      50%       { box-shadow: 0 0 0 4px rgba(220,38,38,0); }
+    }
+    .mini-si-inline-label {
+      font-size: 10px; font-weight: 600; color: var(--hp-red);
+      margin-left: auto; background: #fef2f2; border: 1px solid #fecaca;
+      padding: 1px 6px; border-radius: 4px; flex-shrink: 0; white-space: nowrap;
+    }
+    .mini-tooltip {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #14141a; color: white;
+      font-size: 11px; padding: 5px 10px; border-radius: 6px;
+      margin-top: 8px; margin-left: 16px; width: max-content; position: relative;
+    }
+    .mini-tooltip::before {
+      content: ''; position: absolute; left: 18px; top: -5px;
+      border: 5px solid transparent; border-bottom-color: #14141a; border-top: none;
+    }
+
+    /* ── Mini T1 banner ── */
+    .mini-t1 {
+      background: #ffe8ef; border: 1px solid #ffd0de;
+      border-radius: 8px; padding: 12px 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .mini-t1-bar { width: 3px; height: 36px; background: #d63163; border-radius: 2px; flex-shrink: 0; }
+    .mini-t1-body { flex: 1; }
+    .mini-t1-title { font-size: 12.5px; font-weight: 700; color: #d63163; }
+    .mini-t1-sub { font-size: 11.5px; color: #664052; margin-top: 2px; }
+    .mini-t1-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+    .mini-t1-refresh {
+      display: flex; align-items: center; gap: 4px;
+      padding: 5px 10px; background: transparent; color: #664052;
+      border: 1px solid #d63163; border-radius: 6px;
+      font-size: 11.5px; font-weight: 500; cursor: pointer; white-space: nowrap;
+    }
+    .mini-t1-cta {
+      padding: 5px 10px; background: transparent; color: #1d1e20;
+      border: 1px solid #1d1e20; border-radius: 6px;
+      font-size: 11.5px; cursor: pointer; white-space: nowrap;
+    }
+
+    /* ── Mini T2 card ── */
+    .mini-t2 {
+      background: white; border: 1px solid #e0e0e5;
+      border-radius: 8px; overflow: hidden;
+      display: flex; align-items: stretch;
+    }
+    .mini-t2-bar { width: 5px; background: #e8b931; flex-shrink: 0; }
+    .mini-t2-bar.red { background: #d63163; }
+    .mini-t2-inner { flex: 1; display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+    .mini-t2-icon {
+      width: 34px; height: 34px; border-radius: 8px; background: #fef3c7;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .mini-t2-icon.red-bg { background: #ffe8ef; }
+    .mini-t2-body { flex: 1; min-width: 0; }
+    .mini-t2-title { font-size: 12.5px; font-weight: 700; color: var(--hp-text); line-height: 1.3; }
+    .mini-t2-sub { font-size: 11px; color: var(--hp-muted); margin-top: 2px; }
+    .mini-t2-acts { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .mini-t2-escalated-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #d63163; background: #ffe8ef; border: 1px solid #ffd0de;
+      padding: 2px 6px; border-radius: 4px; margin-bottom: 3px;
+    }
+    .mini-btn-snooze {
+      padding: 5px 10px; background: transparent; color: #666673;
+      border: 1px solid #e0e0e5; border-radius: 6px;
+      font-size: 11.5px; font-weight: 500; cursor: pointer; white-space: nowrap;
+    }
+    .mini-btn-renew {
+      padding: 5px 10px; background: transparent; color: #886500;
+      border: 1px solid #886500; border-radius: 6px;
+      font-size: 11.5px; cursor: pointer; white-space: nowrap;
+    }
+    .mini-btn-primary {
+      padding: 5px 10px; background: var(--hp-purple); color: white;
+      border: none; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer;
+    }
+
+    /* ── Mini overflow chip ── */
+    .mini-overflow-chip {
+      display: flex; align-items: center; gap: 8px;
+      height: 36px; background: #f9edcb; border: 1px solid #e0e0e5;
+      border-radius: 6px; padding: 0 13px; margin-top: 5px;
+    }
+    .mini-overflow-dot { width: 6px; height: 6px; border-radius: 50%; background: #e8b931; flex-shrink: 0; }
+    .mini-overflow-text { font-size: 12px; color: #666673; }
+
+    /* ── Research steps ── */
+    .research-steps { display: flex; flex-direction: column; gap: 8px; }
+    .research-step {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; background: white;
+      border: 1px solid #e5e7eb; border-radius: 8px;
+    }
+    .rs-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--purple-light); border: 1px solid var(--purple-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: var(--purple);
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .rs-title { font-size: 12.5px; font-weight: 700; color: var(--hp-text); }
+    .rs-sub { font-size: 11.5px; color: var(--hp-muted); margin-top: 2px; line-height: 1.5; }
+
+    /* ── Avatar dropdown ── */
+    .mini-dropdown {
+      background: white; border: 1px solid #e5e7eb;
+      border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    }
+    .mini-dd-head { padding: 11px 14px; border-bottom: 1px solid #f3f4f6; }
+    .mini-dd-name { font-size: 12.5px; font-weight: 700; color: var(--hp-text); }
+    .mini-dd-email { font-size: 11px; color: var(--hp-muted); margin-top: 1px; }
+    .mini-dd-section-row {
+      display: flex; align-items: center;
+      padding: 9px 14px 4px;
+    }
+    .mini-dd-section-label {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--hp-muted); flex: 1;
+    }
+    .mini-dd-count-badge {
+      background: var(--hp-red); color: white;
+      font-size: 10px; font-weight: 700;
+      min-width: 18px; height: 18px; border-radius: 9px;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 5px; flex-shrink: 0;
+    }
+    .mini-dd-nudge {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 9px 14px; background: #FFF7ED;
+      border-top: 1px solid #FED7AA; border-bottom: 1px solid #FED7AA;
+    }
+    .mini-dd-nudge + .mini-dd-nudge { border-top: none; }
+    .mini-dd-nudge-icon { font-size: 13px; flex-shrink: 0; }
+    .mini-dd-nudge-title { font-size: 12px; font-weight: 700; color: #9A3412; }
+    .mini-dd-nudge-desc { font-size: 10.5px; color: #C2410C; margin-top: 1px; }
+    .mini-dd-item { display: block; padding: 7px 14px; font-size: 12.5px; color: #374151; }
+    .mini-dd-item:hover { background: #f9fafb; }
+    .mini-dd-divider { border: none; border-top: 1px solid #f3f4f6; margin: 3px 0; }
 
     /* ── Footer nav ── */
     .page-nav {
@@ -119,6 +322,7 @@
 
 <div class="cards">
 
+  <!-- 1 ── T3 dot discoverability ────────────────────────── -->
   <div class="card">
     <div class="card-head">
       <div class="card-number">1</div>
@@ -132,8 +336,100 @@
       <div class="solution-label">Direction</div>
       <div class="solution-text">First-time tooltip on the dot on first appearance, an animated pulse that fades after 2 sessions, or a subtle inline label ("Action needed") on the first occurrence. Test which signal users actually notice before shipping.</div>
     </div>
+    <div class="card-ui">
+      <div class="ui-label">UI Example</div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: flex-start;">
+
+        <!-- Current: silent dot -->
+        <div>
+          <div class="ui-col-label">Current — silent dot</div>
+          <div class="mini-sidebar">
+            <div class="mini-sidebar-header">Navigation</div>
+            <div class="mini-sidebar-nav">
+              <div class="mini-si active">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="11" height="11" rx="2"/></svg></div>
+                Overview
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1a5.5 5.5 0 1 0 0 11A5.5 5.5 0 0 0 6.5 1z"/></svg></div>
+                Hosting
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6.5C1 6.5 3 2.5 6.5 2.5S12 6.5 12 6.5 10 10.5 6.5 10.5 1 6.5 1 6.5z"/></svg></div>
+                Domains
+                <div class="mini-si-dot"></div>
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h11v7a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3z"/><path d="M1 3l5.5 4L12 3"/></svg></div>
+                Emails
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direction A: animated pulse + tooltip -->
+        <div>
+          <div class="ui-col-label">Direction A — pulse + tooltip</div>
+          <div class="mini-sidebar">
+            <div class="mini-sidebar-header">Navigation</div>
+            <div class="mini-sidebar-nav">
+              <div class="mini-si active">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="11" height="11" rx="2"/></svg></div>
+                Overview
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1a5.5 5.5 0 1 0 0 11A5.5 5.5 0 0 0 6.5 1z"/></svg></div>
+                Hosting
+              </div>
+              <div class="mini-si" style="background:rgba(0,0,0,0.03);">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6.5C1 6.5 3 2.5 6.5 2.5S12 6.5 12 6.5 10 10.5 6.5 10.5 1 6.5 1 6.5z"/></svg></div>
+                Domains
+                <div class="mini-si-dot pulse"></div>
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h11v7a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3z"/><path d="M1 3l5.5 4L12 3"/></svg></div>
+                Emails
+              </div>
+            </div>
+          </div>
+          <div class="mini-tooltip">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="white" stroke-width="1.5"><circle cx="4.5" cy="4.5" r="3.5"/><path d="M4.5 3v2l1 .7"/></svg>
+            Domain expiring soon
+          </div>
+        </div>
+
+        <!-- Direction B: inline label -->
+        <div>
+          <div class="ui-col-label">Direction B — inline label</div>
+          <div class="mini-sidebar">
+            <div class="mini-sidebar-header">Navigation</div>
+            <div class="mini-sidebar-nav">
+              <div class="mini-si active">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="11" height="11" rx="2"/></svg></div>
+                Overview
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1a5.5 5.5 0 1 0 0 11A5.5 5.5 0 0 0 6.5 1z"/></svg></div>
+                Hosting
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6.5C1 6.5 3 2.5 6.5 2.5S12 6.5 12 6.5 10 10.5 6.5 10.5 1 6.5 1 6.5z"/></svg></div>
+                Domains
+                <div class="mini-si-inline-label">Action needed</div>
+              </div>
+              <div class="mini-si">
+                <div class="mini-si-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h11v7a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3z"/><path d="M1 3l5.5 4L12 3"/></svg></div>
+                Emails
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
+  <!-- 2 ── Snooze lifecycle ─────────────────────────────── -->
   <div class="card">
     <div class="card-head">
       <div class="card-number">2</div>
@@ -147,8 +443,61 @@
       <div class="solution-label">Direction</div>
       <div class="solution-text">After 2 snoozes past deadline, T2 escalates to T1-adjacent: a non-dismissable home card, visually distinct from the true T1 strip. This caps the snooze loop without polluting the T1 tier's trust contract.</div>
     </div>
+    <div class="card-ui">
+      <div class="ui-label">UI Example</div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+
+        <!-- Normal T2 -->
+        <div>
+          <div class="ui-col-label">Normal T2 — snoozeable</div>
+          <div class="mini-t2">
+            <div class="mini-t2-bar"></div>
+            <div class="mini-t2-inner">
+              <div class="mini-t2-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D97706" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1.2"/></svg>
+              </div>
+              <div class="mini-t2-body">
+                <div class="mini-t2-title">carlosmera.com</div>
+                <div class="mini-t2-sub">Expires in 3 days</div>
+              </div>
+              <div class="mini-t2-acts">
+                <div class="mini-btn-snooze">Snooze</div>
+                <div class="mini-btn-renew">Renew</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Escalated T2 -->
+        <div>
+          <div class="ui-col-label">Escalated — snooze limit hit</div>
+          <div class="mini-t2">
+            <div class="mini-t2-bar red"></div>
+            <div class="mini-t2-inner">
+              <div class="mini-t2-icon red-bg">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#d63163" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5.5v3M8 11h.01"/></svg>
+              </div>
+              <div class="mini-t2-body">
+                <div class="mini-t2-escalated-badge">
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 1.5v3M4 6.5h.01"/></svg>
+                  Snooze limit reached
+                </div>
+                <div class="mini-t2-title">carlosmera.com</div>
+                <div class="mini-t2-sub">Expired — action required</div>
+              </div>
+              <div class="mini-t2-acts">
+                <div class="mini-btn-primary">Renew now</div>
+              </div>
+            </div>
+          </div>
+          <div class="ui-footnote">Non-dismissable · no snooze option</div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
+  <!-- 3 ── T1 false-positive recovery ──────────────────── -->
   <div class="card">
     <div class="card-head">
       <div class="card-number">3</div>
@@ -162,8 +511,49 @@
       <div class="solution-label">Direction</div>
       <div class="solution-text">A "refresh" micro-action inside the banner lets the user force a state check without leaving the page. Pair it with an internal SLA: banner must clear within X minutes of payment confirmation. If it doesn't, auto-dismiss with a logged incident.</div>
     </div>
+    <div class="card-ui">
+      <div class="ui-label">UI Example</div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+
+        <!-- Current: no recovery -->
+        <div>
+          <div class="ui-col-label">Current — no recovery path</div>
+          <div class="mini-t1">
+            <div class="mini-t1-bar"></div>
+            <div class="mini-t1-body">
+              <div class="mini-t1-title">Account suspended</div>
+              <div class="mini-t1-sub">Renew to restore access</div>
+            </div>
+            <div class="mini-t1-actions">
+              <div class="mini-t1-cta">Renew now</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direction: with refresh -->
+        <div>
+          <div class="ui-col-label">Direction — refresh micro-action</div>
+          <div class="mini-t1">
+            <div class="mini-t1-bar"></div>
+            <div class="mini-t1-body">
+              <div class="mini-t1-title">Account suspended</div>
+              <div class="mini-t1-sub">Already paid? Check status</div>
+            </div>
+            <div class="mini-t1-actions">
+              <div class="mini-t1-refresh">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 5A3.5 3.5 0 0 1 8.2 2.8M8.5 5A3.5 3.5 0 0 1 1.8 7.2"/><path d="M8.2 1.2v1.6H6.6M1.8 8.8V7.2H3.4"/></svg>
+                Refresh
+              </div>
+              <div class="mini-t1-cta">Renew now</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
+  <!-- 4 ── No user validation ──────────────────────────── -->
   <div class="card">
     <div class="card-head">
       <div class="card-number">4</div>
@@ -177,8 +567,35 @@
       <div class="solution-label">Direction</div>
       <div class="solution-text">In a real engagement: (a) support ticket coding to find what users actually miss or act on, (b) click-path analysis on the current "Your to-dos" list, (c) 5-user moderated test on the prototype. The first test would be: do users notice the T3 dot without prompting?</div>
     </div>
+    <div class="card-ui">
+      <div class="ui-label">Validation plan</div>
+      <div class="research-steps">
+        <div class="research-step">
+          <div class="rs-num">a</div>
+          <div>
+            <div class="rs-title">Support ticket coding</div>
+            <div class="rs-sub">Tag last 3 months of CS tickets by nudge category — find what users actually contact support about vs. what the system surfaces.</div>
+          </div>
+        </div>
+        <div class="research-step">
+          <div class="rs-num">b</div>
+          <div>
+            <div class="rs-title">Click-path analysis</div>
+            <div class="rs-sub">FullStory / Mixpanel funnel on the current "Your to-dos" module — measure dismissal rate, click-through rate, and time-to-action per item type.</div>
+          </div>
+        </div>
+        <div class="research-step">
+          <div class="rs-num">c</div>
+          <div>
+            <div class="rs-title">5-user moderated test</div>
+            <div class="rs-sub">Task: "Your domain is expiring — find the alert." Measure whether users find the T3 dot unprompted. Hypothesis: &lt;40% notice it first.</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- 5 ── T2 overflow chip passivity ──────────────────── -->
   <div class="card">
     <div class="card-head">
       <div class="card-number">5</div>
@@ -192,8 +609,52 @@
       <div class="solution-label">Direction</div>
       <div class="solution-text">A destination page just moves the problem — the queue drains as users resolve cards, this is by design. The real fix is the snooze lifecycle rule above: once a card auto-escalates after 2 snoozes, the slot opens and the next nudge surfaces naturally.</div>
     </div>
+    <div class="card-ui">
+      <div class="ui-label">UI Example — overflow chip in context</div>
+
+      <div class="mini-t2" style="margin-bottom:5px;">
+        <div class="mini-t2-bar"></div>
+        <div class="mini-t2-inner">
+          <div class="mini-t2-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D97706" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1.2"/></svg>
+          </div>
+          <div class="mini-t2-body">
+            <div class="mini-t2-title">carlosmera.com</div>
+            <div class="mini-t2-sub">Domain expires in 3 days</div>
+          </div>
+          <div class="mini-t2-acts">
+            <div class="mini-btn-snooze">Snooze</div>
+            <div class="mini-btn-renew">Renew</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-t2" style="margin-bottom:5px;">
+        <div class="mini-t2-bar"></div>
+        <div class="mini-t2-inner">
+          <div class="mini-t2-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D97706" stroke-width="1.5"><path d="M8 1.5 10 6h4.5l-3.7 2.7 1.4 4.3L8 10.5 3.8 13 5.2 8.7 1.5 6H6z"/></svg>
+          </div>
+          <div class="mini-t2-body">
+            <div class="mini-t2-title">SSL certificate</div>
+            <div class="mini-t2-sub">Auto-renew failed on myshop.com</div>
+          </div>
+          <div class="mini-t2-acts">
+            <div class="mini-btn-snooze">Snooze</div>
+            <div class="mini-btn-renew">Fix</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-overflow-chip">
+        <div class="mini-overflow-dot"></div>
+        <div class="mini-overflow-text">+ 2 more need attention — resolve above to surface them</div>
+      </div>
+      <div class="ui-footnote">Chip is read-only by design. Queue opens as cards resolve or escalate.</div>
+    </div>
   </div>
 
+  <!-- 6 ── Avatar dropdown at scale ────────────────────── -->
   <div class="card">
     <div class="card-head">
       <div class="card-number">6</div>
@@ -206,6 +667,79 @@
     <div class="card-solution">
       <div class="solution-label">Direction</div>
       <div class="solution-text">If account-level nudges proliferate, the dropdown gets a dedicated "Account actions" section with its own count badge — separate from profile links. This keeps the avatar as a personal hub without mixing navigation with urgency signals.</div>
+    </div>
+    <div class="card-ui">
+      <div class="ui-label">UI Example</div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: flex-start;">
+
+        <!-- Before -->
+        <div>
+          <div class="ui-col-label">Before — mixed, no hierarchy</div>
+          <div class="mini-dropdown">
+            <div class="mini-dd-head">
+              <div class="mini-dd-name">Carlos Mera</div>
+              <div class="mini-dd-email">hd.krlos@gmail.com</div>
+            </div>
+            <div class="mini-dd-nudge">
+              <div class="mini-dd-nudge-icon">⚠️</div>
+              <div>
+                <div class="mini-dd-nudge-title">Verify your email</div>
+                <div class="mini-dd-nudge-desc">Required to keep access</div>
+              </div>
+            </div>
+            <div class="mini-dd-nudge">
+              <div class="mini-dd-nudge-icon">💳</div>
+              <div>
+                <div class="mini-dd-nudge-title">Update payment method</div>
+                <div class="mini-dd-nudge-desc">Card expiring this month</div>
+              </div>
+            </div>
+            <div class="mini-dd-nudge">
+              <div class="mini-dd-nudge-icon">🔒</div>
+              <div>
+                <div class="mini-dd-nudge-title">Enable 2FA</div>
+                <div class="mini-dd-nudge-desc">Recommended for security</div>
+              </div>
+            </div>
+            <hr class="mini-dd-divider">
+            <div class="mini-dd-item">Profile settings</div>
+            <div class="mini-dd-item">Billing</div>
+            <div class="mini-dd-item">Log out</div>
+          </div>
+          <div class="ui-footnote">Urgency mixed with nav — no scannable structure</div>
+        </div>
+
+        <!-- After -->
+        <div>
+          <div class="ui-col-label">Direction — structured sections</div>
+          <div class="mini-dropdown">
+            <div class="mini-dd-head">
+              <div class="mini-dd-name">Carlos Mera</div>
+              <div class="mini-dd-email">hd.krlos@gmail.com</div>
+            </div>
+            <div class="mini-dd-section-row">
+              <div class="mini-dd-section-label">Account actions</div>
+              <div class="mini-dd-count-badge">3</div>
+            </div>
+            <div class="mini-dd-nudge" style="border-top:1px solid #FED7AA;">
+              <div class="mini-dd-nudge-icon">⚠️</div>
+              <div>
+                <div class="mini-dd-nudge-title">Verify your email</div>
+                <div class="mini-dd-nudge-desc">Required to keep access</div>
+              </div>
+            </div>
+            <hr class="mini-dd-divider">
+            <div class="mini-dd-section-row" style="padding-bottom:2px;">
+              <div class="mini-dd-section-label">Navigation</div>
+            </div>
+            <div class="mini-dd-item">Profile settings</div>
+            <div class="mini-dd-item">Billing</div>
+            <div class="mini-dd-item">Log out</div>
+          </div>
+          <div class="ui-footnote">Actions grouped · badge shows total count · nav stays clean</div>
+        </div>
+
+      </div>
     </div>
   </div>
 

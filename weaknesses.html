@@ -114,7 +114,7 @@
 <div class="hero">
   <div class="hero-label">Critical reflection</div>
   <h1>Potential weaknesses</h1>
-  <p>Every opinionated system has edges. These are the five bets the triage model makes — and what a next iteration could do about each one.</p>
+  <p>Six open edges in the triage system — flagged honestly, with a direction for each.</p>
 </div>
 
 <div class="cards">
@@ -124,13 +124,13 @@
       <div class="card-number">1</div>
       <div class="card-head-text">
         <div class="card-weakness-label">Weakness</div>
-        <div class="card-title">T1 fatigue risk</div>
-        <div class="card-desc">If product teams ship T1 banners too liberally, users learn to dismiss without reading — eroding the tier's authority faster than any design decision can recover.</div>
+        <div class="card-title">T3 dot discoverability</div>
+        <div class="card-desc">A red sidebar dot assumes the user knows to navigate there. Non-technical users managing multiple sites may not connect a dot on "Domains" to an urgent action. Flagged — no solution yet.</div>
       </div>
     </div>
     <div class="card-solution">
-      <div class="solution-label">Possible solution</div>
-      <div class="solution-text">Enforce T1 via governance, not just design. Add a product-level gating rule (e.g. max 1 active T1 per user at a time, requires PM sign-off) and instrument dismiss rates per nudge type. A T1 with >60% same-session dismiss rate should be automatically demoted to T2 in the next release cycle.</div>
+      <div class="solution-label">Direction</div>
+      <div class="solution-text">First-time tooltip on the dot on first appearance, an animated pulse that fades after 2 sessions, or a subtle inline label ("Action needed") on the first occurrence. Test which signal users actually notice before shipping.</div>
     </div>
   </div>
 
@@ -139,13 +139,13 @@
       <div class="card-number">2</div>
       <div class="card-head-text">
         <div class="card-weakness-label">Weakness</div>
-        <div class="card-title">The 2-card T2 cap has no overflow path</div>
-        <div class="card-desc">Three simultaneous high-priority nudges have nowhere to go cleanly. The current answer — hide the third — is a bet that this edge case is rare enough to ignore.</div>
+        <div class="card-title">Snooze lifecycle undefined</div>
+        <div class="card-desc">What happens after N snoozes on a domain in perpetual grace period? The system resurfaces at &lt;3 days — but what if the user keeps snoozing past expiry?</div>
       </div>
     </div>
     <div class="card-solution">
-      <div class="solution-label">Possible solution</div>
-      <div class="solution-text">Introduce a soft overflow state: a collapsed "1 more issue" chip below the two cards that expands inline on tap, without breaking the visual cap. This preserves the "max 2 visible" principle while preventing silent data loss. Alternatively, resolve the conflict upstream by defining a strict priority score so the third nudge is always demoted — not hidden.</div>
+      <div class="solution-label">Direction</div>
+      <div class="solution-text">After 2 snoozes past deadline, T2 escalates to T1-adjacent: a non-dismissable home card, visually distinct from the true T1 strip. This caps the snooze loop without polluting the T1 tier's trust contract.</div>
     </div>
   </div>
 
@@ -154,13 +154,13 @@
       <div class="card-number">3</div>
       <div class="card-head-text">
         <div class="card-weakness-label">Weakness</div>
-        <div class="card-title">T3 is only as good as sidebar navigation</div>
-        <div class="card-desc">Contextual nudges in sub-sections rely on users visiting pages they may never open. Passive users with a Domains issue will miss the sidebar dot entirely.</div>
+        <div class="card-title">T1 false-positive recovery</div>
+        <div class="card-desc">If a payment clears but the banner doesn't dismiss — API delay, sync issue — support volume spikes and trust erodes. Surfaced as an open question in the system.</div>
       </div>
     </div>
     <div class="card-solution">
-      <div class="solution-label">Possible solution</div>
-      <div class="solution-text">Add a lightweight "You have issues in 2 sections" ambient indicator on Home — not a full nudge card, just a subtle line below the quick-actions grid. This bridges passive users to T3 surfaces without promoting contextual nudges to T2 priority. Track click-through from the indicator vs. organic sidebar navigation to validate whether it's worth the visual cost.</div>
+      <div class="solution-label">Direction</div>
+      <div class="solution-text">A "refresh" micro-action inside the banner lets the user force a state check without leaving the page. Pair it with an internal SLA: banner must clear within X minutes of payment confirmation. If it doesn't, auto-dismiss with a logged incident.</div>
     </div>
   </div>
 
@@ -169,13 +169,13 @@
       <div class="card-number">4</div>
       <div class="card-head-text">
         <div class="card-weakness-label">Weakness</div>
-        <div class="card-title">No recovery path after dismissing a T2 card</div>
-        <div class="card-desc">Dismissing without acting routes users to the sub-section — but only if they remember. There is no undo, no history surface, and no second chance.</div>
+        <div class="card-title">No user validation</div>
+        <div class="card-desc">Tier assignments are based on logical analysis, not session data or user research. This is a real limitation in a challenge context.</div>
       </div>
     </div>
     <div class="card-solution">
-      <div class="solution-label">Possible solution</div>
-      <div class="solution-text">A 5-second undo toast on dismiss is the lowest-effort fix and covers the accidental-dismiss case without adding a full notification center. For intentional dismissals, consider a "Remind me in 3 days" snooze option surfaced inside the dismiss flow — this converts a lost nudge into a scheduled re-engagement rather than a dead end.</div>
+      <div class="solution-label">Direction</div>
+      <div class="solution-text">In a real engagement: (a) support ticket coding to find what users actually miss or act on, (b) click-path analysis on the current "Your to-dos" list, (c) 5-user moderated test on the prototype. The first test would be: do users notice the T3 dot without prompting?</div>
     </div>
   </div>
 
@@ -184,13 +184,28 @@
       <div class="card-number">5</div>
       <div class="card-head-text">
         <div class="card-weakness-label">Weakness</div>
-        <div class="card-title">Untested under real user load</div>
-        <div class="card-desc">The system was designed desk-based. Hostinger users managing 10+ domains and billing issues simultaneously may surface interaction patterns this triage model doesn't account for.</div>
+        <div class="card-title">T2 overflow chip passivity</div>
+        <div class="card-desc">The "+ 2 more need attention" chip is intentionally non-interactive. Principled — but could feel incomplete. A user who never resolves the top 2 cards will never see what's below them.</div>
       </div>
     </div>
     <div class="card-solution">
-      <div class="solution-label">Possible solution</div>
-      <div class="solution-text">Run a moderated usability test with 5 power users (3+ active domains, recent billing event). Key questions: does the tier hierarchy map to their mental model of urgency? Do they notice T3 dots organically? Is the T4 drawer pull-only pattern discoverable? Complement with a 2-week instrumentation sprint — dismiss rate, time-to-action, and T3 section visit rate per nudge type — before locking any tier rules in production.</div>
+      <div class="solution-label">Direction</div>
+      <div class="solution-text">A destination page just moves the problem — the queue drains as users resolve cards, this is by design. The real fix is the snooze lifecycle rule above: once a card auto-escalates after 2 snoozes, the slot opens and the next nudge surfaces naturally.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-number">6</div>
+      <div class="card-head-text">
+        <div class="card-weakness-label">Weakness</div>
+        <div class="card-title">Avatar dropdown at scale</div>
+        <div class="card-desc">Account nudges (verify email, payment method) live in the avatar dropdown. Works for 1–2. At 5–6 it becomes dense with no clear hierarchy.</div>
+      </div>
+    </div>
+    <div class="card-solution">
+      <div class="solution-label">Direction</div>
+      <div class="solution-text">If account-level nudges proliferate, the dropdown gets a dedicated "Account actions" section with its own count badge — separate from profile links. This keeps the avatar as a personal hub without mixing navigation with urgency signals.</div>
     </div>
   </div>
 

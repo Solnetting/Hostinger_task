@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Potential weaknesses — hPanel Nudge Triage</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:       #7B2FBE;
+      --purple-hover: #6a27a8;
+      --purple-light: #f7f2ff;
+      --purple-border:#d9c9fa;
+      --text:         #14141a;
+      --muted:        #6b7280;
+      --border:       #e5e7eb;
+      --bg:           #f9fafb;
+      --surface:      #ffffff;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* ── Nav ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 56px;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+    }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-title { font-size: 13px; font-weight: 600; color: var(--text); }
+
+    /* ── Hero ── */
+    .hero { max-width: 720px; margin: 0 auto; padding: 64px 32px 48px; }
+    .hero-label {
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: 'DM Sans', sans-serif; font-size: 36px; font-weight: 700;
+      line-height: 1.15; letter-spacing: -0.02em; color: var(--text);
+      margin-bottom: 16px;
+    }
+    .hero p { font-size: 16px; color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+    /* ── Cards ── */
+    .cards { max-width: 720px; margin: 0 auto; padding: 0 32px 96px; display: flex; flex-direction: column; gap: 24px; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .card-head {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 24px 24px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-number {
+      flex-shrink: 0; width: 28px; height: 28px;
+      background: var(--purple-light); border: 1px solid var(--purple-border);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: var(--purple);
+      margin-top: 2px;
+    }
+    .card-head-text {}
+    .card-weakness-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
+    }
+    .card-title { font-size: 16px; font-weight: 700; color: var(--text); line-height: 1.35; }
+    .card-desc { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.65; }
+
+    .card-solution { padding: 20px 24px 24px; background: var(--purple-light); }
+    .solution-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--purple); margin-bottom: 10px;
+    }
+    .solution-text { font-size: 14px; color: #3d1a6e; line-height: 1.7; }
+
+    /* ── Footer nav ── */
+    .page-nav {
+      max-width: 720px; margin: 0 auto;
+      padding: 0 32px 64px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 14px; font-weight: 500; color: var(--text);
+      text-decoration: none; transition: border-color 0.15s, background 0.15s;
+    }
+    .back-btn:hover { border-color: #9ca3af; background: var(--bg); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L3 7l6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to case study
+  </a>
+  <span class="nav-title">hPanel Nudge Triage</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Critical reflection</div>
+  <h1>Potential weaknesses</h1>
+  <p>Every opinionated system has edges. These are the five bets the triage model makes — and what a next iteration could do about each one.</p>
+</div>
+
+<div class="cards">
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-number">1</div>
+      <div class="card-head-text">
+        <div class="card-weakness-label">Weakness</div>
+        <div class="card-title">T1 fatigue risk</div>
+        <div class="card-desc">If product teams ship T1 banners too liberally, users learn to dismiss without reading — eroding the tier's authority faster than any design decision can recover.</div>
+      </div>
+    </div>
+    <div class="card-solution">
+      <div class="solution-label">Possible solution</div>
+      <div class="solution-text">Enforce T1 via governance, not just design. Add a product-level gating rule (e.g. max 1 active T1 per user at a time, requires PM sign-off) and instrument dismiss rates per nudge type. A T1 with >60% same-session dismiss rate should be automatically demoted to T2 in the next release cycle.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-number">2</div>
+      <div class="card-head-text">
+        <div class="card-weakness-label">Weakness</div>
+        <div class="card-title">The 2-card T2 cap has no overflow path</div>
+        <div class="card-desc">Three simultaneous high-priority nudges have nowhere to go cleanly. The current answer — hide the third — is a bet that this edge case is rare enough to ignore.</div>
+      </div>
+    </div>
+    <div class="card-solution">
+      <div class="solution-label">Possible solution</div>
+      <div class="solution-text">Introduce a soft overflow state: a collapsed "1 more issue" chip below the two cards that expands inline on tap, without breaking the visual cap. This preserves the "max 2 visible" principle while preventing silent data loss. Alternatively, resolve the conflict upstream by defining a strict priority score so the third nudge is always demoted — not hidden.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-number">3</div>
+      <div class="card-head-text">
+        <div class="card-weakness-label">Weakness</div>
+        <div class="card-title">T3 is only as good as sidebar navigation</div>
+        <div class="card-desc">Contextual nudges in sub-sections rely on users visiting pages they may never open. Passive users with a Domains issue will miss the sidebar dot entirely.</div>
+      </div>
+    </div>
+    <div class="card-solution">
+      <div class="solution-label">Possible solution</div>
+      <div class="solution-text">Add a lightweight "You have issues in 2 sections" ambient indicator on Home — not a full nudge card, just a subtle line below the quick-actions grid. This bridges passive users to T3 surfaces without promoting contextual nudges to T2 priority. Track click-through from the indicator vs. organic sidebar navigation to validate whether it's worth the visual cost.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-number">4</div>
+      <div class="card-head-text">
+        <div class="card-weakness-label">Weakness</div>
+        <div class="card-title">No recovery path after dismissing a T2 card</div>
+        <div class="card-desc">Dismissing without acting routes users to the sub-section — but only if they remember. There is no undo, no history surface, and no second chance.</div>
+      </div>
+    </div>
+    <div class="card-solution">
+      <div class="solution-label">Possible solution</div>
+      <div class="solution-text">A 5-second undo toast on dismiss is the lowest-effort fix and covers the accidental-dismiss case without adding a full notification center. For intentional dismissals, consider a "Remind me in 3 days" snooze option surfaced inside the dismiss flow — this converts a lost nudge into a scheduled re-engagement rather than a dead end.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-number">5</div>
+      <div class="card-head-text">
+        <div class="card-weakness-label">Weakness</div>
+        <div class="card-title">Untested under real user load</div>
+        <div class="card-desc">The system was designed desk-based. Hostinger users managing 10+ domains and billing issues simultaneously may surface interaction patterns this triage model doesn't account for.</div>
+      </div>
+    </div>
+    <div class="card-solution">
+      <div class="solution-label">Possible solution</div>
+      <div class="solution-text">Run a moderated usability test with 5 power users (3+ active domains, recent billing event). Key questions: does the tier hierarchy map to their mental model of urgency? Do they notice T3 dots organically? Is the T4 drawer pull-only pattern discoverable? Complement with a 2-week instrumentation sprint — dismiss rate, time-to-action, and T3 section visit rate per nudge type — before locking any tier rules in production.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-nav">
+  <a href="index.html" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L3 7l6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to case study
+  </a>
+</div>
+
+</body>
+</html>
